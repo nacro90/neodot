@@ -43,7 +43,7 @@ function btc.create_component_func(interval)
   timer:start(0, interval, fetch)
 
   return function()
-    local output = "BTC: $" .. (current_price or "")
+    local output = "BTC: $" .. current_price
     return current_price and output or ""
   end
 end
