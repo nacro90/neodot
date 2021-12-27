@@ -12,8 +12,6 @@ local TRANSLATION_PAIRS = {
 }
 
 function translate.setup()
-  assert(fn.executable "translate" == 1, "`translate` executable does not exists on path")
-
   command("Translate", function(arg)
     translate.interactive(arg and arg ~= "" and arg)
   end, {
@@ -44,6 +42,8 @@ local function trigger_pair_selection(inp)
 end
 
 function translate.interactive(text)
+  assert(fn.executable "translate" == 1, "`translate` executable does not exists on path")
+
   if text then
     trigger_pair_selection(text)
   else
