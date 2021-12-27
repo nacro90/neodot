@@ -1,6 +1,6 @@
 local btc = {}
 
-local curl = require "plenary.curl"
+local Job = require "plenary.job"
 
 local uv = vim.loop
 local json = vim.json
@@ -19,32 +19,24 @@ function btc.create_component_func(interval)
   interval = interval or 10000
   local current_price
 
-  local function decode_response_and_update(response)
-    local status = response.status
-    if status < 200 or status >= 300 then
-      return
-    end
-
-    local body = response.body
-    if not body then
-      return
-    end
-
-    local decoded = json.decode(body)
+  local function decode_response_and_update(job)
+    local response = job:result()[1]
+    local decoded = json.decode(response)
     current_price = math.floor(decoded.data.amount)
   end
+
+  local job = Job:new {
+    command = "curl",
+    args = { "https://api.coinbase.com/v2/prices/spot?currency=USD" },
+  }
+  job:after_success(decode_response_and_update)
 
   local function fetch()
     if not btc.enabled then
       return
     end
 
-    local params = {
-      url = "https://api.coinbase.com/v2/prices/spot",
-      query = { currency = "USD" },
-      callback = decode_response_and_update,
-    }
-    pcall(curl.get, params)
+    job:start()
   end
 
   local timer = uv.new_timer()
