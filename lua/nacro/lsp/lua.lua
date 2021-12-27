@@ -3,48 +3,46 @@ local lua = {}
 local common = require "nacro.lsp.common"
 local lspconfig = require "lspconfig"
 
-function lua.setup()
-  local path = vim.split(package.path, ";")
+local fn = vim.fn
+local uv = vim.loop
 
-  -- this is the ONLY correct way to setup your path
-  path[#path + 1] = "lua/?.lua"
-  path[#path + 1] = "lua/?/init.lua"
+local data = fn.stdpath "data"
+local config = fn.stdpath "config"
 
+local function create_path_list()
+  local paths = vim.split(package.path, ";")
+  table.insert(paths, "lua/?.lua")
+  table.insert(paths, "lua/?/init.lua")
+  return paths
+end
+
+local function create_library()
   local library = {}
-  local function add(lib)
-    for _, p in pairs(vim.fn.expand(lib, false, true)) do
-      p = vim.loop.fs_realpath(p)
-      library[p] = true
+
+  local function add(lib_path)
+    for _, p in pairs(fn.expand(lib_path, false, true)) do
+      library[uv.fs_realpath(p)] = true
     end
   end
 
-  -- add runtime
   add "$VIMRUNTIME"
+  add(config)
+  add(data .. "/site/pack/packer/opt/*")
+  add(data .. "/site/pack/packer/start/*")
 
-  -- add your config
-  add "~/.config/nvim"
+  return library
+end
 
-  -- add plugins
-  -- if you're not using packer, then you might need to change the paths below
-  add "~/.local/share/nvim/site/pack/packer/opt/*"
-  add "~/.local/share/nvim/site/pack/packer/start/*"
-
-  local system_name = "macOS"
-  -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-  local sumneko_root_path = vim.fn.stdpath "data" .. "/language-servers/lua-language-server"
-  local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
-
+function lua.setup()
   lspconfig.sumneko_lua.setup {
     capabilities = common.create_lsp_capabilities(),
-    cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
     on_attach = common.on_attach,
     settings = {
       Lua = {
-        runtime = { version = "LuaJIT", path = path },
+        runtime = { version = "LuaJIT", path = create_path_list() },
         completion = { keywordSnippet = "Disable" },
         workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = library,
+          library = create_library(),
           maxPreload = 2000,
           preloadFileSize = 50000,
         },
