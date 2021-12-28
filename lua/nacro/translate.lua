@@ -6,6 +6,8 @@ local command = require "nacro.utils.command"
 
 local fn = vim.fn
 
+local TRANS_CMD = "trans"
+
 local TRANSLATION_PAIRS = {
   { "en", "tr" },
   { "tr", "en" },
@@ -42,7 +44,7 @@ local function trigger_pair_selection(inp)
 end
 
 function translate.interactive(text)
-  assert(fn.executable "translate" == 1, "`translate` executable does not exists on path")
+  assert(fn.executable(TRANS_CMD) == 1, "`" .. TRANS_CMD .. "` executable does not exists on path")
 
   if text then
     trigger_pair_selection(text)
@@ -53,11 +55,12 @@ end
 
 function translate.translate(text, from, to)
   local job = Job:new {
-    command = "translate",
+    command = TRANS_CMD,
     args = {
-      "-s",
+      "--no-ansi",
+      "-from",
       from,
-      "-t",
+      "-to",
       to,
       text,
     },
