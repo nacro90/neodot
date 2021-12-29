@@ -2,8 +2,6 @@ local translate = {}
 
 local Job = require "plenary.job"
 
-local command = require "nacro.utils.command"
-
 local fn = vim.fn
 
 local TRANS_CMD = "trans"
@@ -14,11 +12,12 @@ local TRANSLATION_PAIRS = {
 }
 
 function translate.setup()
-  command("Translate", function(arg)
+  local cb = function(keys)
+    local arg = keys.args
     translate.interactive(arg and arg ~= "" and arg)
-  end, {
-    nargs = "?",
-  })
+  end
+
+  vim.api.nvim_add_user_command("Translate", cb, { nargs = "?" })
 end
 
 local function render_translation_pairs()
