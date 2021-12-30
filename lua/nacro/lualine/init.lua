@@ -4,7 +4,7 @@ local lualine = require "lualine"
 local gps = require "nvim-gps"
 
 local btc = require "nacro.lualine.btc"
-local functional = require('nacro.functional')
+local functional = require "nacro.functional"
 local and_ = functional.and_
 
 local fn = vim.fn
