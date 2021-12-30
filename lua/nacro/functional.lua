@@ -37,7 +37,6 @@ function functional.compose(...)
   end
 end
 
-
 ---And operation to predicates
 ---@vararg Predicate
 ---@return Predicate
@@ -47,6 +46,32 @@ function functional.and_(...)
       return f1(...) and f2(...)
     end
   end, ...)
+end
+
+function functional.add(...)
+  local args = { ... }
+  local total = 0
+  for _, a in ipairs(args) do
+    total = total + a
+  end
+  return total
+end
+
+function functional.sub(a, b)
+  return a - b
+end
+
+function functional.mul(...)
+  local args = { ... }
+  local total = 0
+  for _, a in ipairs(args) do
+    total = total * a
+  end
+  return total
+end
+
+function functional.div(a, b)
+  return a / b
 end
 
 return functional
