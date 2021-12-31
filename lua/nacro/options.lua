@@ -232,6 +232,8 @@ function options.setup()
     foldclose = "≡",
   }
 
+  opt.number = false
+
   -- Every wrapped line will continue visually indented (same amount of space as
   -- the beginning of that line), thus preserving horizontal blocks of text
   wo.breakindent = true
