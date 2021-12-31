@@ -328,6 +328,7 @@ local plugin_table = {
   "vim-test/vim-test",
   {
     "rcarriga/vim-ultest",
+    disable = true,
   },
   { "nvim-telescope/telescope-dap.nvim", requires = "nvim-lua/telescope.nvim" },
   {
