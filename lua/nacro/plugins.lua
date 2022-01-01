@@ -199,41 +199,18 @@ local plugin_table = {
   {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup {
-        ensure_installed = "maintained",
-        highlight = { enable = true },
-        textobjects = {
-          select = {
-            enable = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["at"] = "@class.outer",
-              ["it"] = "@class.inner",
-              ["ig"] = "@block.inner",
-              ["ag"] = "@block.outer",
-              ["io"] = "@call.inner",
-              ["ao"] = "@call.outer",
-              ["ij"] = "@conditional.inner",
-              ["aj"] = "@conditional.outer",
-              ["il"] = "@loop.inner",
-              ["al"] = "@loop.outer",
-              ["ia"] = "@parameter.inner",
-              ["aa"] = "@parameter.outer",
-              ["as"] = "@statement.outer",
-            },
-          },
-        },
-        indent = { enable = false },
-        autotag = { enable = true },
-      }
-    end,
-    requires = {
-      "nvim-treesitter/playground",
-      "nvim-treesitter/nvim-treesitter-textobjects",
-      "windwp/nvim-ts-autotag",
-    },
+  },
+  {
+    "nvim-treesitter/playground",
+    requires = "nvim-treesitter/nvim-treesitter",
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    requires = "nvim-treesitter/nvim-treesitter",
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    requires = "nvim-treesitter/nvim-treesitter",
   },
   {
     "NTBBloodbath/rest.nvim",

@@ -166,6 +166,7 @@ require("nacro.project").setup()
 require("nacro.translate").setup()
 require("nacro.test").setup()
 require("nacro.matchparen").setup()
+require("nacro.treesitter").setup()
 
 command("TimestampToDatetime", function(a)
   print(os.date("%Y-%m-%d %H:%M:%S", a / 1000) .. "." .. a % 1000)
