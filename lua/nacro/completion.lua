@@ -1,7 +1,18 @@
 local completion = {}
 
 local cmp = require "cmp"
-local lspkind = require "lspkind"
+
+local function create_lspkind_formetter()
+  local exists, lspkind = pcall(require, "lspkind")
+
+  if not exists then
+    return function(...)
+      return ...
+    end
+  end
+
+  return lspkind.cmp_format { with_text = false, maxwidth = 50 }
+end
 
 function completion.setup()
   cmp.setup {
@@ -24,7 +35,17 @@ function completion.setup()
     },
     preselect = cmp.PreselectMode.Item,
     formatting = {
-      format = lspkind.cmp_format { with_text = false, maxwidth = 50 },
+      format = create_lspkind_formetter(),
+    },
+    mapping = {
+      ["<C-n>"] = cmp.mapping(function()
+        if cmp.visible() then
+          cmp.select_next_item()
+        else
+          cmp.complete()
+        end
+      end, { "i" }),
+      ["<CR>"] = cmp.mapping.confirm { select = true },
     },
   }
 
