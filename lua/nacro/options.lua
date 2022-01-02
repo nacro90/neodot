@@ -24,7 +24,7 @@ function options.setup()
   o.syntax = "enable"
 
   -- Make use of ftplugins
-  cmd [[filetype plugin indent on]]
+  vim.cmd "filetype plugin indent on"
 
   -- Encoding
   local encoding = "utf-8"
@@ -32,10 +32,10 @@ function options.setup()
   o.fileencoding = encoding
   bo.fileencoding = encoding
 
-  cmd [[let mapleader = ' ']]
+  g.mapleader = ' '
 
   -- Disable netrw
-  cmd [[let loaded_netrwPlugin = 1]]
+  g.loaded_netrwPlugin = 1
 
   -- Indicates the line that cursor is on
   wo.cursorline = true
