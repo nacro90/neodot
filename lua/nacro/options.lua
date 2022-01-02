@@ -4,17 +4,11 @@ local os = require "nacro.utils.os"
 
 local g = vim.g
 local opt = vim.opt
-local uv = vim.loop
 
 function options.setup()
+  vim.cmd "filetype plugin indent on"
   opt.termguicolors = true
   opt.syntax = "enable"
-  vim.cmd "filetype plugin indent on"
-
-  local encoding = "utf-8"
-  opt.encoding = encoding
-  opt.fileencoding = encoding
-
   opt.cursorline = true
   opt.number = false
   opt.relativenumber = false
