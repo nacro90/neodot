@@ -45,6 +45,8 @@ function completion.setup()
           cmp.complete()
         end
       end, { "i" }),
+      ["<C-d>"] = cmp.mapping(cmp.mapping.complete(), { "c" }),
+      ["<C-e>"] = cmp.mapping(cmp.mapping.abort(), { "c" }),
       ["<CR>"] = cmp.mapping.confirm { select = true },
     },
   }
