@@ -330,7 +330,10 @@ local plugin_table = {
       nnoremap("g#", starlite_func "g_hash")
     end,
   },
-  { "petobens/poet-v", disable = false, cmd = "PoetvActivate" },
+  {
+    "petobens/poet-v",
+    cmd = "PoetvActivate",
+  },
   {
     "plasticboy/vim-markdown",
     config = function()
