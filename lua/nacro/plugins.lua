@@ -314,7 +314,6 @@ local plugin_table = {
       opt = true,
     },
   },
-    "SmiteshP/nvim-gps",
   {
     "ironhouzi/starlite-nvim",
     keys = { "*", "g*", "#", "g#" },
