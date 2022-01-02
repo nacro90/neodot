@@ -309,8 +309,12 @@ local plugin_table = {
   { "tweekmonster/startuptime.vim", cmd = "StartupTime" },
   {
     "nvim-lualine/lualine.nvim",
-    requires = { "SmiteshP/nvim-gps", { "kyazdani42/nvim-web-devicons", opt = true } },
+    requires = {
+      "kyazdani42/nvim-web-devicons",
+      opt = true,
+    },
   },
+    "SmiteshP/nvim-gps",
   {
     "ironhouzi/starlite-nvim",
     keys = { "*", "g*", "#", "g#" },
