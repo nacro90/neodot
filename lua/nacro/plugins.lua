@@ -313,15 +313,18 @@ local plugin_table = {
   },
   {
     "ironhouzi/starlite-nvim",
-    keys = { "*", "g*" },
-    config = function()
-      print "osman"
+    keys = { "*", "g*", "#", "g#" },
+    setup = function()
       local nnoremap = require("nacro.utils.map").nnoremap
-      local starlite = require "starlite"
-      nnoremap("*", starlite.star)
-      nnoremap("g*", starlite.g_star)
-      nnoremap("#", starlite.hash)
-      nnoremap("g#", starlite.g_hash)
+      local function starlite_func(func)
+        return function()
+          require("starlite")[func]()
+        end
+      end
+      nnoremap("*", starlite_func "star")
+      nnoremap("g*", starlite_func "g_star")
+      nnoremap("#", starlite_func "hash")
+      nnoremap("g#", starlite_func "g_hash")
     end,
   },
   { "petobens/poet-v", disable = false, cmd = "PoetvActivate" },
