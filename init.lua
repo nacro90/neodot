@@ -1,7 +1,6 @@
 require("nacro.options").setup()
 require "nacro.globals"
 
-
 local command = require "nacro.utils.command"
 local map = require "nacro.utils.map"
 
@@ -16,7 +15,6 @@ local nmap = map.nmap
 local cmd = vim.cmd
 local api = vim.api
 local fn = vim.fn
-
 
 require("nacro.plugins").setup()
 
@@ -176,6 +174,12 @@ end, {
 
 nnoremap("<leader>>", "<Cmd>tabmove +<CR>")
 nnoremap("<leader><lt>", "<Cmd>tabmove -<CR>")
+
+if fn.executable "nvr" then
+  vim.env.EDITOR = "nvr --remote-wait -cc split -c'set bufhidden=delete'"
+else
+  print "'nvr' executable not found. Please install 'neovim-remote' via pip"
+end
 
 local todo_file = os.getenv "HOME" .. "/todo/todo.txt"
 require("nacro.todo").setup(todo_file)
