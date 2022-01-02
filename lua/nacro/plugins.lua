@@ -339,14 +339,6 @@ local plugin_table = {
     "SmiteshP/nvim-gps",
     requires = "nvim-treesitter/nvim-treesitter",
   },
-  {
-    "akinsho/toggleterm.nvim",
-    config = function()
-      require("toggleterm").setup {
-        start_in_insert = false,
-      }
-    end,
-  },
   "tami5/sqlite.lua",
   {
     "kyazdani42/nvim-tree.lua",
