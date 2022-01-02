@@ -413,13 +413,14 @@ local plugin_table = {
       }
     end,
   },
-  -- A git commit browser in Vim which displays a git graph
-  { "junegunn/gv.vim", requires = "tpope/vim-fugitive", cmd = "GV" },
   {
-    -- Visualize undo steps as a tree
+    "junegunn/gv.vim",
+    requires = "tpope/vim-fugitive",
+    cmd = "GV",
+  },
+  {
     "mbbill/undotree",
     setup = function()
-      -- Set the undotree window layout
       vim.g.undotree_WindowLayout = 3
     end,
     cmd = "UndotreeToggle",
