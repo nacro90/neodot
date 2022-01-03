@@ -222,7 +222,7 @@ local plugin_table = {
   {
     "stevearc/aerial.nvim",
     config = function()
-      vim.g.aerial = {
+      require("aerial").setup {
         max_width = 60,
       }
     end,
