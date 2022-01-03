@@ -148,7 +148,6 @@ end)
 
 local find_zettel = require("nacro.telescoper").find_zettel
 command("Zet", find_zettel)
-nnoremap("<leader>z", find_zettel)
 
 require("nacro.colorscheme").setup "codedark"
 require("nacro.telescoper").setup()
