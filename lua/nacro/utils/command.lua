@@ -1,6 +1,6 @@
 local command = {}
 
-local cmd = vim.cmd
+local add_user_command = vim.api.nvim_add_user_command
 
 command._callbacks = {}
 
@@ -12,19 +12,7 @@ command._callbacks = {}
 ---@param rhs string|function @action command or function
 ---@param opts CommandOptions @whether the command is buffer local
 function command.command(lhs, rhs, opts)
-  local action = rhs
-  if type(rhs) == "function" then
-    local callback_index = #command._callbacks + 1
-    command._callbacks[callback_index] = rhs
-    action = "lua require('nacro.utils.command')._callbacks[" .. callback_index .. "]('<args>')"
-  end
-  local opts_str
-  if opts then
-    local buffer = opts.buffer and "-buffer" or ""
-    local nargs = opts.nargs and ("-nargs=" .. opts.nargs) or ""
-    opts_str = table.concat({ buffer, nargs }, " ")
-  end
-  cmd(("command! %s %s %s"):format(opts_str or "", lhs, action))
+  add_user_command(lhs, rhs, opts or {})
 end
 
 setmetatable(command, {

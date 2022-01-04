@@ -18,12 +18,9 @@ local fn = vim.fn
 
 require("nacro.plugins").setup()
 
-command("Lprint", print, { nargs = 1 })
-command("Linspect", function(...)
-  print(vim.inspect(...))
+command("LuaHas", function(keys)
+  print(vim.inspect(pcall(require, keys.args)))
 end, { nargs = 1 })
-
-command("LuaHas", "lua print(vim.inspect(pcall(require, '<args>')))", { nargs = 1 })
 
 command("RemoveTrailingWhitespace", [[%substitute/\s\+$//]], { nargs = 0 })
 
