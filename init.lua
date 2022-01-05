@@ -60,7 +60,7 @@ vim.api.nvim_set_keymap(
   { noremap = true, expr = true }
 )
 
-xmap("x", "s", "<Esc>lys`<")
+xmap("s", "<Esc>lys`<")
 
 -- inoremap("jk", "<Esc>")
 -- inoremap("JK", "<Esc>")
