@@ -154,6 +154,7 @@ local plugin_table = {
   },
   {
     "oberblastmeister/neuron.nvim",
+    branch = 'unstable',
     requires = {
       "nvim-lua/popup.nvim",
       "nvim-lua/plenary.nvim",
