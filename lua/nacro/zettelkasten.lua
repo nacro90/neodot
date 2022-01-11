@@ -1,12 +1,17 @@
-local notetaking = {}
+local zk = {}
+
+local neuron = require "neuron"
 
 local keymap = vim.keymap
 local api = vim.api
 
-function notetaking.setup()
-  require("neuron").setup {
-    neuron_dir = "~/Zettels",
+zk.zettelkasten_dir = "~/Zettels"
+
+function zk.setup()
+  neuron.setup {
+    neuron_dir = zk.zettelkasten_dir,
+    mappings = false,
   }
 end
 
-return notetaking
+return zk
