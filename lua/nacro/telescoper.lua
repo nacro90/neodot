@@ -104,7 +104,7 @@ local function set_keymaps()
   nnoremap("<leader>H", builtin.oldfiles)
   nnoremap("<leader>p", telescope.extensions.projects.projects)
   nnoremap("<leader><C-h>", builtin.help_tags)
-  nnoremap("<leader>z", extensions.zoxide.list)
+  nnoremap("<leader>c", extensions.zoxide.list)
 
   nnoremap("<leader>ep", function()
     telescoper.find_dirs(vim.env.HOME .. "/Projects", 2)
