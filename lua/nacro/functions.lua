@@ -21,17 +21,7 @@ function functions.configure_filetype(ft, is_after)
    if is_after then
       config = config .. '/after'
    end
-   ft = vim.trim(ft)
-   local ftvim = config .. '/ftplugin/' .. ft .. '.vim'
-   local ftlua = config .. '/lua/ft/' .. ft .. '.lua'
-
-   local luaexists = vim.fn.filereadable(ftlua) == 1
-
-   if luaexists then
-      vim.cmd('edit ' .. ftlua)
-   else
-      vim.cmd('edit ' .. ftvim)
-   end
+   vim.cmd(("edit %s/ftplugin/%s.lua"):format(config, vim.trim(ft)))
 end
 
 
