@@ -1,11 +1,7 @@
 local highlight = require "nacro.utils.highlight"
 
-local opt = vim.opt
 local keymap = vim.keymap
 local api = vim.api
-
-opt.iskeyword:remove "#"
-opt.iskeyword:remove "@"
 
 local function new_line_starter(offset)
   return function()
