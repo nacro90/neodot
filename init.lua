@@ -163,6 +163,7 @@ require("nacro.matchparen").setup()
 require("nacro.treesitter").setup()
 require("nacro.terminal").setup()
 require("nacro.zettelkasten").setup()
+require("nacro.todo").setup(vim.env.HOME .. "/Zettels/todo.txt")
 
 command("TimestampToDatetime", function(a)
   print(os.date("%Y-%m-%d %H:%M:%S", a / 1000) .. "." .. a % 1000)
@@ -178,6 +179,3 @@ if fn.executable "nvr" then
 else
   print "'nvr' executable not found. Please install 'neovim-remote' via pip"
 end
-
-local todo_file = os.getenv "HOME" .. "/todo/todo.txt"
-require("nacro.todo").setup(todo_file)
