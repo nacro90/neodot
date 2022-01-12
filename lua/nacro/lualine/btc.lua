@@ -5,7 +5,7 @@ local Job = require "plenary.job"
 local uv = vim.loop
 local json = vim.json
 
-btc.enabled = true
+btc.enabled = false
 
 function btc.toggle()
   btc.enabled = not btc.enabled
