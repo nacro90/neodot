@@ -15,6 +15,7 @@ local nmap = map.nmap
 local cmd = vim.cmd
 local api = vim.api
 local fn = vim.fn
+local keymap = vim.keymap
 
 require("nacro.plugins").setup()
 
@@ -31,19 +32,7 @@ command("Q", "q")
 command("Wq", "wq")
 command("WQ", "wq")
 
--- Edit filetype configuration
 nnoremap("<leader>ef", require("nacro.functions").configure_filetype)
-
--- Edit main lua init file (this file)
-nnoremap("<leader>el", string.format("<Cmd>edit %s/init.lua<CR>", vim.fn.stdpath "config"))
-
--- Edit packages file
-
--- Yank with 'Y' should be like 'D' or 'C'
--- nmap("Y", "y$")
-
--- nnoremap("<C-l>", "<Cmd>nohlsearch<CR><C-l>")
--- inoremap("<C-l>", "<Cmd>nohlsearch<CR><C-l>")
 
 nmap("<leader>", "<Nop>")
 
@@ -53,32 +42,16 @@ nnoremap("<leader>T", "<Cmd>tabedit | terminal<CR>")
 nnoremap("<C-Space><C-m>", "<Cmd>tabedit | terminal<CR>")
 tnoremap("<C-Space><C-m>", "<Cmd>tabedit | terminal<CR>")
 
-vim.api.nvim_set_keymap(
-  "c",
-  "%%",
-  [[luaeval("require('nacro.functions').expand_percentage_if_in_command()")]],
-  { noremap = true, expr = true }
-)
+keymap.set("c", "%%", require("nacro.functions").expand_percentage_if_in_command, { expr = true })
 
 xmap("s", "<Esc>lys`<")
 
--- inoremap("jk", "<Esc>")
--- inoremap("JK", "<Esc>")
-
--- luasnip#choice_active()
 tnoremap("<Esc><Esc>", [[<C-\><C-n>]])
 
 -- (') can be very annoying when it can not do the (`)
 nmap("'", "`")
 
 nnoremap("zz", "zzzH")
-
-cmd [[
-  augroup vert_split_colorization
-    autocmd!
-  augroup END
-]]
--- autocmd ColorScheme * highlight VertSplit guibg=#20222d guifg=#20222d'
 
 cmd [[
   augroup nacro_terminal
@@ -96,12 +69,12 @@ cmd [[
 
 for _, mode in ipairs { "n", "v" } do
   for _, key in ipairs { "j", "k", "^" } do
-    vim.api.nvim_set_keymap(mode, key, "g" .. key, {})
+    keymap.set(mode, key, "g" .. key, { remap = true })
   end
 end
 
 for _, mode in pairs { "i", "n", "v" } do
-  vim.api.nvim_set_keymap(mode, "<F1>", "<Nop>", { noremap = true })
+  keymap.set(mode, "<F1>", "<Nop>")
 end
 
 -- cmd('autocmd! BufWritePost plugins.lua execute "Reload" | PackerCompile')
@@ -137,15 +110,6 @@ end, {
 
 nnoremap("-", "<Nop>")
 
-nnoremap("<leader>R", function()
-  local to = fn.input "Replace with: "
-  local subst = ("%%s/%s/%s"):format(fn.expand "<cword>", to)
-  cmd(subst)
-end)
-
-local find_zettel = require("nacro.telescoper").find_zettel
-command("Zet", find_zettel)
-
 require("nacro.colorscheme").setup "codedark"
 require("nacro.telescoper").setup()
 require("nacro.nvim_tree").setup()
@@ -173,9 +137,3 @@ end, {
 
 nnoremap("<leader>>", "<Cmd>tabmove +<CR>")
 nnoremap("<leader><lt>", "<Cmd>tabmove -<CR>")
-
-if fn.executable "nvr" then
-  vim.env.EDITOR = "nvr --remote-wait -cc split -c'set bufhidden=delete'"
-else
-  print "'nvr' executable not found. Please install 'neovim-remote' via pip"
-end
