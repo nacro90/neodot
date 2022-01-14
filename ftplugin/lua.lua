@@ -1,17 +1,32 @@
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.bo.expandtab = true
-vim.wo.foldenable = true
-vim.bo.autoindent = true
-vim.wo.wrap = false
-vim.bo.suffixesadd = ".lua"
+local opt_local = vim.opt_local
+local keymap = vim.keymap
+local api = vim.api
 
-vim.g.indentLine_enabled = 1
+opt_local.tabstop = 2
+opt_local.softtabstop = 2
+opt_local.shiftwidth = 2
+opt_local.expandtab = true
+opt_local.autoindent = true
+opt_local.suffixesadd = ".lua"
+opt_local.foldmethod = "expr"
+opt_local.foldexpr = "nvim_treesitter#foldexpr()"
 
-vim.g.completion_trigger_character = { ".", ":" }
+local function toggle_local_keyword()
+  local line = api.nvim_get_current_line()
 
-vim.api.nvim_buf_set_keymap(0, "n", [[<leader>ml]], [[<Cmd>normal! Ilocal <CR>]], { noremap = true })
-vim.bo.formatprg = "lua-format"
+  local cursor_correction = -6
+  local replacement, n_occurences = line:gsub("(%s*)local ", "%1")
 
-vim.opt.foldexpr = vim.fn["nvim_treesitter#foldexpr"]()
+  if n_occurences == 0 then
+    replacement = line:gsub("^(%s*)(.*)", "%1local %2")
+    cursor_correction = -cursor_correction
+  end
+
+  api.nvim_set_current_line(replacement)
+
+  local cursor = api.nvim_win_get_cursor(0)
+  cursor[2] = cursor[2] + cursor_correction
+  api.nvim_win_set_cursor(0, cursor)
+end
+
+keymap.set("n", "<leader>ml", toggle_local_keyword)
