@@ -1,7 +1,6 @@
 ---Highlight tweaks for codedark. Nothing to do with vs code
 
 local highlight = require "nacro.utils.highlight"
-local g = vim.g
 
 return function()
   -- highlight("Normal", { guibg = "#1e1e1e" })
@@ -63,4 +62,6 @@ return function()
 
   highlight("TSStrong", { gui = "bold" })
   highlight("TSLiteral", "String")
+
+  highlight("Comment", { gui = "italic" })
 end

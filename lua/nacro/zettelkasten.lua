@@ -28,8 +28,8 @@ function zk.setup()
   ]]
   vim.cmd(cmd_str:format(zk.dir))
 
-  keymap.set("n", "<leader>zz", n_telescope.find_zettels)
-  keymap.set("n", "<leader>zZ", inserter(n_telescope.find_zettels))
+  keymap.set("n", "<leader>ez", n_telescope.find_zettels)
+  keymap.set("n", "<leader>zi", inserter(n_telescope.find_zettels))
 end
 
 return zk
