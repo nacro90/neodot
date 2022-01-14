@@ -4,7 +4,7 @@ local highlight = require "nacro.utils.highlight"
 local g = vim.g
 
 return function()
-  highlight("Normal", { guibg = "#1e1e1e" })
+  -- highlight("Normal", { guibg = "#1e1e1e" })
 
   highlight("DiffAdd", { guifg = "NONE", guibg = "#222f22", gui = "NONE" })
   highlight("DiffDelete", { guifg = "NONE", guibg = "#381010" })
