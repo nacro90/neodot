@@ -88,6 +88,7 @@ nnoremap("yon", "<Cmd>setlocal number!<CR>")
 nnoremap("yor", "<Cmd>setlocal relativenumber!<CR>")
 nnoremap("yow", "<Cmd>setlocal wrap!<CR>")
 nnoremap("yoc", "<Cmd>setlocal cursorline!<CR>")
+keymap.set("n", "yos", "<Cmd>setlocal spell!<CR>")
 
 command("LspAttached", function()
   print(#vim.lsp.buf_get_clients() > 0)
