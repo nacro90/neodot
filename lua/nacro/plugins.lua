@@ -234,22 +234,7 @@ local plugin_table = {
   "justinmk/vim-dirvish",
   {
     "L3MON4D3/LuaSnip",
-    event = "InsertEnter",
     requires = "rafamadriz/friendly-snippets",
-    config = function()
-      require("luasnip").snippets = require "nacro.snippet"
-      vim.cmd [[
-        imap <silent><expr> <C-k> '<Plug>luasnip-expand-or-jump'
-        inoremap <silent> <C-j> <cmd>lua require'luasnip'.jump(-1)<CR>
-
-        snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(1)<Cr>
-        snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(-1)<Cr>
-
-        imap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
-        smap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
-      ]]
-      require("luasnip/loaders/from_vscode").load()
-    end,
   },
   {
     "hkupty/iron.nvim",

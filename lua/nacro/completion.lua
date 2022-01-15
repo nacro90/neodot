@@ -2,6 +2,8 @@ local completion = {}
 
 local cmp = require "cmp"
 
+local luasnip_exists, luasnip = pcall(require, 'luasnip')
+
 local function create_lspkind_formetter()
   local exists, lspkind = pcall(require, "lspkind")
 
@@ -39,7 +41,18 @@ function completion.setup()
     },
     mapping = {
       ["<C-n>"] = cmp.mapping(function()
-        if cmp.visible() then
+        if luasnip_exists and luasnip.choice_active() then
+          luasnip.change_choice(1)
+        elseif cmp.visible() then
+          cmp.select_next_item()
+        else
+          cmp.complete()
+        end
+      end, { "i" }),
+      ["<C-p>"] = cmp.mapping(function()
+        if luasnip_exists and luasnip.choice_active() then
+          luasnip.change_choice(-1)
+        elseif cmp.visible() then
           cmp.select_next_item()
         else
           cmp.complete()

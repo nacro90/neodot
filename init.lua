@@ -130,6 +130,7 @@ require("nacro.terminal").setup()
 require("nacro.zettelkasten").setup()
 require("nacro.todo").setup(vim.env.HOME .. "/Zettels/todo.txt")
 require("nacro.ledger").setup()
+require("nacro.snippet").setup()
 
 command("TimestampToDatetime", function(a)
   print(os.date("%Y-%m-%d %H:%M:%S", a / 1000) .. "." .. a % 1000)
