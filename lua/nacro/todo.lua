@@ -93,6 +93,28 @@ function todo.telescope_todo(todo_file)
   }):find()
 end
 
+function todo.edit_todo_popup(size)
+  local width = 80
+  local height = 20
+
+  local buf = api.nvim_create_buf(false, true)
+
+  local ui = api.nvim_list_uis()[1]
+
+  local opts = {
+    relative = "editor",
+    width = width,
+    height = height,
+    col = (ui.width / 2) - (width / 2),
+    row = (ui.height / 2) - (height / 2),
+    anchor = "NW",
+    style = "minimal",
+  }
+  local win = api.nvim_open_win(buf, 1, opts)
+
+  vim.cmd("edit " .. todo.default_todo_file)
+end
+
 ---Setup module
 ---@param todo_file string @Path to the todo file
 function todo.setup(todo_file)
@@ -102,7 +124,8 @@ function todo.setup(todo_file)
     require("nacro.functions").strict_edit(todo_file)
   end
 
-  nnoremap("<leader>et", edit_todo)
+  nnoremap("<leader>et", todo.edit_todo_popup)
+  nnoremap("<leader>eT", edit_todo)
 
   command("Todo", function(arg)
     if is_empty(arg) then

@@ -1,7 +1,13 @@
 local highlight = require "nacro.utils.highlight"
 
+local opt_local = vim.opt_local
 local keymap = vim.keymap
 local api = vim.api
+
+opt_local.foldmethod = "expr"
+opt_local.foldexpr = [[getline(v:lnum)[0]=="x"]]
+opt_local.foldenable = true
+opt_local.foldlevel = 0
 
 local function new_line_starter(offset)
   return function()
