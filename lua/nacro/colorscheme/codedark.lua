@@ -64,6 +64,9 @@ return function()
   highlight("TSLiteral", "String")
 
   highlight("Comment", { gui = "italic" })
-  
+
   highlight("Folded", { gui = "NONE", guifg = "#777777"})
+
+  highlight("Search", {guibg="#3b4622"})
+  highlight("IncSearch", {guibg="#5b6642"})
 end
