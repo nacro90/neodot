@@ -15,7 +15,7 @@ local function toggle_local_keyword()
   local line = api.nvim_get_current_line()
 
   local cursor_correction = -6
-  local replacement, n_occurences = line:gsub("(%s*)local ", "%1")
+  local replacement, n_occurences = line:gsub("^(%s*)local ", "%1")
 
   if n_occurences == 0 then
     replacement = line:gsub("^(%s*)(.*)", "%1local %2")
