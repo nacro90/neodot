@@ -1,11 +1,11 @@
 local M = {}
 
-local configs = require("nvim-treesitter.configs")
+local configs = require "nvim-treesitter.configs"
 
 function M.setup()
   configs.setup {
     ensure_installed = "maintained",
-    highlight = { enable = true },
+    highlight = { enable = true, disable = { "markdown" } },
     textobjects = {
       select = {
         enable = true,
