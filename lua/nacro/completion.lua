@@ -53,7 +53,7 @@ function completion.setup()
         if luasnip_exists and luasnip.choice_active() then
           luasnip.change_choice(-1)
         elseif cmp.visible() then
-          cmp.select_next_item()
+          cmp.select_prev_item()
         else
           cmp.complete()
         end
