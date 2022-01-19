@@ -133,6 +133,7 @@ require("nacro.ledger").setup()
 require("nacro.snippet").setup()
 
 command("TimestampToDatetime", function(a)
+  a = a.args
   print(os.date("%Y-%m-%d %H:%M:%S", a / 1000) .. "." .. a % 1000)
 end, {
   nargs = 1,
