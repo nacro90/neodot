@@ -138,4 +138,31 @@ function todo.setup(todo_file)
   })
 end
 
+function todo.set_line_priority(priority)
+  local line = api.nvim_get_current_line()
+  local priority_str = priority and ("(%s) "):format(priority) or ""
+  local replacement, occurence = line:gsub("^%(%w%) ", priority_str)
+  if occurence == 0 then
+    replacement = priority_str .. line
+  end
+  api.nvim_set_current_line(replacement)
+
+  local cursor_correction = #replacement - #line
+  if cursor_correction == 0 then
+    return
+  end
+  local cursor = api.nvim_win_get_cursor(0)
+  cursor[2] = cursor[2] + cursor_correction
+  api.nvim_win_set_cursor(0, cursor)
+end
+
+function todo.start_new_line(offset)
+  local line, _ = unpack(api.nvim_win_get_cursor(0))
+  local date = os.date "%Y-%m-%d"
+  local new_line = line - 1 + offset
+  api.nvim_buf_set_lines(0, new_line, new_line, true, { date .. " " })
+  api.nvim_win_set_cursor(0, { line + offset, 0 })
+  vim.cmd "startinsert!"
+end
+
 return todo
