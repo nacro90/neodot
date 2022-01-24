@@ -2,7 +2,7 @@ local completion = {}
 
 local cmp = require "cmp"
 
-local luasnip_exists, luasnip = pcall(require, 'luasnip')
+local luasnip_exists, luasnip = pcall(require, "luasnip")
 
 local function create_lspkind_formetter()
   local exists, lspkind = pcall(require, "lspkind")
@@ -29,7 +29,7 @@ function completion.setup()
       { name = "luasnip" },
       { name = "path" },
       { name = "buffer", keyword_length = 5 },
-      { name = "emoji", keyword_length = 3 },
+      { name = "emoji", keyword_length = 3, options = { insert = true } },
       { name = "neorg" },
     },
     experimental = {
@@ -48,7 +48,9 @@ function completion.setup()
         else
           cmp.complete()
         end
-      end, { "i" }),
+      end, {
+        "i",
+      }),
       ["<C-p>"] = cmp.mapping(function()
         if luasnip_exists and luasnip.choice_active() then
           luasnip.change_choice(-1)
@@ -57,7 +59,9 @@ function completion.setup()
         else
           cmp.complete()
         end
-      end, { "i" }),
+      end, {
+        "i",
+      }),
       ["<C-d>"] = cmp.mapping(cmp.mapping.complete(), { "c" }),
       ["<C-e>"] = cmp.mapping(cmp.mapping.abort(), { "c" }),
       ["<CR>"] = cmp.mapping.confirm { select = true },
