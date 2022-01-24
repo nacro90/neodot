@@ -1,1 +1,1 @@
-(table ["{" "}"] @punctuation.bracket)
+; (table ["{" "}"] @punctuation.bracket)
