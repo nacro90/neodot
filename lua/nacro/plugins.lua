@@ -69,7 +69,6 @@ local plugin_table = {
     branch = "vimscript_version",
   },
   "Mangeshrex/uwu.vim",
-  "glepnir/zephyr-nvim",
 
   "freitass/todo.txt-vim",
   "rafcamlet/nvim-luapad",
