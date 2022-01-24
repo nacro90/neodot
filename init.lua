@@ -131,6 +131,7 @@ require("nacro.zettelkasten").setup()
 require("nacro.todo").setup(vim.env.HOME .. "/Zettels/todo.txt")
 require("nacro.ledger").setup()
 require("nacro.snippet").setup()
+require("nacro.flutter").setup()
 
 command("TimestampToDatetime", function(a)
   a = a.args

@@ -33,7 +33,6 @@ function lsp.setup()
     "svelte",
     "gopls",
     "yamlls",
-    "dartls",
   }
 
   for _, lspconfig_name in ipairs(lspconfig_names) do
