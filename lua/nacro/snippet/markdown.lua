@@ -17,8 +17,7 @@ local fn = common.fn
 
 return {
   snip({ trig = "---", dscr = "YAML Frontmatter for Zettelkasten" }, {
-    txt { "---", "title: " },
-    ins(1),
+    txt { "---" },
     newline(),
     txt { "date: " },
     fn(function()
@@ -26,7 +25,7 @@ return {
     end),
     newline(),
     txt { "tags:", "  - " },
-    ins(2),
+    ins(1),
     newline(),
     txt { "---" },
     newline(2),
