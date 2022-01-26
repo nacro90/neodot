@@ -10,6 +10,7 @@ local TRANS_CMD = "trans"
 local TRANSLATION_PAIRS = {
   { "en", "tr" },
   { "tr", "en" },
+  { "en", "en" },
 }
 
 function translate.setup()
