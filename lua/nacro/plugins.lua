@@ -300,6 +300,7 @@ local plugin_table = {
       opt = true,
     },
   },
+  { "arkav/lualine-lsp-progress", requires = "nvim-lualine/lualine.nvim" },
   {
     "ironhouzi/starlite-nvim",
     keys = { "*", "g*", "#", "g#" },

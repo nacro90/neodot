@@ -50,6 +50,7 @@ function n_lualine.setup()
       lualine_b = { "filename" },
       lualine_c = {
         {
+          "lsp_progress",
           "diagnostics",
           sources = { "nvim_diagnostic" },
           sections = { "error", "warn", "info", "hint" },
