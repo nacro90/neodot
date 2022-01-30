@@ -168,6 +168,7 @@ local plugin_table = {
       vim.api.nvim_set_keymap("n", "gX", "gx$", {})
     end,
   },
+  "lukas-reineke/indent-blankline.nvim",
   {
     "oberblastmeister/neuron.nvim",
     branch = "unstable",

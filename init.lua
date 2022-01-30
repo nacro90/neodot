@@ -133,6 +133,7 @@ require("nacro.ledger").setup()
 require("nacro.snippet").setup()
 require("nacro.flutter").setup()
 require("nacro.howdoi").setup()
+require("nacro.indent_blankline").setup()
 
 command("TimestampToDatetime", function(a)
   a = a.args

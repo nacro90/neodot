@@ -71,4 +71,7 @@ return function()
   highlight("IncSearch", { guibg = "#5b6642" })
 
   highlight("TodoDone", "NonText")
+
+  highlight("IndentBlanklineChar", { guibg = "NONE", guifg = "#333333" })
+  highlight("IndentBlanklineContextChar", { guibg = "NONE", guifg = "#7a7a7a" })
 end
