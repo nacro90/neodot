@@ -76,15 +76,15 @@ end
 
 local function set_keymaps()
   nnoremap("<leader>N", function()
-    telescoper.find_files(nil, nil, true)
+    builtin.find_files { find_command = {} }
   end)
-  nnoremap("<leader>n", telescoper.find_files)
+  nnoremap("<leader>n", builtin.find_files)
 
   nnoremap("<leader>en", function()
-    telescoper.find_files(vim.fn.stdpath "config")
+    builtin.find_files { cwd = vim.fn.stdpath "config" }
   end)
   nnoremap("<leader>eN", function()
-    telescoper.find_files(vim.fn.stdpath "data")
+    builtin.find_files { cwd = vim.fn.stdpath "data" }
   end)
   nnoremap("<leader>o", function()
     builtin.live_grep { path_display = { "tail" } }
@@ -123,6 +123,22 @@ function telescoper.setup()
           ["conf"] = "/home/orcan/.config",
           ["data"] = "/home/orcan/.local/share",
           ["prod"] = "/home/orcan/prod",
+        },
+      },
+    },
+    pickers = {
+      find_files = {
+        find_command = {
+          "fd",
+          "--type",
+          "f",
+          "--strip-cwd-prefix",
+          "--exclude",
+          "*.class",
+          "--exclude",
+          "target",
+          "--exclude",
+          "node_modules",
         },
       },
     },
