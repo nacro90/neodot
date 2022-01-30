@@ -64,10 +64,7 @@ local plugin_table = {
   { "rose-pine/neovim", as = "rose-pine" },
   { "embark-theme/vim", as = "embark" },
   "doums/darcula",
-  {
-    "frenzyexists/aquarium-vim",
-    branch = "vimscript_version",
-  },
+  { "frenzyexists/aquarium-vim" },
   "Mangeshrex/uwu.vim",
 
   "freitass/todo.txt-vim",
