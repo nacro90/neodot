@@ -367,7 +367,7 @@ local plugin_table = {
     end,
     cmd = { "Bdelete", "Bwipeout" },
   },
-  "ahmedkhalf/project.nvim",
+  "natecraddock/workspaces.nvim",
   "mfussenegger/nvim-dap",
   {
     "theHamsta/nvim-dap-virtual-text",

@@ -312,7 +312,7 @@ end
 
 function omen.setup(user_opts)
   omen.opts = vim.tbl_extend("force", omen.opts, user_opts or {})
-  nnoremap("<leader>P", omen.telescope)
+  nnoremap("<leader>p", omen.telescope)
   command("Omen", omen.telescope)
   command("OmenTelescope", omen.telescope)
   command("OmenInsert", omen.insert)

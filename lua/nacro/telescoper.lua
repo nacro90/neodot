@@ -61,7 +61,7 @@ local function load_extensions()
     "frecency",
     "fzf",
     "dap",
-    "projects",
+    "workspaces",
     "zoxide",
     "tldr",
     "bookmarks",
@@ -103,7 +103,6 @@ local function set_keymaps()
   nnoremap("<leader>:", builtin.command_history)
   nnoremap("<leader>b", builtin.buffers)
   nnoremap("<leader>H", builtin.oldfiles)
-  nnoremap("<leader>p", telescope.extensions.projects.projects)
   nnoremap("<leader><C-h>", builtin.help_tags)
   nnoremap("<leader>c", extensions.zoxide.list)
 
