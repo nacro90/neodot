@@ -73,5 +73,5 @@ return function()
   highlight("TodoDone", "NonText")
 
   highlight("IndentBlanklineChar", { guibg = "NONE", guifg = "#333333" })
-  highlight("IndentBlanklineContextChar", { guibg = "NONE", guifg = "#7a7a7a" })
+  -- highlight("IndentBlanklineContextChar", { guibg = "NONE", guifg = "#7a7a7a" })
 end
