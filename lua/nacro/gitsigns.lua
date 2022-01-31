@@ -5,8 +5,8 @@ local gitsigns = require "gitsigns"
 function n_gitsigns.setup()
   gitsigns.setup {
     signs = {
-      add = { text = "•" },
-      change = { text = "~" },
+      add = { text = "┃" },
+      change = { text = "┃" },
     },
     keymaps = {
       noremap = true,

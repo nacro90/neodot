@@ -11,7 +11,6 @@ return function()
   highlight("DiffText", { guibg = "#5f5347" })
 
   highlight("NonText", { guibg = "NONE" })
-  highlight("IndentBlanklineChar", { guibg = "#222222" })
   highlight("ErrorMsg", { guibg = "NONE" })
   highlight("WarningMsg", { guibg = "NONE" })
 
@@ -72,6 +71,6 @@ return function()
 
   highlight("TodoDone", "NonText")
 
-  highlight("IndentBlanklineChar", { guibg = "NONE", guifg = "#333333" })
+  highlight("IndentBlanklineChar", { guibg = "NONE", guifg = "#333333", gui='nocombine' })
   -- highlight("IndentBlanklineContextChar", { guibg = "NONE", guifg = "#7a7a7a" })
 end
