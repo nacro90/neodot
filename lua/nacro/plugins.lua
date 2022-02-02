@@ -290,7 +290,8 @@ local plugin_table = {
   "vim-test/vim-test",
   {
     "rcarriga/vim-ultest",
-    disable = true,
+    requires = { "vim-test/vim-test" },
+    run = ":UpdateRemotePlugins",
   },
   { "nvim-telescope/telescope-dap.nvim", requires = "nvim-lua/telescope.nvim" },
   {

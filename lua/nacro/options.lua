@@ -20,7 +20,7 @@ function options.setup()
   opt.showmode = false
   opt.showcmd = true
   opt.visualbell = true
-  opt.signcolumn = "auto:2"
+  opt.signcolumn = "auto:3"
   opt.title = true
   opt.list = true
   opt.pumheight = 12
