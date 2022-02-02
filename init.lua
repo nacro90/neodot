@@ -82,8 +82,6 @@ end
 nnoremap("<C-w>n", "<Cmd>vertical new<CR>")
 nnoremap("<C-w><C-n>", "<Cmd>vertical new<CR>")
 
-cmd [[autocmd! BufWritePre words.md luado if line:find('^%s*:') then return require('turkishmode.core').deasciify(line) end]]
-
 nnoremap("yon", "<Cmd>setlocal number!<CR>")
 nnoremap("yor", "<Cmd>setlocal relativenumber!<CR>")
 nnoremap("yow", "<Cmd>setlocal wrap!<CR>")
