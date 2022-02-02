@@ -16,8 +16,7 @@ function java.setup()
 end
 
 local function on_jdtls_attached(client, bufnr)
-  print "lesepe"
-  common.on_attach_common(client, bufnr)
+  common.on_attach(client, bufnr)
 
   ---Create a function that calls the function with true as its first parameter
   ---@param func function(param: bool)
