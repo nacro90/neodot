@@ -53,12 +53,12 @@ nmap("'", "`")
 
 nnoremap("zz", "zzzH")
 
-cmd [[
-  augroup nacro_terminal
-    autocmd!
-    autocmd BufWinEnter,WinEnter term://* setlocal nonumber norelativenumber
-  augroup end
-]]
+api.nvim_create_augroup("nacro_terminal", {})
+api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
+  group = "nacro_terminal",
+  pattern = "term://*",
+  command = "setlocal nonumber norelativenumber",
+})
 
 cmd [[
   augroup highlight_yank
