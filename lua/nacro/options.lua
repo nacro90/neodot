@@ -40,6 +40,7 @@ function options.setup()
     "*.o",
   }
   opt.foldlevel = 99
+  opt.timeout = false
   opt.foldcolumn = "0"
   opt.mouse = "a"
   opt.ignorecase = true
