@@ -79,6 +79,8 @@ end
 
 -- cmd('autocmd! BufWritePost plugins.lua execute "Reload" | PackerCompile')
 
+vim.api.nvim_add_user_command("PU", "PackerUpdate", {})
+
 nnoremap("<C-w>n", "<Cmd>vertical new<CR>")
 nnoremap("<C-w><C-n>", "<Cmd>vertical new<CR>")
 
