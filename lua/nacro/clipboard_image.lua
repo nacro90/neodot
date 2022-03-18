@@ -8,7 +8,7 @@ local function get_image_name()
   vim.fn.inputrestore()
 
   if name == nil or name == "" then
-    return os.date "%y-%m-%d-%H-%M-%S"
+    return os.date "%y%m%d-%H%M%S"
   end
   return name
 end
