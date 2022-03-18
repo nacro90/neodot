@@ -254,6 +254,7 @@ local plugin_table = {
     "L3MON4D3/LuaSnip",
     requires = "rafamadriz/friendly-snippets",
   },
+  "ekickx/clipboard-image.nvim",
   {
     "hkupty/iron.nvim",
     disable = true,
