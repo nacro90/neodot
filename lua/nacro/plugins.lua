@@ -169,15 +169,6 @@ local plugin_table = {
     end,
   },
   "lukas-reineke/indent-blankline.nvim",
-  {
-    "oberblastmeister/neuron.nvim",
-    branch = "unstable",
-    requires = {
-      "nvim-lua/popup.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-  },
   "sindrets/diffview.nvim",
   {
     -- Put text from string without yank the previous text
