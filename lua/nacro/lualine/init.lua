@@ -25,6 +25,7 @@ end
 
 local SMALL_WINDOW_THRESHOLD = 75
 
+---@diagnostic disable-next-line: unused-local, unused-function
 local function is_window_not_small()
   return winwidth(0) > SMALL_WINDOW_THRESHOLD
 end
@@ -37,15 +38,11 @@ function n_lualine.setup()
       theme = "codedark",
       component_separators = { "│", "│" },
       section_separators = { "", "" },
+      globalstatus = true,
     },
     sections = {
       lualine_a = {
-        {
-          "mode",
-          fmt = function(str)
-            return is_window_not_small() and str or str:sub(1, 1)
-          end,
-        },
+        "mode",
       },
       lualine_b = { "filename" },
       lualine_c = {
@@ -60,13 +57,13 @@ function n_lualine.setup()
           color_hint = "#BBBBBB",
           symbols = { error = "▪", warn = "▴", info = "›", hint = "▸" },
         },
-        { gps.get_location, cond = and_(gps.is_available, is_window_not_small) },
+        { gps.get_location, cond = gps.is_available },
       },
       lualine_x = {
-        { btc.create_component_func(), cond = and_(is_window_not_small, btc.is_enabled) },
+        { btc.create_component_func(), cond = btc.is_enabled },
         "branch",
-        { "encoding", cond = is_window_not_small },
-        { "fileformat", cond = is_window_not_small },
+        "encoding",
+        "fileformat",
         "filetype",
       },
       lualine_y = { "progress" },
