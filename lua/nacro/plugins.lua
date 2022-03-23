@@ -192,7 +192,7 @@ local plugin_table = {
     end,
   },
   "akinsho/flutter-tools.nvim",
-  "akinsho/git-conflict.nvim",
+  -- "akinsho/git-conflict.nvim",
   {
     "junegunn/vim-easy-align",
     disable = false,

@@ -11,11 +11,11 @@ function n_gitsigns.setup()
     keymaps = {
       noremap = true,
 
-      ["n <leader>hn"] = {
+      ["n ]h"] = {
         expr = true,
         "&diff ? '<leader>hn' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'",
       },
-      ["n <leader>hN"] = {
+      ["n [h"] = {
         expr = true,
         "&diff ? '<leader>hN' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'",
       },
