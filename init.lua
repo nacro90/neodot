@@ -53,19 +53,18 @@ nmap("'", "`")
 
 nnoremap("zz", "zzzH")
 
-api.nvim_create_augroup("nacro_terminal", {})
 api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
-  group = "nacro_terminal",
+  group = api.nvim_create_augroup("nacro_terminal", {}),
   pattern = "term://*",
   command = "setlocal nonumber norelativenumber",
 })
 
-cmd [[
-  augroup highlight_yank
-    autocmd!
-    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="Visual", timeout=200}
-  augroup END
-]]
+api.nvim_create_autocmd("TextYankPost", {
+  group = api.nvim_create_augroup("highlight_yank", {}),
+  callback = function()
+    vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
+  end,
+})
 
 for _, mode in ipairs { "n", "v" } do
   for _, key in ipairs { "j", "k", "^" } do

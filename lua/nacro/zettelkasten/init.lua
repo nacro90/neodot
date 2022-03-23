@@ -8,7 +8,7 @@ zk.dir = vim.env.HOME .. "/Zettels"
 
 local function set_cd_autocmd()
   local group = vim.api.nvim_create_augroup("nacro_zettelkasten", {})
-  vim.api.nvim_create_autocmd("BufAdd", {
+  vim.api.nvim_create_autocmd("WinEnter", {
     group = group,
     pattern = ("*%s/*"):format(zk.dir),
     command = "lcd %:h",
