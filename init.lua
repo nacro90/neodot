@@ -135,7 +135,7 @@ require("nacro.howdoi").setup()
 require("nacro.indent_blankline").setup()
 require("nacro.testing").setup()
 require("nacro.clipboard_image").setup()
-require("nacro.git_conflict").setup()
+-- require("nacro.git_conflict").setup()
 
 command("TimestampToDatetime", function(a)
   a = a.args
