@@ -29,6 +29,8 @@ function M.setup()
       img_handler = insert_name_to_md_image,
     },
   }
+
+  vim.keymap.set('n', '<leader>P', '<Cmd>PasteImg<CR>')
 end
 
 return M
