@@ -1,5 +1,4 @@
 local nnoremap = require("nacro.utils.map").nnoremap
-local command = require("nacro.utils.command").command
 
 local vim = vim
 local api = vim.api
@@ -23,6 +22,3 @@ end
 -- Flatten the json and remove the white spaces for oneline sending (e.g Kafka event)
 nnoremap("gL", flatten_buf, bufnr)
 nnoremap("gl", format_buf, bufnr)
-
-command("Flatten", flatten_buf, { buffer = bufnr })
-command("Format", format_buf, { buffer = bufnr })
