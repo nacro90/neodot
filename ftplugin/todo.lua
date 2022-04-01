@@ -8,7 +8,7 @@ opt_local.foldexpr = "getline(v:lnum)[0]=='x'"
 opt_local.foldenable = true
 opt_local.foldlevel = 0
 
-local priority_chars = { "a", "b", "c", "d", "e" }
+local priority_chars = { "a", "b", "c", "d", "e", "f" }
 
 local function line_priority_changer(char)
   return function()
