@@ -6,6 +6,7 @@ local map = require "nacro.utils.map"
 local nnoremap = map.nnoremap
 local inoremap = map.inoremap
 local vnoremap = map.vnoremap
+local xnoremap = map.xnoremap
 
 local api = vim.api
 
@@ -25,7 +26,7 @@ function common.on_attach(client, bufnr)
   nnoremap("<leader>S", telescope_builtin.lsp_dynamic_workspace_symbols, bufnr)
   nnoremap("<leader>s", telescope_builtin.lsp_document_symbols, bufnr)
   nnoremap("<leader>a", telescope_builtin.lsp_code_actions, bufnr)
-  vnoremap("<leader>a", telescope_builtin.lsp_range_code_actions, bufnr)
+  xnoremap("<leader>a", buf.range_code_action, bufnr)
   nnoremap("]d", diagnostic.goto_next, bufnr)
   nnoremap("[d", diagnostic.goto_prev, bufnr)
   nnoremap("g<C-d>", buf.implementation, bufnr)
