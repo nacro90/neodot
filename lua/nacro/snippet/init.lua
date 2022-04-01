@@ -1,7 +1,7 @@
 local M = {}
 
 local luasnip = require "luasnip"
-local vscode_loader = require("luasnip.loaders.from_vscode")
+local vscode_loader = require "luasnip.loaders.from_vscode"
 
 local keymap = vim.keymap
 
@@ -13,7 +13,10 @@ local function jump_back()
 end
 
 local snippet_fts = {
-  "lua", "go", "markdown"
+  "lua",
+  "go",
+  "markdown",
+  "dart",
 }
 
 local function create_custom_snippets_table()
@@ -38,16 +41,20 @@ local function prev_choice()
 end
 
 function M.setup()
-      keymap.set("i", "<C-k>", luasnip.expand_or_jump, {silent=true})
-      keymap.set("i", "<C-j>", jump_back, {silent=true})
-      keymap.set("s", "<C-k>", jump_forward, {silent=true})
-      keymap.set("s", "<C-j>", jump_back, {silent=true})
-      keymap.set("s", "<C-n>", next_choice, {silent=true})
-      keymap.set("s", "<C-p>", prev_choice, {silent=true})
+  keymap.set("i", "<C-k>", luasnip.expand_or_jump, { silent = true })
+  keymap.set("i", "<C-j>", jump_back, { silent = true })
+  keymap.set("s", "<C-k>", jump_forward, { silent = true })
+  keymap.set("s", "<C-j>", jump_back, { silent = true })
+  keymap.set("s", "<C-n>", next_choice, { silent = true })
+  keymap.set("s", "<C-p>", prev_choice, { silent = true })
 
-      luasnip.snippets = create_custom_snippets_table()
+  local ft_snippets = create_custom_snippets_table()
 
-      vscode_loader.lazy_load()
+  for ft, snips in pairs(ft_snippets) do
+    luasnip.add_snippets(ft, snips)
+  end
+
+  vscode_loader.lazy_load()
 end
 
 return M
