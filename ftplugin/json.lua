@@ -9,6 +9,9 @@ local bufnr = api.nvim_get_current_buf()
 
 local function flatten_buf()
   local lines = api.nvim_buf_get_lines(bufnr, 0, -1, true)
+  lines = vim.tbl_map(function(line)
+    return line:gsub("^%s+", ""):gsub("%s+$", "")
+  end, lines)
   local joined = table.concat(lines):gsub("\n", "")
   api.nvim_buf_set_lines(bufnr, 0, -1, true, { joined })
 end
