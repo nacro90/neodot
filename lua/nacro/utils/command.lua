@@ -1,6 +1,6 @@
 local command = {}
 
-local add_user_command = vim.api.nvim_add_user_command
+local add_user_command = vim.api.nvim_create_user_command
 
 command._callbacks = {}
 

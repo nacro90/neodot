@@ -14,7 +14,7 @@ local TRANSLATION_PAIRS = {
 }
 
 function translate.setup()
-  api.nvim_add_user_command("Translate", function(keys)
+  api.nvim_create_user_command("Translate", function(keys)
     local arg = keys.args
     translate.interactive(arg and arg ~= "" and arg)
   end, { nargs = "?" })

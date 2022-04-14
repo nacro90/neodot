@@ -12,7 +12,7 @@ function howdoi.get(arg)
 end
 
 function howdoi.setup()
-  vim.api.nvim_add_user_command("Howdoi", function(keys)
+  vim.api.nvim_create_user_command("Howdoi", function(keys)
     local result = howdoi.get(keys.args)
     print(result)
   end, {
