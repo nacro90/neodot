@@ -57,25 +57,8 @@ return {
     txt { "}" },
     newline(),
     txt { "}" },
-
-    -- [[class {} extends StatefulWidget {{
-    --   const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}({ Key? key }) : super(key: key);",
-    --   "",
-    --   "  @override",
-    --   "  _${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}State createState() => _${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}State();",
-    --   "}",
-    --   "",
-    --   "class _${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}State extends State<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}> {",
-    --   "  @override",
-    --   "  Widget build(BuildContext context) {",
-    --   "    return Container(",
-    --   "      $2",
-    --   "    );",
-    --   "  }",
-    --   "}"
-    --   ]],
   }),
-  snip("kemal", { txt { "mahmut tuncer show" } }),
+  snip("dp", { txt { "debugPrint(" }, ins(0), txt { ");" } }),
 }
 --[[
 class  StatefulWidget {  const ({Key? key}) : super(key: key);
