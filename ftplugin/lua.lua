@@ -29,4 +29,4 @@ local function toggle_local_keyword()
   api.nvim_win_set_cursor(0, cursor)
 end
 
-keymap.set("n", "<leader>ml", toggle_local_keyword)
+keymap.set("n", "<leader>ml", toggle_local_keyword, { buffer = 0 })
