@@ -4,7 +4,7 @@ local configs = require "nvim-treesitter.configs"
 
 function M.setup()
   configs.setup {
-    ensure_installed = "maintained",
+    ensure_installed = "all",
     highlight = { enable = true, disable = { "markdown" } },
     textobjects = {
       select = {
