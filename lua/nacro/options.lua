@@ -10,8 +10,8 @@ function options.setup()
   opt.termguicolors = true
   opt.syntax = "enable"
   opt.cursorline = true
-  opt.number = false
-  opt.relativenumber = false
+  opt.number = true
+  opt.relativenumber = true
   opt.hidden = true
   opt.wrap = false
   opt.linebreak = true
