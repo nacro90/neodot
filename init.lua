@@ -68,7 +68,7 @@ api.nvim_create_autocmd("TextYankPost", {
 
 for _, mode in ipairs { "n", "v" } do
   for _, key in ipairs { "j", "k", "^" } do
-    keymap.set(mode, key, "g" .. key, { remap = true })
+    keymap.set(mode, key, "g" .. key, { remap = true, silent = true })
   end
 end
 
@@ -107,6 +107,11 @@ command("RenameBuffer", function(arg)
 end, {
   nargs = "?",
 })
+
+vim.keymap.set("x", "il", "g_o^")
+vim.keymap.set("o", "il", "<Cmd>normal vil<CR>")
+vim.keymap.set("x", "al", "$o^")
+vim.keymap.set("o", "al", "<Cmd>normal val<CR>")
 
 nnoremap("-", "<Nop>")
 
