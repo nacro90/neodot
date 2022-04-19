@@ -48,6 +48,8 @@ function common.on_attach(client, bufnr)
 
   require("aerial").on_attach(client)
 
+  require("lsp_signature").on_attach(client, bufnr)
+
   -- if client.resolved_capabilities.code_lens then
   --   require("virtualtypes").on_attach()
   -- end

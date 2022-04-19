@@ -413,6 +413,7 @@ local plugin_table = {
       }
     end,
   },
+  "/ray-x/lsp_signature.nvim",
   {
     "junegunn/gv.vim",
     requires = "tpope/vim-fugitive",
