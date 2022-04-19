@@ -95,7 +95,6 @@ function options.setup()
     foldopen = "┍",
     foldclose = "≡",
   }
-  opt.number = false
   opt.breakindent = true
   opt.breakindentopt = {
     "sbr",
