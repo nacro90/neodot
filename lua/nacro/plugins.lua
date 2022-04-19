@@ -114,6 +114,7 @@ local plugin_table = {
       )
     end,
   },
+  "p00f/nvim-ts-rainbow",
   {
     "mfussenegger/nvim-jdtls",
   },

@@ -30,6 +30,10 @@ function M.setup()
     },
     indent = { enable = false },
     autotag = { enable = true },
+    rainbow = {
+      enable = true,
+      disable = { "go", "python", "lua" },
+    },
   }
 end
 
