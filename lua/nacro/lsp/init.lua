@@ -34,6 +34,7 @@ function lsp.setup()
     "gopls",
     "yamlls",
     "tsserver",
+    "kotlin_language_server",
   }
 
   for _, lspconfig_name in ipairs(lspconfig_names) do
