@@ -76,7 +76,7 @@ end
 
 local function set_keymaps()
   nnoremap("<leader>N", function()
-    builtin.find_files { hidden = true }
+    builtin.find_files { hidden = true, no_ignore = true }
   end)
   nnoremap("<leader>n", builtin.find_files)
 
