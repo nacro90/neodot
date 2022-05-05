@@ -49,12 +49,16 @@ return function()
   highlight("CmpItemKindFolder", "String")
   highlight("CmpItemKindFile", "Normal")
 
+  highlight("NvimTreeOpenedFolderName", { gui = "bold", guifg = "#569cd6" })
+
   highlight("TelescopeMatching", "Identifier")
   highlight("TelescopeBorder", "NonText")
   highlight("TelescopeTitle", "Normal")
 
   highlight("LspDiagnosticsUnderlineError", { cterm = "underline", gui = "underline" })
   highlight("LspDiagnosticsUnderlineWarning", { cterm = "underline", gui = "underline" })
+
+  highlight("FlutterWidgetGuides", "NonText")
 
   highlight("CursorLine", { guibg = "#252525" })
   highlight("CursorLineNr", { guibg = "#252525" })
@@ -71,7 +75,7 @@ return function()
 
   highlight("TodoDone", "NonText")
 
-  highlight("IndentBlanklineChar", { guibg = "NONE", guifg = "#333333", gui='nocombine' })
+  highlight("IndentBlanklineChar", { guibg = "NONE", guifg = "#333333", gui = "nocombine" })
   -- highlight("IndentBlanklineContextChar", { guibg = "NONE", guifg = "#7a7a7a" })
 
   highlight("Title", "TSStrong")
