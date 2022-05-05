@@ -16,6 +16,9 @@ function M.setup()
     lsp = {
       on_attach = common.on_attach,
     },
+    widget_guides = {
+      enabled = true,
+    },
   }
 end
 
