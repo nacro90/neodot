@@ -157,6 +157,7 @@ local plugin_table = {
     requires = "nvim-lua/plenary.nvim",
     disable = false,
   },
+  "TimUntersberger/neogit",
   {
     -- Easy text exchange operator for Vim
     "tommcdo/vim-exchange",
@@ -379,10 +380,6 @@ local plugin_table = {
   {
     "tpope/vim-fugitive",
     cmd = "Git",
-    setup = function()
-      vim.api.nvim_set_keymap("n", "<leader>G", "<Cmd>Git commit<CR>", { noremap = true })
-      vim.api.nvim_set_keymap("n", "<leader>g", "<Cmd>Git<CR>", { noremap = true })
-    end,
   },
   {
     "hrsh7th/nvim-cmp",
@@ -398,22 +395,6 @@ local plugin_table = {
       "dmitmel/cmp-cmdline-history",
     },
   },
-  {
-    "TimUntersberger/neogit",
-    disable = true,
-    config = function()
-      require("neogit").setup {
-        disable_context_highlighting = true,
-        disable_commit_confirmation = true,
-        signs = {
-          section = { "▪", "-" },
-          item = { "▪", "-" },
-          hunk = { "▪", "-" },
-        },
-      }
-    end,
-  },
-  "/ray-x/lsp_signature.nvim",
   {
     "junegunn/gv.vim",
     requires = "tpope/vim-fugitive",
