@@ -23,9 +23,9 @@ local function new_line_starter(offset)
 end
 
 for _, key in ipairs(priority_chars) do
-  keymap.set("n", "," .. key, line_priority_changer(key))
+  keymap.set("n", "," .. key, line_priority_changer(key), { buffer = true })
 end
-keymap.set("n", ",,", line_priority_changer())
+keymap.set("n", ",,", line_priority_changer(), { buffer = true })
 
 keymap.set("n", "o", new_line_starter(1), { buffer = true })
 keymap.set("n", "O", new_line_starter(0), { buffer = true })
