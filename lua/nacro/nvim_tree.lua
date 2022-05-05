@@ -52,6 +52,19 @@ function nacro_nvim_tree.setup()
     folder_arrows = 0,
   }
 
+  vim.g.nvim_tree_icons = {
+    folder = {
+      arrow_open = "",
+      arrow_closed = "",
+      default = "▪",
+      open = "-",
+      empty = "▫",
+      empty_open = "-",
+      symlink = "▸",
+      symlink_open = "▼",
+    },
+  }
+
   local tree_cb = require("nvim-tree.config").nvim_tree_callback
 
   require("nvim-tree").setup {
