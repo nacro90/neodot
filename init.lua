@@ -35,6 +35,7 @@ command("WQ", "wq")
 nnoremap("<leader>ef", require("nacro.functions").configure_filetype)
 
 nmap("<leader>", "<Nop>")
+nmap("<CR>", "<Nop>")
 
 inoremap("<A-h>", "<Del>")
 
