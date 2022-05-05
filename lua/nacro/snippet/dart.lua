@@ -15,6 +15,8 @@ local dyn = luasnip.dynamic_node
 
 return {
   snip("stful", {
+    txt {"import 'package:flutter/material.dart';"},
+    newline(2),
     txt { "class " },
     ins(1),
     txt { " extends StatefulWidget {" },
