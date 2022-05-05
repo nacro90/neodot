@@ -58,7 +58,6 @@ function nacro_nvim_tree.setup()
     update_cwd = true,
     view = {
       width = 30,
-      auto_resize = true,
       mappings = {
         -- custom only false will merge the list with the default mappings
         -- if true, it will only use your list to set the mappings
