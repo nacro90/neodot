@@ -67,6 +67,7 @@ local plugin_table = {
   { "frenzyexists/aquarium-vim" },
   "Mangeshrex/uwu.vim",
 
+  "NoahTheDuke/vim-just",
   "freitass/todo.txt-vim",
   "rafcamlet/nvim-luapad",
   "shaeinst/roshnivim-cs",
