@@ -242,7 +242,6 @@ local plugin_table = {
   "tpope/vim-repeat",
   "tpope/vim-eunuch",
   "jose-elias-alvarez/null-ls.nvim",
-  "justinmk/vim-dirvish",
   {
     "L3MON4D3/LuaSnip",
     requires = "rafamadriz/friendly-snippets",
