@@ -1,14 +1,9 @@
 local common = {}
 
 local telescope_builtin = require "telescope.builtin"
-local map = require "nacro.utils.map"
-
-local nnoremap = map.nnoremap
-local inoremap = map.inoremap
-local vnoremap = map.vnoremap
-local xnoremap = map.xnoremap
 
 local api = vim.api
+local keymap = vim.keymap
 
 function common.on_attach(client, bufnr)
   local buf = vim.lsp.buf
@@ -18,24 +13,24 @@ function common.on_attach(client, bufnr)
     vim.diagnostic.open_float(bufnr, { scope = "line" })
   end
 
-  nnoremap("<leader>u", telescope_builtin.lsp_references, bufnr)
-  nnoremap("<leader>i", telescope_builtin.lsp_implementations, bufnr)
-  nnoremap("gd", buf.definition, bufnr)
-  nnoremap("<C-k>", buf.hover, bufnr)
-  nnoremap("<C-j>", show_line_diagnostics, bufnr)
-  nnoremap("<leader>s", telescope_builtin.lsp_dynamic_workspace_symbols, bufnr)
-  nnoremap("<leader>S", telescope_builtin.lsp_document_symbols, bufnr)
-  nnoremap("<leader>a", telescope_builtin.lsp_code_actions, bufnr)
-  xnoremap("<leader>a", buf.range_code_action, bufnr)
-  nnoremap("]d", diagnostic.goto_next, bufnr)
-  nnoremap("[d", diagnostic.goto_prev, bufnr)
-  nnoremap("g<C-d>", buf.implementation, bufnr)
-  nnoremap("<C-q>", buf.signature_help, bufnr)
-  inoremap("<C-q>", buf.signature_help, bufnr)
-  nnoremap("1gD", buf.type_definition, bufnr)
-  nnoremap("gl", buf.formatting, bufnr)
-  vnoremap("gl", buf.range_formatting, bufnr)
-  nnoremap("<leader>r", buf.rename, bufnr)
+  keymap.set("n", "<leader>u", telescope_builtin.lsp_references, { buffer = bufnr })
+  keymap.set("n", "<leader>i", telescope_builtin.lsp_implementations, { buffer = bufnr })
+  keymap.set("n", "gd", buf.definition, { buffer = bufnr })
+  keymap.set("n", "<C-k>", buf.hover, { buffer = bufnr })
+  keymap.set("n", "<C-j>", show_line_diagnostics, { buffer = bufnr })
+  keymap.set("n", "<leader>s", telescope_builtin.lsp_dynamic_workspace_symbols, { buffer = bufnr })
+  keymap.set("n", "<leader>S", telescope_builtin.lsp_document_symbols, { buffer = bufnr })
+  keymap.set("n", "<leader>a", buf.code_action, { buffer = bufnr })
+  keymap.set("x", "<leader>a", buf.range_code_action, { buffer = bufnr })
+  keymap.set("n", "]d", diagnostic.goto_next, { buffer = bufnr })
+  keymap.set("n", "[d", diagnostic.goto_prev, { buffer = bufnr })
+  keymap.set("n", "g<C-d>", buf.implementation, { buffer = bufnr })
+  keymap.set("n", "<C-q>", buf.signature_help, { buffer = bufnr })
+  keymap.set("i", "<C-q>", buf.signature_help, { buffer = bufnr })
+  keymap.set("n", "1gD", buf.type_definition, { buffer = bufnr })
+  keymap.set("n", "gl", buf.formatting, { buffer = bufnr })
+  keymap.set("v", "gl", buf.range_formatting, { buffer = bufnr })
+  keymap.set("n", "<leader>r", buf.rename, { buffer = bufnr })
 
   -- cmd [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
   -- cmd [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
