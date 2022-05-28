@@ -44,27 +44,6 @@ function nacro_nvim_tree.on_cursor_moved()
 end
 
 function nacro_nvim_tree.setup()
-  vim.g.nvim_tree_group_empty = 1
-  vim.g.nvim_tree_show_icons = {
-    git = 0,
-    folders = 1,
-    files = 1,
-    folder_arrows = 0,
-  }
-
-  vim.g.nvim_tree_icons = {
-    folder = {
-      arrow_open = "",
-      arrow_closed = "",
-      default = "▪",
-      open = "-",
-      empty = "▫",
-      empty_open = "-",
-      symlink = "▸",
-      symlink_open = "▼",
-    },
-  }
-
   local tree_cb = require("nvim-tree.config").nvim_tree_callback
 
   require("nvim-tree").setup {
@@ -84,12 +63,33 @@ function nacro_nvim_tree.setup()
         },
       },
     },
+    renderer = {
+      group_empty = true,
+      icons = {
+        show = {
+          file = true,
+          folder = true,
+          folder_arrow = false,
+          git = false,
+        },
+        glyphs = {
+          folder = {
+            arrow_open = "",
+            arrow_closed = "",
+            default = "▪",
+            open = "-",
+            empty = "▫",
+            empty_open = "-",
+            symlink = "▸",
+            symlink_open = "▼",
+          },
+        },
+      },
+    },
   }
 
   nnoremap("<leader>f", nvim_tree.toggle)
-  nnoremap("<leader>F", function()
-    nvim_tree.find_file()
-  end)
+  nnoremap("<leader>F", nvim_tree.find_file)
 
   nacro_nvim_tree.setup_events()
 end
