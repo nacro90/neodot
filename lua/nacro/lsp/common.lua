@@ -28,7 +28,9 @@ function common.on_attach(client, bufnr)
   keymap.set("n", "<C-q>", buf.signature_help, { buffer = bufnr })
   keymap.set("i", "<C-q>", buf.signature_help, { buffer = bufnr })
   keymap.set("n", "1gD", buf.type_definition, { buffer = bufnr })
-  keymap.set("n", "gl", buf.formatting, { buffer = bufnr })
+  keymap.set("n", "gl", function()
+    buf.format { async = true }
+  end, { buffer = bufnr })
   keymap.set("v", "gl", buf.range_formatting, { buffer = bufnr })
   keymap.set("n", "<leader>r", buf.rename, { buffer = bufnr })
 
