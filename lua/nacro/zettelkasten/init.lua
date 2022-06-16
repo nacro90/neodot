@@ -12,7 +12,7 @@ local function set_cd_autocmd()
     group = group,
     pattern = ("*%s/*"):format(zk.dir),
     command = "lcd %:h",
-    desc = "Sets the cwd of the current window to the parent of the buffer in order to save images to parent static folder",
+    desc = "In order to save images to parent static folder, sets lcd to parent folder",
   })
 end
 
