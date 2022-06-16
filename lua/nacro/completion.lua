@@ -29,17 +29,18 @@ function completion.setup()
       { name = "luasnip" },
       { name = "path" },
       { name = "buffer", keyword_length = 5 },
+      -- { name = "digraphs", group_index = 2 },
       { name = "emoji", keyword_length = 3, options = { insert = true } },
       { name = "neorg" },
     },
     experimental = {
-      ghost_text = false,
+      ghost_text = true,
     },
     preselect = cmp.PreselectMode.Item,
     formatting = {
       format = create_lspkind_formetter(),
     },
-    mapping = {
+    mapping = cmp.mapping.preset.insert {
       ["<C-n>"] = cmp.mapping(function()
         if luasnip_exists and luasnip.choice_active() then
           luasnip.change_choice(1)
@@ -73,6 +74,7 @@ function completion.setup()
     sources = {
       { name = "buffer" },
     },
+    mapping = cmp.mapping.preset.cmdline(),
   }
   -- setup has a metatable that can be called and can be used as a table
   ---@diagnostic disable-next-line: undefined-field
@@ -86,6 +88,7 @@ function completion.setup()
       { name = "path" },
       { name = "cmdline_history" },
     },
+    mapping = cmp.mapping.preset.cmdline(),
   })
 end
 
