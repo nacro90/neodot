@@ -58,7 +58,7 @@ end
 local function load_extensions()
   local exts = {
     "fzy_native",
-    "frecency",
+    -- "frecency",
     "fzf",
     "dap",
     "workspaces",
