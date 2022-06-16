@@ -2,12 +2,10 @@ local nacro_nvim_tree = {}
 
 local ps = require "plenary.strings"
 
-local map = require "nacro.utils.map"
 local nvim_tree = require "nvim-tree"
 
 local cmd = vim.cmd
 local api = vim.api
-local nnoremap = map.nnoremap
 
 function nacro_nvim_tree.setup_events()
   cmd [[
@@ -88,8 +86,8 @@ function nacro_nvim_tree.setup()
     },
   }
 
-  nnoremap("<leader>f", nvim_tree.toggle)
-  nnoremap("<leader>F", nvim_tree.find_file)
+  vim.keymap.set("n", "<leader>f", nvim_tree.toggle)
+  vim.keymap.set("n", "<leader>F", nvim_tree.find_file)
 
   nacro_nvim_tree.setup_events()
 end
