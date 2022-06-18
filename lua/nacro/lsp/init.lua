@@ -9,6 +9,7 @@ local common = require "nacro.lsp.common"
 local lua = require "nacro.lsp.lua"
 local null = require "nacro.lsp.null"
 local java = require "nacro.lsp.java"
+local go = require "nacro.lsp.go"
 
 function lsp.setup()
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -23,6 +24,7 @@ function lsp.setup()
   lua.setup()
   null.setup()
   java.setup()
+  go.setup()
 
   local lspconfig_names = {
     "hls",
@@ -31,7 +33,6 @@ function lsp.setup()
     "pyright",
     "flow",
     "svelte",
-    "gopls",
     "yamlls",
     "tsserver",
     "kotlin_language_server",

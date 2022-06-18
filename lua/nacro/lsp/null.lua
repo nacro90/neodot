@@ -16,6 +16,7 @@ function null.setup()
       formatters.isort,
       formatters.shfmt,
       formatters.json_tool,
+      formatters.golines,
 
       diagnostics.shellcheck,
       diagnostics.vint,
