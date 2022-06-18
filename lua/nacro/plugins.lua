@@ -267,7 +267,6 @@ local plugin_table = {
     requires = { "vim-test/vim-test" },
     run = ":UpdateRemotePlugins",
   },
-  { "nvim-telescope/telescope-dap.nvim", requires = "nvim-lua/telescope.nvim" },
   {
     "nvim-lua/telescope.nvim",
     disable = false,
@@ -346,11 +345,14 @@ local plugin_table = {
   "mfussenegger/nvim-dap",
   {
     "theHamsta/nvim-dap-virtual-text",
-    config = function()
-      require("nvim-dap-virtual-text").setup()
-    end,
+    requires = "mfussenegger/nvim-dap",
   },
-  { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } },
+  { "rcarriga/nvim-dap-ui", requires = "mfussenegger/nvim-dap" },
+  { "leoluz/nvim-dap-go", requires = "mfussenegger/nvim-dap" },
+  {
+    "nvim-telescope/telescope-dap.nvim",
+    requires = { "nvim-lua/telescope.nvim", "mfussenegger/nvim-dap" },
+  },
   {
     "lewis6991/gitsigns.nvim",
     requires = "nvim-lua/plenary.nvim",
