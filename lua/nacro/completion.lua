@@ -31,7 +31,6 @@ function completion.setup()
       { name = "buffer", keyword_length = 5 },
       -- { name = "digraphs", group_index = 2 },
       { name = "emoji", keyword_length = 3, options = { insert = true } },
-      { name = "neorg" },
     },
     experimental = {
       ghost_text = true,
