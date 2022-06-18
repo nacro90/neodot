@@ -79,4 +79,6 @@ return function()
   -- highlight("IndentBlanklineContextChar", { guibg = "NONE", guifg = "#7a7a7a" })
 
   highlight("Title", "TSStrong")
+
+  highlight("Hlargs", "Special")
 end

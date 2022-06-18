@@ -153,6 +153,8 @@ end, {
 nnoremap("<leader>>", "<Cmd>tabmove +<CR>")
 nnoremap("<leader><lt>", "<Cmd>tabmove -<CR>")
 
+require("hlargs").setup()
+
 --
 --------------------------------------------------
 --

@@ -119,6 +119,10 @@ local plugin_table = {
   {
     "mfussenegger/nvim-jdtls",
   },
+  {
+    "m-demare/hlargs.nvim",
+    requires = "nvim-treesitter/nvim-treesitter",
+  },
   "nanotee/luv-vimdocs",
   "milisims/nvim-luaref",
   {
