@@ -1,3 +1,5 @@
+local highlight = require "nacro.utils.highlight"
+
 local opt_local = vim.opt_local
 local keymap = vim.keymap
 
@@ -14,6 +16,8 @@ opt_local.wrap = true
 opt_local.linebreak = true
 
 keymap.set("n", "<leader>x", "<Cmd>normal! 0f[lrX<CR>", {buffer = true})
+
+highlight("mkdLineBreak", { guibg = "NONE" })
 
 --[[
 set iskeyword+=-
