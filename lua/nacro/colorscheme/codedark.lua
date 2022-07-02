@@ -81,4 +81,8 @@ return function()
   highlight("Title", "TSStrong")
 
   highlight("Hlargs", "Special")
+
+  highlight("LspReferenceText", "Underlined")
+  highlight("LspReferenceWrite", "Underlined")
+  highlight("LspReferenceRead", "Underlined")
 end

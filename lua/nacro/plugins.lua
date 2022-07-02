@@ -200,6 +200,7 @@ local plugin_table = {
     "windwp/nvim-ts-autotag",
     requires = "nvim-treesitter/nvim-treesitter",
   },
+  "RRethy/vim-illuminate",
   {
     "NTBBloodbath/rest.nvim",
     requires = { "nvim-lua/plenary.nvim" },

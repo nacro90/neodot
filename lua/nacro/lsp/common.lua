@@ -1,11 +1,12 @@
 local common = {}
 
 local telescope_builtin = require "telescope.builtin"
+local saferequire = require("nacro.utils.module").saferequire
 
 local api = vim.api
 local keymap = vim.keymap
 
-function common.on_attach(client, bufnr)
+local function setup_keymaps(bufnr)
   local buf = vim.lsp.buf
   local diagnostic = vim.diagnostic
 
@@ -33,23 +34,34 @@ function common.on_attach(client, bufnr)
   end, { buffer = bufnr })
   keymap.set("v", "gl", buf.range_formatting, { buffer = bufnr })
   keymap.set("n", "<leader>r", buf.rename, { buffer = bufnr })
+end
 
-  -- cmd [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
-  -- cmd [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
-  -- cmd [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
-  -- cmd [[autocmd CursorMovedI <buffer> lua vim.lsp.buf.clear_references()]]
-  -- cmd [[autocmd InsertEnter <buffer> lua vim.lsp.buf.clear_references()]]
-  -- cmd [[autocmd TextChanged <buffer> lua vim.lsp.buf.clear_references()]]
+local function setup_illuminate(client)
+  saferequire("illuminate", function(illuminate)
+    illuminate.on_attach(client)
+  end)
+end
 
+local function setup_aerial(client)
+  saferequire("aerial", function(aerial)
+    aerial.on_attach(client)
+  end)
+end
+
+local function setup_lsp_signature(client, bufnr)
+  saferequire("lsp_signature", function(lsp_signature)
+    lsp_signature.on_attach(client, bufnr)
+  end)
+end
+
+function common.on_attach(client, bufnr)
   api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-  require("aerial").on_attach(client)
+  setup_keymaps(bufnr)
 
-  require("lsp_signature").on_attach(client, bufnr)
-
-  -- if client.resolved_capabilities.code_lens then
-  --   require("virtualtypes").on_attach()
-  -- end
+  setup_illuminate(client)
+  setup_aerial(client)
+  setup_lsp_signature(client, bufnr)
 end
 
 function common.create_lsp_capabilities()
