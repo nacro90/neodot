@@ -340,6 +340,13 @@ local plugin_table = {
   "natecraddock/workspaces.nvim",
   "mfussenegger/nvim-dap",
   {
+    "max397574/colortils.nvim",
+    cmd = "Colortils",
+    config = function()
+      require("colortils").setup()
+    end,
+  },
+  {
     "theHamsta/nvim-dap-virtual-text",
     requires = "mfussenegger/nvim-dap",
   },
@@ -372,6 +379,7 @@ local plugin_table = {
       "dmitmel/cmp-cmdline-history",
     },
   },
+  "norcalli/nvim-colorizer.lua",
   {
     "junegunn/gv.vim",
     requires = "tpope/vim-fugitive",
@@ -384,6 +392,8 @@ local plugin_table = {
     end,
     cmd = "UndotreeToggle",
   },
+  { "dmitmel/cmp-digraphs", requires = "hrsh7th/nvim-cmp" },
+  "ray-x/lsp_signature.nvim",
   {
     localized "nacro90/numb.nvim",
     disable = false,

@@ -141,7 +141,7 @@ require("nacro.indent_blankline").setup()
 require("nacro.testing").setup()
 require("nacro.clipboard_image").setup()
 require("nacro.neogit").setup()
--- require("nacro.git_conflict").setup()
+require("nacro.colorizer").setup()
 
 command("TimestampToDatetime", function(a)
   a = a.args
