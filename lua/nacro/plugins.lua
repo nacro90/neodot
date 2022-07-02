@@ -336,6 +336,7 @@ local plugin_table = {
     "kyazdani42/nvim-tree.lua",
     requires = { "kyazdani42/nvim-web-devicons" },
   },
+  "renerocksai/telekasten.nvim",
   {
     "famiu/bufdelete.nvim",
     setup = function()

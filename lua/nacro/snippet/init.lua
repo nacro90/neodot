@@ -15,7 +15,7 @@ end
 local snippet_fts = {
   "lua",
   "go",
-  "markdown",
+  "telekasten",
   "dart",
 }
 
