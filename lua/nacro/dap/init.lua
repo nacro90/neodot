@@ -43,6 +43,7 @@ local function setup_keymaps()
   })
   vim.keymap.set("n", "<leader>dq", dap.terminate)
   vim.keymap.set("n", "<leader>dc", dap.clear_breakpoints)
+  vim.keymap.set("n", "<leader>du", dap_ui.toggle)
 end
 
 local function setup_dap_ui()

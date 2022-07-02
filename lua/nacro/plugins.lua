@@ -106,13 +106,6 @@ local plugin_table = {
         },
         use_lsp_diagnostic_signs = true,
       }
-
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>dd",
-        "<Cmd>LspTroubleToggle<CR>",
-        { silent = true, noremap = true }
-      )
     end,
   },
   "p00f/nvim-ts-rainbow",
