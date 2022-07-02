@@ -66,7 +66,6 @@ local function load_extensions()
     "tldr",
     "bookmarks",
     "ui-select",
-    "flutter",
   }
 
   for _, ext in ipairs(exts) do
