@@ -170,8 +170,6 @@ local plugin_table = {
       require("surround").setup { mappings_style = "surround" }
     end,
   },
-  "akinsho/flutter-tools.nvim",
-  -- "akinsho/git-conflict.nvim",
   {
     "junegunn/vim-easy-align",
     disable = false,
