@@ -77,7 +77,13 @@ local function set_keymaps()
   nnoremap("<leader>N", function()
     builtin.find_files { hidden = true, no_ignore = true }
   end)
-  nnoremap("<leader>n", builtin.find_files)
+  nnoremap("<leader>n", function()
+    if vim.fn.getcwd() == vim.env.HOME then
+      print "You are in $HOME"
+      return
+    end
+    builtin.find_files()
+  end)
 
   nnoremap("<leader>en", function()
     builtin.find_files { cwd = vim.fn.stdpath "config" }
