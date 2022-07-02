@@ -69,12 +69,12 @@ function java.on_java_opened()
       "-data",
       get_workspace(),
 
-      -- "-noverify",
-      -- "-Xmx1G",
-      -- "-XX:+UseG1GC",
-      -- "-XX:+UseStringDeduplication",
+      "-noverify",
+      "-Xmx1G",
+      "-XX:+UseG1GC",
+      "-XX:+UseStringDeduplication",
       "-javaagent:/Users/orcan.tiryakioglu/.local/share/lombok/lombok.jar",
-      "-Xbootclasspath/p:/Users/orcan.tiryakioglu/.local/share/lombok/lombok.jar",
+      "-Xbootclasspath/a:/Users/orcan.tiryakioglu/.local/share/lombok/lombok.jar",
     },
     on_attach = on_jdtls_attached,
   }
