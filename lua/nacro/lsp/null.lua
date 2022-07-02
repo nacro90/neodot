@@ -16,10 +16,14 @@ function null.setup()
       formatters.isort,
       formatters.shfmt,
       formatters.json_tool,
+
       formatters.golines,
+      formatters.goimports,
+      formatters.gofumpt,
 
       diagnostics.shellcheck,
       diagnostics.vint,
+      diagnostics.staticcheck,
 
       code_actions.gitrebase,
     },
