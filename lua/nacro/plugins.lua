@@ -113,6 +113,10 @@ local plugin_table = {
     "mfussenegger/nvim-jdtls",
   },
   {
+    "anuvyklack/hydra.nvim",
+    requires = "anuvyklack/keymap-layer.nvim", -- needed only for pink hydras
+  },
+  {
     "m-demare/hlargs.nvim",
     requires = "nvim-treesitter/nvim-treesitter",
   },
