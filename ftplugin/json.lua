@@ -5,6 +5,9 @@ local api = vim.api
 local cmd = vim.cmd
 local fn = vim.fn
 
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+
 local bufnr = api.nvim_get_current_buf()
 
 local function flatten_buf()
