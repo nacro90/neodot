@@ -21,7 +21,10 @@ end
 
 local function format_buf()
   -- jq is way faster than builtin python json formatting
-  local formatter = fn.executable "jq" == 1 and "jq --indent 4" or "python -m json.tool"
+  local indent = vim.v.count ~= 0 and vim.v.count or 2
+  local jq_cmd = ("jq --indent %d"):format(math.min(indent, 7))
+  local py_cmd = ("python -m json.tool --indent %d"):format(indent)
+  local formatter = fn.executable "jq" == 1 and jq_cmd or py_cmd
   cmd("%!" .. formatter)
 end
 
