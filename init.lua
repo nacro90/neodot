@@ -155,4 +155,6 @@ nnoremap("<leader><lt>", "<Cmd>tabmove -<CR>")
 
 require("hlargs").setup()
 
+vim.keymap.set("n", "<BS>", "<NOP>", {})
+
 vim.g.ultest_deprecation_notice = 0
