@@ -44,3 +44,9 @@ vim.cmd [[
       autocmd BufWritePre <buffer> silent! sort
   augroup end
 ]]
+
+local function sort()
+  vim.cmd "silent! sort"
+end
+
+keymap.set("n", "gl", sort, { buffer = true })
