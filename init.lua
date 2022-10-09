@@ -1,5 +1,4 @@
 require("nacro.options").setup()
-require "nacro.globals"
 
 local command = require "nacro.utils.command"
 local map = require "nacro.utils.map"
