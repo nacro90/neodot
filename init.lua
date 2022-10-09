@@ -1,17 +1,13 @@
-require("nacro.options").setup()
+require "nacro.options"
 
 local command = require "nacro.utils.command"
 local map = require "nacro.utils.map"
 
 local nnoremap = map.nnoremap
-local inoremap = map.inoremap
-local tnoremap = map.tnoremap
-local cnoremap = map.cnoremap
 local xmap = map.xmap
 local nmap = map.nmap
 
 -- local placeholders to improve performance
-local cmd = vim.cmd
 local api = vim.api
 local fn = vim.fn
 local keymap = vim.keymap
@@ -19,7 +15,7 @@ local keymap = vim.keymap
 require("nacro.plugins").setup()
 
 command("LuaHas", function(keys)
-  print(vim.inspect(pcall(require, keys.args)))
+  vim.notify(vim.inspect(pcall(require, keys.args)))
 end, { nargs = 1 })
 
 command("RemoveTrailingWhitespace", [[%substitute/\s\+$//]], { nargs = 0 })
@@ -36,28 +32,17 @@ nnoremap("<leader>ef", require("nacro.functions").configure_filetype)
 nmap("<leader>", "<Nop>")
 nmap("<CR>", "<Nop>")
 
-inoremap("<A-h>", "<Del>")
-
-nnoremap("<leader>T", "<Cmd>tabedit | terminal<CR>")
-nnoremap("<C-Space><C-m>", "<Cmd>tabedit | terminal<CR>")
-tnoremap("<C-Space><C-m>", "<Cmd>tabedit | terminal<CR>")
+keymap.set("i", "<C-l>", "<Del>")
 
 keymap.set("c", "%%", require("nacro.functions").expand_percentage_if_in_command, { expr = true })
 
 xmap("s", "<Esc>lys`<")
 
-tnoremap("<Esc><Esc>", [[<C-\><C-n>]])
 
 -- (') can be very annoying when it can not do the (`)
 nmap("'", "`")
 
 nnoremap("zz", "zzzH")
-
-api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
-  group = api.nvim_create_augroup("nacro_terminal", {}),
-  pattern = "term://*",
-  command = "setlocal nonumber norelativenumber",
-})
 
 api.nvim_create_autocmd("TextYankPost", {
   group = api.nvim_create_augroup("highlight_yank", {}),
@@ -66,10 +51,8 @@ api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-for _, mode in ipairs { "n", "v" } do
-  for _, key in ipairs { "j", "k", "^" } do
-    keymap.set(mode, key, "g" .. key, { remap = true, silent = true })
-  end
+for _, key in ipairs { "j", "k", "^" } do
+  keymap.set({ "n", "v" }, key, "g" .. key, { remap = true, silent = true })
 end
 
 for _, mode in pairs { "i", "n", "v" } do
@@ -77,8 +60,6 @@ for _, mode in pairs { "i", "n", "v" } do
 end
 
 -- cmd('autocmd! BufWritePost plugins.lua execute "Reload" | PackerCompile')
-
-vim.api.nvim_create_user_command("PU", "PackerUpdate", {})
 
 nnoremap("<C-w>n", "<Cmd>vertical new<CR>")
 nnoremap("<C-w><C-n>", "<Cmd>vertical new<CR>")
@@ -90,7 +71,7 @@ nnoremap("yoc", "<Cmd>setlocal cursorline!<CR>")
 keymap.set("n", "yos", "<Cmd>setlocal spell!<CR>")
 
 command("LspAttached", function()
-  print(#vim.lsp.buf_get_clients() > 0)
+  vim.notify(#vim.lsp.get_active_clients { bufnr = 0 } > 0)
 end)
 
 command("RenameBuffer", function(arg)

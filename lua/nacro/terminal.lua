@@ -2,6 +2,12 @@ local terminal = {}
 
 local opt_local = vim.opt_local
 local api = vim.api
+local keymap = vim.keymap
+
+local function setup_keymaps()
+  keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]])
+  keymap.set({ "n", "t" }, "<C-Space><C-m>", "<Cmd>tabedit | terminal<CR>")
+end
 
 local function on_term_open()
   opt_local.sidescrolloff = 0
@@ -11,7 +17,7 @@ local function on_term_open()
   vim.cmd "startinsert"
 end
 
-local function create_autocmds()
+local function setup_autocmds()
   local group = api.nvim_create_augroup("terminal_setup", {})
   api.nvim_create_autocmd("TermOpen", {
     group = group,
@@ -21,7 +27,8 @@ local function create_autocmds()
 end
 
 function terminal.setup()
-  create_autocmds()
+  setup_keymaps()
+  setup_autocmds()
 end
 
 return terminal
