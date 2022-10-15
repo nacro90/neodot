@@ -266,6 +266,15 @@ local plugin_table = {
   "nvim-lua/plenary.nvim",
   "vim-test/vim-test",
   {
+    "nvim-neotest/neotest",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      'nvim-neotest/neotest-go',
+    }
+  },
+  {
     "rcarriga/vim-ultest",
     requires = { "vim-test/vim-test" },
     run = ":UpdateRemotePlugins",

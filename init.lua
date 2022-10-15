@@ -123,6 +123,7 @@ require("nacro.clipboard_image").setup()
 require("nacro.surround").setup()
 require("nacro.neogit").setup()
 require("nacro.colorizer").setup()
+require("nacro.neotest").setup()
 
 command("TimestampToDatetime", function(a)
   a = a.args
