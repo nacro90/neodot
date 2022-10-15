@@ -169,10 +169,13 @@ local plugin_table = {
     end,
   },
   {
-    "blackCauldron7/surround.nvim",
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
     config = function()
-      require("surround").setup { mappings_style = "surround" }
-    end,
+      require("nvim-surround").setup {
+        -- Configuration here, or leave empty to use defaults
+      }
+    end
   },
   {
     "junegunn/vim-easy-align",

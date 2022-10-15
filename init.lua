@@ -120,6 +120,7 @@ require("nacro.howdoi").setup()
 require("nacro.indent_blankline").setup()
 require("nacro.testing").setup()
 require("nacro.clipboard_image").setup()
+require("nacro.surround").setup()
 require("nacro.neogit").setup()
 require("nacro.colorizer").setup()
 
