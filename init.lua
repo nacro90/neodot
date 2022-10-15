@@ -34,6 +34,8 @@ nmap("<CR>", "<Nop>")
 
 keymap.set("i", "<C-l>", "<Del>")
 
+keymap.set("i", "<C-a>", "<Esc>ggvG")
+
 keymap.set("c", "%%", require("nacro.functions").expand_percentage_if_in_command, { expr = true })
 
 xmap("s", "<Esc>lys`<")
