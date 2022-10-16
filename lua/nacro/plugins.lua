@@ -419,7 +419,13 @@ local plugin_table = {
       require("numb").setup()
     end,
   },
-  localized "nacro90/omen.nvim",
+  {
+    localized "nacro90/omen.nvim",
+    requires = {
+      "nvim-lua/telescope.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+  },
   {
     localized "nacro90/turkishmode.nvim",
     config = function()
