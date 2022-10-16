@@ -7,10 +7,10 @@ local local_plugin_dir = vim.env.HOME .. "/Projects/plugins"
 local uv = vim.loop
 
 --- Prioritise the local plugins but download if they are not exist locally
-local function localized(plugin, local_path)
+local function localized(plugin, local_path, force_remote)
   local _, name = unpack(vim.split(plugin, "%/"))
   local_path = local_path or local_plugin_dir .. "/" .. name
-  if not uv.fs_stat(local_path) then
+  if not uv.fs_stat(local_path) or force_remote then
     return plugin
   end
   return local_path
@@ -315,6 +315,7 @@ local plugin_table = {
           require("starlite")[func]()
         end
       end
+
       nnoremap("*", starlite_func "star")
       nnoremap("g*", starlite_func "g_star")
       nnoremap("#", starlite_func "hash")
