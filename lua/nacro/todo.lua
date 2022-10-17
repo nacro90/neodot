@@ -152,7 +152,7 @@ function todo.set_line_priority(priority)
     return
   end
   local cursor = api.nvim_win_get_cursor(0)
-  cursor[2] = cursor[2] + cursor_correction
+  cursor[2] = math.max(0, cursor[2] + cursor_correction)
   api.nvim_win_set_cursor(0, cursor)
 end
 
