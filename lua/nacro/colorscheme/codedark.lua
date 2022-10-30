@@ -85,4 +85,27 @@ return function()
   highlight("LspReferenceText", "Underlined")
   highlight("LspReferenceWrite", "Underlined")
   highlight("LspReferenceRead", "Underlined")
+
+  local terminal_colors = {
+    "#2d2d2d",
+    "#f44747",
+    "#6a9955",
+    "#d7ba7d",
+    "#569cd6",
+    "#C586C0",
+    "#4ec0b0",
+    "#d4d4d4",
+    "#808080",
+    "#ff8787",
+    "#b5cea8",
+    "#dcdcaa",
+    "#9cdcfe",
+    "#c5a6e0",
+    "#5fe9c9",
+    "#ffffff",
+  }
+  for i, c in ipairs(terminal_colors) do
+    local key = ("terminal_color_%d"):format(i - 1)
+    vim.g[key] = c
+  end
 end
