@@ -126,6 +126,7 @@ require("nacro.surround").setup()
 require("nacro.neogit").setup()
 require("nacro.colorizer").setup()
 require("nacro.neotest").setup()
+require("nacro.neovide").setup_if_neovide()
 
 command("TimestampToDatetime", function(a)
   a = a.args
