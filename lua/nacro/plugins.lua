@@ -130,6 +130,14 @@ local plugin_table = {
     end,
   },
   {
+    "nvim-neorg/neorg",
+    ft = "norg",
+    config = function()
+      require('nacro.neorg').setup()
+    end,
+    requires = "nvim-lua/plenary.nvim"
+  },
+  {
     "szw/vim-maximizer",
     setup = function()
       vim.g.maximizer_set_default_mapping = 0
