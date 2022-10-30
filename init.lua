@@ -143,5 +143,3 @@ require("hlargs").setup()
 vim.keymap.set("n", "<BS>", "<NOP>", {})
 
 vim.g.ultest_deprecation_notice = 0
-
-vim.cmd 'iunmap <CR>'
