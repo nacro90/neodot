@@ -21,30 +21,22 @@ local function setup_keymaps(bufnr)
   keymap.set("n", "<C-j>", show_line_diagnostics, { buffer = bufnr })
   keymap.set("n", "<leader>s", telescope_builtin.lsp_dynamic_workspace_symbols, { buffer = bufnr })
   keymap.set("n", "<leader>S", telescope_builtin.lsp_document_symbols, { buffer = bufnr })
-  keymap.set("n", "<leader>a", buf.code_action, { buffer = bufnr })
-  keymap.set("x", "<leader>a", buf.range_code_action, { buffer = bufnr })
+  keymap.set({ "n", "v" }, "<leader>a", buf.code_action, { buffer = bufnr })
   keymap.set("n", "]d", diagnostic.goto_next, { buffer = bufnr })
   keymap.set("n", "[d", diagnostic.goto_prev, { buffer = bufnr })
   keymap.set("n", "g<C-d>", buf.implementation, { buffer = bufnr })
   keymap.set("n", "<C-q>", buf.signature_help, { buffer = bufnr })
   keymap.set("i", "<C-q>", buf.signature_help, { buffer = bufnr })
   keymap.set("n", "1gD", buf.type_definition, { buffer = bufnr })
-  keymap.set("n", "gl", function()
+  keymap.set({ "n", "v" }, "gl", function()
     buf.format { async = true }
   end, { buffer = bufnr })
-  keymap.set("v", "gl", buf.range_formatting, { buffer = bufnr })
   keymap.set("n", "<leader>r", buf.rename, { buffer = bufnr })
 end
 
 local function setup_illuminate(client)
   saferequire("illuminate", function(illuminate)
     illuminate.on_attach(client)
-  end)
-end
-
-local function setup_aerial(client)
-  saferequire("aerial", function(aerial)
-    aerial.on_attach(client)
   end)
 end
 
@@ -60,7 +52,6 @@ function common.on_attach(client, bufnr)
   setup_keymaps(bufnr)
 
   setup_illuminate(client)
-  setup_aerial(client)
   setup_lsp_signature(client, bufnr)
 end
 

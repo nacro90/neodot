@@ -33,7 +33,7 @@ end
 
 ---Add a todo item to the todo file
 ---@param item_text string @Item text to be add
----@param todo_file string @Todo file
+---@param todo_file string? @Todo file
 function todo.add_todo(item_text, todo_file)
   assert(item_text and #item_text > 0, "Todo item text can not be empty")
   todo_file = todo_file or todo.default_todo_file
