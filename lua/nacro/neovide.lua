@@ -5,6 +5,8 @@ function neovide.exists()
 end
 
 function neovide.setup()
+  opt.guifont = "jetbrainsmono Nerd Font:h14:w27"
+
   vim.g.neovide_hide_mouse_when_typing = false
   vim.g.neovide_transparency = 0.8
   vim.g.neovide_fullscreen = true

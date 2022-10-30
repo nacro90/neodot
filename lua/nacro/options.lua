@@ -97,7 +97,6 @@ opt.breakindentopt = {
   shift = "2",
   min = "20",
 }
-opt.guifont = "firacode Nerd Font:h14:w27"
 
 g.mapleader = " "
 g.loaded_netrwPlugin = 1
