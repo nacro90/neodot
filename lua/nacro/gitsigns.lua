@@ -7,6 +7,7 @@ function n_gitsigns.setup()
     signs = {
       add = { text = "│" },
       change = { text = "│" },
+      delete = { text = "│" },
     },
     keymaps = {
       noremap = true,
