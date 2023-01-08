@@ -81,6 +81,7 @@ local plugin_table = {
       vim.cmd "command! Inyoface call inyoface#toggle_comments()"
     end,
   },
+  "samjwill/nvim-unception",
   {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
@@ -133,9 +134,9 @@ local plugin_table = {
     "nvim-neorg/neorg",
     ft = "norg",
     config = function()
-      require('nacro.neorg').setup()
+      require("nacro.neorg").setup()
     end,
-    requires = "nvim-lua/plenary.nvim"
+    requires = "nvim-lua/plenary.nvim",
   },
   {
     "szw/vim-maximizer",
@@ -159,6 +160,7 @@ local plugin_table = {
       vim.api.nvim_set_keymap("n", "gX", "gx$", {})
     end,
   },
+  "akinsho/toggleterm.nvim",
   "lukas-reineke/indent-blankline.nvim",
   "sindrets/diffview.nvim",
   {
@@ -231,9 +233,9 @@ local plugin_table = {
   "jose-elias-alvarez/null-ls.nvim",
   {
     "L3MON4D3/LuaSnip",
-    requires = "rafamadriz/friendly-snippets",
   },
   "ekickx/clipboard-image.nvim",
+  "williamboman/mason.nvim",
   {
     "hkupty/iron.nvim",
     disable = true,
@@ -260,6 +262,7 @@ local plugin_table = {
     end,
     cmd = { "IronReplHere", "IronRepl", "IronFocus" },
   },
+  "akinsho/flutter-tools.nvim",
   {
     "jghauser/mkdir.nvim",
     config = function()
@@ -274,8 +277,9 @@ local plugin_table = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
-      'nvim-neotest/neotest-go',
-    }
+      "nvim-neotest/neotest-go",
+      "sidlatau/neotest-dart",
+    },
   },
   {
     "rcarriga/vim-ultest",
@@ -292,10 +296,21 @@ local plugin_table = {
       "nvim-telescope/telescope-fzy-native.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       { "nvim-telescope/telescope-frecency.nvim", requires = "tami5/sqlite.lua" },
+      { "nvim-telescope/telescope-smart-history.nvim", requires = "tami5/sqlite.lua" },
       "jvgrootveld/telescope-zoxide",
       "dhruvmanila/telescope-bookmarks.nvim",
       "mrjones2014/tldr.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
+      "barrett-ruth/telescope-http.nvim"
+      -- {
+      --   "princejoogie/dir-telescope.nvim",
+      --   config = function()
+      --     require("dir-telescope").setup {
+      --       hidden = true,
+      --       respect_gitignore = true,
+      --     }
+      --   end,
+      -- },
     },
   },
   { "nvim-pack/nvim-spectre", requires = "nvim-lua/plenary.nvim" },
@@ -307,24 +322,12 @@ local plugin_table = {
       opt = true,
     },
   },
-  { "arkav/lualine-lsp-progress", requires = "nvim-lualine/lualine.nvim" },
   {
-    "ironhouzi/starlite-nvim",
-    keys = { "*", "g*", "#", "g#" },
-    setup = function()
-      local nnoremap = require("nacro.utils.map").nnoremap
-      local function starlite_func(func)
-        return function()
-          require("starlite")[func]()
-        end
-      end
-
-      nnoremap("*", starlite_func "star")
-      nnoremap("g*", starlite_func "g_star")
-      nnoremap("#", starlite_func "hash")
-      nnoremap("g#", starlite_func "g_hash")
-    end,
+    "kdheepak/tabline.nvim",
+    requires = { "hoob3rt/lualine.nvim", "kyazdani42/nvim-web-devicons" },
   },
+  { "arkav/lualine-lsp-progress", requires = "nvim-lualine/lualine.nvim" },
+  "ironhouzi/starlite-nvim",
   {
     "petobens/poet-v",
     cmd = "PoetvActivate",

@@ -40,7 +40,6 @@ keymap.set("c", "%%", require("nacro.functions").expand_percentage_if_in_command
 
 xmap("s", "<Esc>lys`<")
 
-
 -- (') can be very annoying when it can not do the (`)
 nmap("'", "`")
 
@@ -71,6 +70,9 @@ nnoremap("yor", "<Cmd>setlocal relativenumber!<CR>")
 nnoremap("yow", "<Cmd>setlocal wrap!<CR>")
 nnoremap("yoc", "<Cmd>setlocal cursorline!<CR>")
 keymap.set("n", "yos", "<Cmd>setlocal spell!<CR>")
+
+keymap.set("n", "]p", "o<C-r>+<Esc>")
+keymap.set("n", "[p", "O<C-r>+<Esc>")
 
 command("LspAttached", function()
   vim.notify(#vim.lsp.get_active_clients { bufnr = 0 } > 0)
@@ -120,14 +122,16 @@ require("nacro.snippet").setup()
 require("nacro.flutter").setup()
 require("nacro.howdoi").setup()
 require("nacro.indent_blankline").setup()
-require("nacro.testing").setup()
+-- require("nacro.testing").setup()
 require("nacro.clipboard_image").setup()
 require("nacro.surround").setup()
 require("nacro.neogit").setup()
 require("nacro.colorizer").setup()
 require("nacro.neotest").setup()
 require("nacro.neovide").setup_if_neovide()
-
+require("nacro.buffer").setup()
+require("nacro.starlite").setup()
+require("nacro.mason").setup()
 command("TimestampToDatetime", function(a)
   a = a.args
   print(os.date("%Y-%m-%d %H:%M:%S", a / 1000) .. "." .. a % 1000)

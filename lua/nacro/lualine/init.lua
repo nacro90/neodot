@@ -1,14 +1,17 @@
-local n_lualine = {}
+local M = {}
 
 local lualine = require "lualine"
 local gps = require "nvim-gps"
 
 local btc = require "nacro.lualine.btc"
-local functional = require "nacro.functional"
-local and_ = functional.and_
+local recording = require "nacro.lualine.recording"
 
 local fn = vim.fn
 local winwidth = fn.winwidth
+
+local function setup_recording()
+  recording.setup()
+end
 
 local function setup_gps()
   gps.setup {
@@ -30,24 +33,25 @@ local function is_window_not_small()
   return winwidth(0) > SMALL_WINDOW_THRESHOLD
 end
 
-function n_lualine.setup()
-  setup_gps()
-
+local function setup_lualine()
   lualine.setup {
     options = {
       theme = "codedark",
       component_separators = { "│", "│" },
-      section_separators = { "", "" },
+      section_separators = { "|", "|" },
       globalstatus = true,
     },
     sections = {
       lualine_a = {
         "mode",
+        {
+          recording.get_recording,
+          cond = recording.is_recording,
+        },
       },
       lualine_b = { "filename" },
       lualine_c = {
         {
-          "lsp_progress",
           "diagnostics",
           sources = { "nvim_diagnostic" },
           sections = { "error", "warn", "info", "hint" },
@@ -57,10 +61,17 @@ function n_lualine.setup()
           color_hint = "#BBBBBB",
           symbols = { error = "▪", warn = "▴", info = "›", hint = "▸" },
         },
-        { gps.get_location, cond = gps.is_available },
+        {
+          gps.get_location,
+          cond = gps.is_available,
+        },
       },
       lualine_x = {
-        { btc.create_component_func(), cond = btc.is_enabled },
+        "searchcount",
+        {
+          btc.create_component_func(),
+          cond = btc.is_enabled,
+        },
         "branch",
         "encoding",
         "fileformat",
@@ -77,9 +88,38 @@ function n_lualine.setup()
       lualine_y = {},
       lualine_z = {},
     },
-    tabline = {},
+    tabline = {
+      lualine_a = { { "tabs", mode = 1 } },
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = {},
+      lualine_z = {},
+    },
+    winbar = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = {},
+      lualine_z = {},
+    },
+    inactive_winbar = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = {},
+      lualine_z = {},
+    },
     extensions = { "nvim-tree", "fugitive" },
   }
 end
 
-return n_lualine
+function M.setup()
+  setup_gps()
+  setup_recording()
+  setup_lualine()
+end
+
+return M

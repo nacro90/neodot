@@ -1,0 +1,11 @@
+snippet fum "method"
+	func (${1:receiver} ${2:type}) ${3:funcName}(${4}) ${5:error} {
+		${6}
+	}
+	${0}
+
+snippet erp "if error panic"
+	if err != nil {
+		panic(err)
+	}
+    ${0}

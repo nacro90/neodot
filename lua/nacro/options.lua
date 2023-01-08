@@ -78,11 +78,12 @@ opt.listchars = {
 opt.formatoptions = "tcqj"
 opt.showbreak = "\\"
 opt.errorbells = false
-opt.cmdheight = 2
+opt.cmdheight = 0
 opt.swapfile = false
 opt.swapfile = false
 opt.updatetime = 500
 opt.shortmess:append "c"
+opt.shortmess:append "S"
 opt.lazyredraw = true
 opt.fillchars = {
   vert = "┃",

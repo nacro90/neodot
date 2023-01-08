@@ -2,6 +2,7 @@ local M = {}
 
 local luasnip = require "luasnip"
 local vscode_loader = require "luasnip.loaders.from_vscode"
+local snipmate_loader = require "luasnip.loaders.from_snipmate"
 
 local keymap = vim.keymap
 
@@ -54,7 +55,8 @@ function M.setup()
     luasnip.add_snippets(ft, snips)
   end
 
-  vscode_loader.lazy_load()
+  -- vscode_loader.lazy_load()
+  snipmate_loader.lazy_load()
 end
 
 return M

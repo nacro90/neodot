@@ -12,7 +12,7 @@ local nnoremap = map.nnoremap
 local vnoremap = map.vnoremap
 
 function java.setup()
-  vim.cmd [[autocmd FileType java lua require('nacro.lsp.java').on_java_opened()]]
+  -- vim.cmd [[autocmd FileType java lua require('nacro.lsp.java').on_java_opened()]]
 end
 
 local function on_jdtls_attached(client, bufnr)

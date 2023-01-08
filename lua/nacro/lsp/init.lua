@@ -31,12 +31,14 @@ function lsp.setup()
     "dockerls",
     "clangd",
     "pyright",
+    "jdtls",
     "flow",
     "svelte",
     "yamlls",
     "tsserver",
     "kotlin_language_server",
     "dartls",
+    "zls"
   }
 
   for _, lspconfig_name in ipairs(lspconfig_names) do

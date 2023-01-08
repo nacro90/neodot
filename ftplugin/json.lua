@@ -7,6 +7,7 @@ local fn = vim.fn
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
 
 local bufnr = api.nvim_get_current_buf()
 
@@ -25,7 +26,7 @@ local function format_buf()
   local jq_cmd = ("jq --indent %d"):format(math.min(indent, 7))
   local py_cmd = ("python -m json.tool --indent %d"):format(indent)
   local formatter = fn.executable "jq" == 1 and jq_cmd or py_cmd
-  cmd("%!" .. formatter)
+  cmd("silent %!" .. formatter)
 end
 
 -- Flatten the json and remove the white spaces for oneline sending (e.g Kafka event)

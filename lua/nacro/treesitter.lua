@@ -32,7 +32,7 @@ function M.setup()
     autotag = { enable = true },
     rainbow = {
       enable = true,
-      disable = { "go", "python", "lua" },
+      disable = { "go", "python", "lua", "dart" },
     },
   }
 end

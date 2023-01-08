@@ -66,6 +66,7 @@ local function load_extensions()
     "tldr",
     "bookmarks",
     "ui-select",
+    "http",
   }
 
   for _, ext in ipairs(exts) do
@@ -104,12 +105,12 @@ local function set_keymaps()
   end)
 
   local extensions = telescope.extensions
-  nnoremap("<leader>/", builtin.current_buffer_fuzzy_find)
-  nnoremap("<leader>:", builtin.command_history)
-  nnoremap("<leader>b", builtin.buffers)
-  nnoremap("<leader>H", builtin.oldfiles)
-  nnoremap("<leader><C-h>", builtin.help_tags)
-  nnoremap("<leader>c", extensions.zoxide.list)
+  vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find)
+  vim.keymap.set("n", "<leader>:", builtin.command_history)
+  vim.keymap.set("n", "<leader>b", builtin.buffers)
+  vim.keymap.set("n", "<leader>H", builtin.oldfiles)
+  vim.keymap.set("n", "<leader><C-h>", builtin.help_tags)
+  vim.keymap.set("n", "<leader>c", extensions.zoxide.list)
 
   nnoremap("<leader>ep", function()
     telescoper.find_dirs(vim.env.HOME .. "/Projects", 2)
@@ -118,10 +119,16 @@ end
 
 function telescoper.setup()
   telescope.setup {
-    defaults = { layout_strategy = "flex" },
+    defaults = {
+      layout_strategy = "flex",
+      history = {
+        path = "~/.local/share/nvim/telescope_history.sqlite3",
+        limit = 100,
+      },
+    },
     extensions = {
       frecency = {
-        show_scores = true,
+        show_scores = false,
         ignore_patterns = { "*.git/*" },
         workspaces = {
           ["conf"] = "/home/orcan/.config",

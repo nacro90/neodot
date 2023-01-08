@@ -38,6 +38,7 @@ end
 
 function nacro_nvim_tree.on_cursor_moved()
   local bufnr = api.nvim_get_current_buf()
+  print'kemal'
   nacro_nvim_tree.fit_width(bufnr)
 end
 
