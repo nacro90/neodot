@@ -88,14 +88,7 @@ local function setup_lualine()
       lualine_y = {},
       lualine_z = {},
     },
-    tabline = {
-      lualine_a = { { "tabs", mode = 1 } },
-      lualine_b = {},
-      lualine_c = {},
-      lualine_x = {},
-      lualine_y = {},
-      lualine_z = {},
-    },
+    tabline = {},
     winbar = {
       lualine_a = {},
       lualine_b = {},

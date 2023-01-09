@@ -9,3 +9,6 @@ snippet erp "if error panic"
 		panic(err)
 	}
     ${0}
+
+snippet printv "print/inspect variable"
+	fmt.Printf("%+v\n", ${0})
