@@ -16,6 +16,7 @@ local function line_priority_changer(char)
   end
 end
 
+---@diagnostic disable-next-line: unused-local
 local function new_line_starter(offset)
   return function()
     n_todo.start_new_line(offset)
@@ -27,9 +28,6 @@ for _, key in ipairs(priority_chars) do
 end
 keymap.set("n", ",,", line_priority_changer(), { buffer = true })
 
-keymap.set("n", "o", new_line_starter(1), { buffer = true })
-keymap.set("n", "O", new_line_starter(0), { buffer = true })
-keymap.set("i", "<CR>", new_line_starter(1), { buffer = true })
 keymap.set(
   "n",
   "<CR>",
@@ -45,8 +43,9 @@ vim.cmd [[
   augroup end
 ]]
 
-local function sort()
+local function format()
+  vim.cmd [[silent! %substitute/\s\+$//]]
   vim.cmd "silent! sort"
 end
 
-keymap.set("n", "gl", sort, { buffer = true })
+keymap.set("n", "gl", format, { buffer = true })
