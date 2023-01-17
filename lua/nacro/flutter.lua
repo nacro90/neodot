@@ -13,9 +13,9 @@ function M.setup()
         device = true,
       },
     },
-    -- lsp = {
-    --   on_attach = common.on_attach,
-    -- },
+    lsp = {
+      on_attach = common.on_attach,
+    },
     widget_guides = {
       enabled = true,
     },
