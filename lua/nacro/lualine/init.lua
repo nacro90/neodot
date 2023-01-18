@@ -36,7 +36,7 @@ end
 local function setup_lualine()
   lualine.setup {
     options = {
-      theme = "codedark",
+      theme = "auto",
       component_separators = { "│", "│" },
       section_separators = { "|", "|" },
       globalstatus = true,
