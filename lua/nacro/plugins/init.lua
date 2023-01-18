@@ -19,10 +19,7 @@ return {
   },
   {
     "tomasiser/vim-code-dark",
-    lazy = false,
-    config = function()
-      require("nacro.colorscheme").setup "codedark"
-    end,
+    lazy = true,
   },
   {
     "tanvirtin/monokai.nvim",
@@ -31,9 +28,18 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = true,
+    config = function()
+      vim.cmd "colorscheme tokyonight"
+    end,
   },
   {
     "lewpoly/sherbet.nvim",
+    lazy = true,
+  },
+  {
+    "ramojus/mellifluous.nvim",
+    dependencies = { "rktjmp/lush.nvim" },
+    config = true,
     lazy = true,
   },
 
@@ -71,7 +77,7 @@ return {
     end,
   },
   "renerocksai/telekasten.nvim",
-
+  --
   -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
