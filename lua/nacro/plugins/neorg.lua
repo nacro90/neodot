@@ -1,8 +1,4 @@
-local M = {}
-
-local neorg = require "neorg"
-
-function M.setup()
+local function config()
   -- local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
   --
   -- parser_configs.norg = {
@@ -13,6 +9,7 @@ function M.setup()
   --   },
   -- }
 
+  local neorg = require "neorg"
   neorg.setup {
     load = {
       ["core.defaults"] = {},
@@ -33,4 +30,9 @@ function M.setup()
   }
 end
 
-return M
+return {
+  "nvim-neorg/neorg",
+  ft = "norg",
+  config = config,
+  dependencies = { "nvim-lua/plenary.nvim" },
+}

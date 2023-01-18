@@ -27,8 +27,6 @@ local function create_library()
 
   add "$VIMRUNTIME"
   add(config)
-  add(data .. "/site/pack/packer/opt/*")
-  add(data .. "/site/pack/packer/start/*")
 
   return library
 end

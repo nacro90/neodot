@@ -12,7 +12,21 @@ local api = vim.api
 local fn = vim.fn
 local keymap = vim.keymap
 
-require("nacro.plugins").setup()
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  }
+end
+vim.opt.rtp:prepend(lazypath)
+
+local lazy = require "lazy"
+lazy.setup "nacro.plugins"
 
 command("LuaHas", function(keys)
   vim.notify(vim.inspect(pcall(require, keys.args)))
@@ -100,17 +114,11 @@ vim.keymap.set("o", "al", "<Cmd>normal val<CR>")
 
 nnoremap("-", "<Nop>")
 
-require("nacro.colorscheme").setup "codedark"
 require("nacro.telescoper").setup()
-require("nacro.nvim_tree").setup()
 require("nacro.lsp").setup()
-require("nacro.dap").setup()
+-- require("nacro.dap").setup()
 require("nacro.lualine").setup()
-require("nacro.completion").setup()
-require("nacro.autopairs").setup()
 require("nacro.gitsigns").setup()
-require("nacro.omen").setup()
-require("nacro.workspaces").setup()
 require("nacro.translate").setup()
 require("nacro.matchparen").setup()
 require("nacro.treesitter").setup()
@@ -118,20 +126,15 @@ require("nacro.terminal").setup()
 require("nacro.zettelkasten").setup()
 require("nacro.todo").setup(vim.env.HOME .. "/Organizers/todo.txt")
 require("nacro.ledger").setup()
-require("nacro.snippet").setup()
-require("nacro.flutter").setup()
+-- require("nacro.flutter").setup()
 require("nacro.howdoi").setup()
 require("nacro.indent_blankline").setup()
 -- require("nacro.testing").setup()
-require("nacro.clipboard_image").setup()
-require("nacro.surround").setup()
-require("nacro.neogit").setup()
+-- require("nacro.clipboard_image").setup()
 require("nacro.colorizer").setup()
-require("nacro.neotest").setup()
 require("nacro.neovide").setup_if_neovide()
 require("nacro.buffer").setup()
 require("nacro.starlite").setup()
-require("nacro.mason").setup()
 command("TimestampToDatetime", function(a)
   a = a.args
   print(os.date("%Y-%m-%d %H:%M:%S", a / 1000) .. "." .. a % 1000)
@@ -142,8 +145,4 @@ end, {
 nnoremap("<leader>>", "<Cmd>tabmove +<CR>")
 nnoremap("<leader><lt>", "<Cmd>tabmove -<CR>")
 
-require("hlargs").setup()
-
 vim.keymap.set("n", "<BS>", "<NOP>", {})
-
-vim.g.ultest_deprecation_notice = 0

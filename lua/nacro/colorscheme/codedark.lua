@@ -75,8 +75,8 @@ return function()
 
   highlight("TodoDone", "NonText")
 
-  highlight("IndentBlanklineChar", { guibg = "NONE", guifg = "#333333", gui = "nocombine" })
-  -- highlight("IndentBlanklineContextChar", { guibg = "NONE", guifg = "#7a7a7a" })
+  highlight("IndentBlanklineChar", { guibg = "NONE", guifg = "#393939", gui = "nocombine" })
+  -- highlight("IndentBlanklineContextChar", { guibg = "NONE", guifg = "#8a8a8a" })
 
   highlight("Title", "TSStrong")
 
@@ -85,6 +85,10 @@ return function()
   highlight("LspReferenceText", "Underlined")
   highlight("LspReferenceWrite", "Underlined")
   highlight("LspReferenceRead", "Underlined")
+
+  highlight("IlluminatedWordText", { gui="NONE", guibg = "#3d3d40" })
+  highlight("IlluminatedWordRead", { gui="NONE", guibg = "#3d3d40" })
+  highlight("IlluminatedWordWrite", { gui="NONE", guibg = "#3d3d40" })
 
   local terminal_colors = {
     "#2d2d2d",

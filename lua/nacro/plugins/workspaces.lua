@@ -1,12 +1,18 @@
-local M = {}
-
 local saferequire = require("nacro.module").saferequire
 
-local default_opts = {}
+return {
+  "natecraddock/workspaces.nvim",
+  keys = {
+    { "<leader>w" },
+    { "<leader>W" },
+  },
+  config = function()
+    local workspaces = require "workspaces"
+    workspaces.setup()
 
-function M.setup()
-  saferequire("workspaces", function(workspaces)
-    workspaces.setup(default_opts)
+    saferequire("telescope", function(telescope)
+      telescope.load_extension "workspaces"
+    end)
 
     local function pick()
       local picker
@@ -23,9 +29,7 @@ function M.setup()
     vim.keymap.set("n", "<leader>W", function()
       workspaces.setup { global_cd = false }
       pick()
-      workspaces.setup(default_opts)
+      workspaces.setup()
     end)
-  end)
-end
-
-return M
+  end,
+}

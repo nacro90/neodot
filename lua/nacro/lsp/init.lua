@@ -8,7 +8,6 @@ local lspconfig = require "lspconfig"
 local common = require "nacro.lsp.common"
 local lua = require "nacro.lsp.lua"
 local null = require "nacro.lsp.null"
-local java = require "nacro.lsp.java"
 local go = require "nacro.lsp.go"
 
 function lsp.setup()
@@ -23,7 +22,6 @@ function lsp.setup()
 
   lua.setup()
   null.setup()
-  java.setup()
   go.setup()
 
   local lspconfig_names = {
@@ -37,7 +35,7 @@ function lsp.setup()
     "yamlls",
     "tsserver",
     "kotlin_language_server",
-    "dartls",
+    -- "dartls",
     "zls"
   }
 

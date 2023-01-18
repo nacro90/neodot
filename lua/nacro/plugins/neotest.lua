@@ -1,8 +1,5 @@
-local M = {}
-
-local neotest = require "neotest"
-
-local function setup_neotest()
+local function config()
+  local neotest = require "neotest"
   neotest.setup {
     diagnostic = { enabled = false },
     adapters = {
@@ -12,9 +9,6 @@ local function setup_neotest()
       },
     },
   }
-end
-
-local function setup_keymaps()
   vim.keymap.set("n", "<leader>tt", neotest.run.run)
   vim.keymap.set("n", "<leader>tae", function()
     neotest.run.run(vim.fn.expand "%")
@@ -23,9 +17,15 @@ local function setup_keymaps()
   vim.keymap.set("n", "<leader>to", neotest.output.open)
 end
 
-function M.setup()
-  setup_neotest()
-  setup_keymaps()
-end
-
-return M
+return {
+  "nvim-neotest/neotest",
+  ft = { "python", "go" },
+  config = config,
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-treesitter/nvim-treesitter",
+    "antoinemadec/FixCursorHold.nvim",
+    "nvim-neotest/neotest-go",
+    "sidlatau/neotest-dart",
+  },
+}

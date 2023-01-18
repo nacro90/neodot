@@ -1,7 +1,3 @@
-local M = {}
-
-local neogit = require "neogit"
-
 local function get_cwd()
   return vim.fn.expand "%:h"
 end
@@ -15,8 +11,8 @@ local function setup_keymaps()
   end)
 end
 
-function M.setup()
-  setup_keymaps()
+local function config()
+  local neogit = require "neogit"
 
   neogit.setup {
     integrations = {
@@ -32,4 +28,8 @@ function M.setup()
   }
 end
 
-return M
+return {
+  "TimUntersberger/neogit",
+  cmd = "Neogit",
+  config = config,
+}

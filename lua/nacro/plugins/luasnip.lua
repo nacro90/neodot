@@ -1,18 +1,3 @@
-local M = {}
-
-local luasnip = require "luasnip"
-local vscode_loader = require "luasnip.loaders.from_vscode"
-local snipmate_loader = require "luasnip.loaders.from_snipmate"
-
-local keymap = vim.keymap
-
-local function jump_forward()
-  luasnip.jump(1)
-end
-local function jump_back()
-  luasnip.jump(-1)
-end
-
 local snippet_fts = {
   "lua",
   "go",
@@ -41,7 +26,21 @@ local function prev_choice()
   return luasnip.choice_active() and luasnip.change_choice(-1)
 end
 
-function M.setup()
+local function config()
+  local luasnip = require "luasnip"
+  local vscode_loader = require "luasnip.loaders.from_vscode"
+  local snipmate_loader = require "luasnip.loaders.from_snipmate"
+
+  local keymap = vim.keymap
+
+  local function jump_forward()
+    luasnip.jump(1)
+  end
+
+  local function jump_back()
+    luasnip.jump(-1)
+  end
+
   keymap.set("i", "<C-k>", luasnip.expand_or_jump, { silent = true })
   keymap.set("i", "<C-j>", jump_back, { silent = true })
   keymap.set("s", "<C-k>", jump_forward, { silent = true })
@@ -59,4 +58,8 @@ function M.setup()
   snipmate_loader.lazy_load()
 end
 
-return M
+return {
+  "L3MON4D3/LuaSnip",
+  config = config,
+  event = "InsertEnter",
+}

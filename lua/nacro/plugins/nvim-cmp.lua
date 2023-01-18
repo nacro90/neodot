@@ -1,9 +1,3 @@
-local completion = {}
-
-local cmp = require "cmp"
-
-local luasnip_exists, luasnip = pcall(require, "luasnip")
-
 local function create_lspkind_formetter()
   local exists, lspkind = pcall(require, "lspkind")
 
@@ -16,13 +10,21 @@ local function create_lspkind_formetter()
   return lspkind.cmp_format { with_text = false, maxwidth = 50 }
 end
 
-function completion.setup()
-  cmp.setup {
-    snippet = {
+local function config()
+  local cmp = require "cmp"
+
+  local luasnip_exists, luasnip = pcall(require, "luasnip")
+  local snip_conf
+  if luasnip_exists then
+    snip_conf = {
       expand = function(args)
         require("luasnip").lsp_expand(args.body)
       end,
-    },
+    }
+  end
+
+  cmp.setup {
+    snippet = snip_conf,
     sources = {
       { name = "nvim_lsp" },
       { name = "nvim_lua" },
@@ -31,7 +33,7 @@ function completion.setup()
       { name = "buffer", keyword_length = 5 },
       -- { name = "digraphs", group_index = 2 },
       { name = "emoji", keyword_length = 3, options = { insert = true } },
-      { name = "neorg"}
+      { name = "neorg" },
     },
     experimental = {
       ghost_text = true,
@@ -92,4 +94,19 @@ function completion.setup()
   })
 end
 
-return completion
+return {
+  "hrsh7th/nvim-cmp",
+  event = "InsertEnter",
+  config = config,
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-path",
+    "saadparwaiz1/cmp_luasnip",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-nvim-lua",
+    "hrsh7th/cmp-emoji",
+    "onsails/lspkind-nvim",
+    "hrsh7th/cmp-cmdline",
+    "dmitmel/cmp-cmdline-history",
+  },
+}

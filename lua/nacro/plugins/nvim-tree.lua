@@ -1,13 +1,9 @@
-local nacro_nvim_tree = {}
-
 local ps = require "plenary.strings"
-
-local nvim_tree = require "nvim-tree"
 
 local cmd = vim.cmd
 local api = vim.api
 
-function nacro_nvim_tree.setup_events()
+local function setup_events()
   cmd [[
     augroup nacro_nvim_tree
       autocmd!
@@ -16,7 +12,7 @@ function nacro_nvim_tree.setup_events()
   ]]
 end
 
-function nacro_nvim_tree.disable_events()
+local function disable_events()
   cmd [[
     augroup nacro_nvim_tree
       autocmd!
@@ -25,7 +21,7 @@ function nacro_nvim_tree.disable_events()
   ]]
 end
 
-function nacro_nvim_tree.fit_width(bufnr, offset)
+local function fit_width(bufnr, offset)
   assert(bufnr, "NvimTree buffer must be provided")
   offset = offset or 3
   local lines = api.nvim_buf_get_lines(bufnr, 1, -1, true)
@@ -36,13 +32,14 @@ function nacro_nvim_tree.fit_width(bufnr, offset)
   require("nvim-tree").resize(max_display_width)
 end
 
-function nacro_nvim_tree.on_cursor_moved()
+local function on_cursor_moved()
   local bufnr = api.nvim_get_current_buf()
-  print'kemal'
+  print "kemal"
   nacro_nvim_tree.fit_width(bufnr)
 end
 
-function nacro_nvim_tree.setup()
+local function config()
+  local nvim_tree = require "nvim-tree"
   local tree_cb = require("nvim-tree.config").nvim_tree_callback
 
   require("nvim-tree").setup {
@@ -90,7 +87,15 @@ function nacro_nvim_tree.setup()
   vim.keymap.set("n", "<leader>f", nvim_tree.toggle)
   vim.keymap.set("n", "<leader>F", nvim_tree.find_file)
 
-  nacro_nvim_tree.setup_events()
+  -- nacro_nvim_tree.setup_events()
 end
 
-return nacro_nvim_tree
+return {
+  "kyazdani42/nvim-tree.lua",
+  config = config,
+  keys = {
+    { "<leader>f" },
+    { "<leader>F" },
+  },
+  dependencies = { "kyazdani42/nvim-web-devicons" },
+}
