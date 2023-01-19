@@ -19,6 +19,17 @@ local function config()
         "--smart-case",
         "--trim",
       },
+      mappings = {
+        n = {
+          ["<C-n>"] = require("telescope.actions").cycle_history_next,
+          ["<C-p>"] = require("telescope.actions").cycle_history_prev,
+        },
+        i = {
+          ["<C-g>"] = require("telescope.actions.layout").toggle_preview,
+          ["<C-e"] = require("telescope.actions").results_scrolling_down,
+          ["<C-y"] = require("telescope.actions").results_scrolling_up,
+        },
+      },
     },
     extensions = {
       zoxide = {
@@ -29,16 +40,7 @@ local function config()
     },
     pickers = {
       find_files = {
-        hidden = true,
-        no_ignore = true,
-        no_ignore_parent = true,
         find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
-      },
-    },
-    mappings = {
-      n = {
-        ["<C-n>"] = require("telescope.actions").cycle_history_next,
-        ["<C-p>"] = require("telescope.actions").cycle_history_prev,
       },
     },
   }
