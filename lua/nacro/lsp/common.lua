@@ -1,12 +1,12 @@
 local common = {}
 
-local telescope_builtin = require "telescope.builtin"
 local saferequire = require("nacro.module").saferequire
 
 local api = vim.api
 local keymap = vim.keymap
 
 local function setup_keymaps(bufnr)
+  local telescope_builtin = require "telescope.builtin"
   local buf = vim.lsp.buf
   local diagnostic = vim.diagnostic
 

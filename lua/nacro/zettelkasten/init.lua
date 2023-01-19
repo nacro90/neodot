@@ -1,6 +1,5 @@
 local zk = {}
 
-local builtin = require "telescope.builtin"
 local telekasten = require "telekasten"
 
 local keymap = vim.keymap
@@ -18,6 +17,7 @@ local function set_cd_autocmd()
 end
 
 function zk.find_zettel_by_filename(zk_dir)
+  local builtin = require "telescope.builtin"
   zk_dir = zk_dir or zk.dir
   builtin.find_files { cwd = zk_dir }
 end

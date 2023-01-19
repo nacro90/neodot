@@ -30,7 +30,7 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd "colorscheme tokyonight"
+      require("nacro.colorscheme").setup "tokyonight"
     end,
   },
   {
@@ -77,7 +77,35 @@ return {
       vim.g.vim_markdown_conceal_code_blocks = 0
     end,
   },
-  "renerocksai/telekasten.nvim",
+  {
+    "renerocksai/telekasten.nvim",
+    keys = {
+      {
+        "<leader>ez",
+        function()
+          require("telekasten").find_notes()
+        end,
+      },
+      {
+        "<leader>eZ",
+        function()
+          require("telekasten").new_note()
+        end,
+      },
+    },
+    config = function()
+      require("telekasten").setup {
+        home = vim.env.HOME .. "/Zettels",
+        image_subdir = "static",
+        follow_creates_nonexisting = false,
+        dailies_create_nonexisting = false,
+        weeklies_create_nonexisting = false,
+        image_link_style = "wiki",
+        sort = "modified",
+        tag_notation = "yaml-bare",
+      }
+    end,
+  },
   --
   -- treesitter
   {
@@ -126,22 +154,6 @@ return {
   "ray-x/lsp_signature.nvim",
   "neovim/nvim-lspconfig",
 
-  -- telescope
-  {
-    "nvim-lua/telescope.nvim",
-    version = "1.1.x",
-    lazy = true,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "jvgrootveld/telescope-zoxide",
-      "nvim-telescope/telescope-ui-select.nvim",
-      "barrett-ruth/telescope-http.nvim",
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-      },
-    },
-  },
   "natecraddock/workspaces.nvim",
 
   -- editing
