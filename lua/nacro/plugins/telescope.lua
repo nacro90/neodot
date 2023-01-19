@@ -21,13 +21,18 @@ local function config()
       },
     },
     extensions = {
-      pickers = {
-        find_files = {
-          hidden = true,
-          no_ignore = true,
-          no_ignore_parent = true,
-          find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+      zoxide = {
+        default = {
+          after_action = function() end,
         },
+      },
+    },
+    pickers = {
+      find_files = {
+        hidden = true,
+        no_ignore = true,
+        no_ignore_parent = true,
+        find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
       },
     },
     mappings = {
@@ -88,7 +93,6 @@ local keys = {
     end,
   },
   {
-    "n",
     "<leader>/",
     function()
       require("telescope.builtin").current_buffer_fuzzy_find()
