@@ -59,7 +59,6 @@ local function config()
       }
     },
   }
-
   telescope.load_extension "fzf"
   telescope.load_extension "zoxide"
   telescope.load_extension "ui-select"
