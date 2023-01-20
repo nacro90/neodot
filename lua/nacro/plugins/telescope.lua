@@ -2,7 +2,7 @@ local function config()
   local telescope = require "telescope"
   telescope.setup {
     defaults = {
-      layout_strategy = "vertical",
+      layout_strategy = "flex",
       selection_strategy = "follow",
       path_display = { "smart" },
       history = {
@@ -26,22 +26,37 @@ local function config()
         },
         i = {
           ["<C-g>"] = require("telescope.actions.layout").toggle_preview,
-          ["<C-e"] = require("telescope.actions").results_scrolling_down,
-          ["<C-y"] = require("telescope.actions").results_scrolling_up,
+          ["<C-e>"] = require("telescope.actions").results_scrolling_down,
+          ["<C-y>"] = require("telescope.actions").results_scrolling_up,
         },
       },
     },
-    extensions = {
-      zoxide = {
-        default = {
-          after_action = function() end,
-        },
-      },
-    },
+    extensions = {},
     pickers = {
       find_files = {
         find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
       },
+      buffers = {
+        sort_mru = true,
+      },
+      man_pages = {
+        layout_strategy = "flex",
+      },
+      help_tags = {
+        layout_strategy = "flex",
+      },
+      current_buffer_fuzzy_find = {
+        previewer = false,
+      },
+      live_grep = {
+        layout_strategy = "vertical",
+      },
+      lsp_dynamic_workspace_symbols = {
+        layout_strategy = "vertical",
+      },
+      lsp_implementations = {
+        layout_strategy = "vertical",
+      }
     },
   }
 
@@ -57,6 +72,12 @@ local function find_files_with_home_guard(...)
     return
   end
   require("telescope.builtin").find_files(...)
+end
+
+local function builtiner(picker)
+  return function()
+    require("telescope.builtin")[picker]()
+  end
 end
 
 local keys = {
@@ -94,36 +115,18 @@ local keys = {
       }
     end,
   },
-  {
-    "<leader>/",
-    function()
-      require("telescope.builtin").current_buffer_fuzzy_find()
-    end,
-  },
-  {
-    "<leader>:",
-    function()
-      require("telescope.builtin").command_history()
-    end,
-  },
+  { "<leader>/", builtiner "current_buffer_fuzzy_find" },
+  { "<leader>:", builtiner "command_history" },
+  { "<leader>?", builtiner "search_history" },
+  { "<leader>B", builtiner "buffers" },
   {
     "<leader>b",
     function()
-      require("telescope.builtin").buffers()
+      require("telescope.builtin").buffers { only_cwd = true }
     end,
   },
-  {
-    "<leader>H",
-    function()
-      require("telescope.builtin").oldfiles()
-    end,
-  },
-  {
-    "<leader><C-h>",
-    function()
-      require("telescope.builtin").help_tags()
-    end,
-  },
+  { "<leader>H", builtiner "oldfiles" },
+  { "<leader><C-h>", builtiner "help_tags" },
   {
     "<leader>c",
     function()
@@ -135,10 +138,16 @@ local keys = {
     function()
       require("telescope.builtin").find_files {
         cwd = vim.env.HOME .. "/Projects",
-        find_command = { "fd", "--type", "d", "--max-depth", "2", "--strip-cwd-prefix" },
+        find_command = { "fd", "--type", "d", "--max-depth", "1", "--strip-cwd-prefix" },
       }
     end,
   },
+  { "<leader>j", builtiner "diagnostics" },
+  { "<leader><leader>", builtiner "resume" },
+  { "<leader>gg", builtiner "git_status" },
+  { "<leader>gc", builtiner "git_bcommits" },
+  { "<leader>gC", builtiner "git_commits" },
+  { "<leader>gb", builtiner "git_branches" },
 }
 
 return {
@@ -151,7 +160,6 @@ return {
     "nvim-telescope/telescope-ui-select.nvim",
     "jvgrootveld/telescope-zoxide",
     "barrett-ruth/telescope-http.nvim",
-    "nvim-telescope/telescope-smart-history.nvim",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
