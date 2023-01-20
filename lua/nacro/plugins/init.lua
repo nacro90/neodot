@@ -224,17 +224,25 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons" },
-  },
-  {
-    -- TODO navic
-    "SmiteshP/nvim-gps",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    {
+      "SmiteshP/nvim-navic",
+      dependencies = "neovim/nvim-lspconfig",
+    },
   },
   {
     "lewis6991/gitsigns.nvim",
   },
-  "norcalli/nvim-colorizer.lua",
+  {
+    "NvChad/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup {
+        user_default_options = {
+          mode = "virtualtext",
+          names = false,
+        },
+      }
+    end,
+  },
   "lukas-reineke/indent-blankline.nvim",
 
   -- testing
@@ -281,7 +289,7 @@ return {
   -- git
   {
     "tpope/vim-fugitive",
-    keys = { { "<leader>g", "<Cmd>Git<CR>" } },
+    keys = { { "<leader>G", "<Cmd>vertical Git<CR>" } },
     cmd = "Git",
   },
   {

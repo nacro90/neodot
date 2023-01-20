@@ -1,30 +1,14 @@
 local M = {}
 
 local lualine = require "lualine"
-local gps = require "nvim-gps"
+
+local navic = require'nvim-navic'
 
 local btc = require "nacro.lualine.btc"
 local recording = require "nacro.lualine.recording"
 
 local fn = vim.fn
 local winwidth = fn.winwidth
-
-local function setup_recording()
-  recording.setup()
-end
-
-local function setup_gps()
-  gps.setup {
-    icons = {
-      ["class-name"] = " ",
-      ["function-name"] = " ",
-      ["container-name"] = " ",
-      ["tag-name"] = "<> ",
-    },
-    separator = " > ",
-    depth = 3,
-  }
-end
 
 local SMALL_WINDOW_THRESHOLD = 75
 
@@ -61,10 +45,7 @@ local function setup_lualine()
           color_hint = "#BBBBBB",
           symbols = { error = "▪", warn = "▴", info = "›", hint = "▸" },
         },
-        {
-          gps.get_location,
-          cond = gps.is_available,
-        },
+{ navic.get_location, cond = navic.is_available }
       },
       lualine_x = {
         "searchcount",
@@ -110,8 +91,7 @@ local function setup_lualine()
 end
 
 function M.setup()
-  setup_gps()
-  setup_recording()
+  recording.setup()
   setup_lualine()
 end
 

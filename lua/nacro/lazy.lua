@@ -15,9 +15,16 @@ function M.bootstrap()
   vim.opt.rtp:prepend(lazypath)
 end
 
-function M.setup(module, opts)
-  local lazy = require("lazy")
-  lazy.setup(module, opts)
+function M.setup(module)
+  local lazy = require "lazy"
+  lazy.setup(module, {
+    dev = {
+      path = "~/Projects/plugins",
+    },
+    change_detection = {
+      notify = false,
+    },
+  })
   lazy.install()
 end
 

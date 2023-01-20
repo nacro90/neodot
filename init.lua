@@ -26,7 +26,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local lazy = require "lazy"
-lazy.setup "nacro.plugins"
+lazy.setup("nacro.plugins", {
+  dev = {
+    path = "~/Projects/plugins",
+  },
+  checker = {
+    notify = false,
+  },
+})
 
 command("LuaHas", function(keys)
   vim.notify(vim.inspect(pcall(require, keys.args)))
@@ -129,7 +136,6 @@ require("nacro.howdoi").setup()
 require("nacro.indent_blankline").setup()
 -- require("nacro.testing").setup()
 -- require("nacro.clipboard_image").setup()
-require("nacro.colorizer").setup()
 require("nacro.neovide").setup_if_neovide()
 require("nacro.buffer").setup()
 require("nacro.starlite").setup()

@@ -34,13 +34,21 @@ local function setup_keymaps(bufnr)
   keymap.set("n", "<leader>r", buf.rename, { buffer = bufnr })
 end
 
-local function setup_illuminate(client)
+local function attach_navic_if_supported(client, bufnr)
+  saferequire("nvim-navic", function(navic)
+    if client.server_capabilities.documentSymbolProvider then
+      navic.attach(client, bufnr)
+    end
+  end)
+end
+
+local function attach_illuminate(client)
   saferequire("illuminate", function(illuminate)
     illuminate.on_attach(client)
   end)
 end
 
-local function setup_lsp_signature(client, bufnr)
+local function attach_lsp_signature(client, bufnr)
   saferequire("lsp_signature", function(lsp_signature)
     lsp_signature.on_attach(client, bufnr)
   end)
@@ -51,8 +59,9 @@ function common.on_attach(client, bufnr)
 
   setup_keymaps(bufnr)
 
-  setup_illuminate(client)
-  setup_lsp_signature(client, bufnr)
+  attach_navic_if_supported(client, bufnr)
+  attach_illuminate(client)
+  attach_lsp_signature(client, bufnr)
 end
 
 function common.create_lsp_capabilities()
