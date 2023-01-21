@@ -243,6 +243,16 @@ return {
     end,
   },
   "lukas-reineke/indent-blankline.nvim",
+  {
+    "lcheylus/overlength.nvim",
+    ft = { "go", "java" },
+    cmd = { "OverlengthEnable", "OverlengthToggle" },
+    config = function()
+      require("overlength").setup {
+        disable_ft = { "qf", "help", "man", "packer", "NvimTree", "Telescope", "WhichKey" },
+      }
+    end,
+  },
 
   -- testing
 
