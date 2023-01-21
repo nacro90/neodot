@@ -34,11 +34,10 @@ command("WQ", "wq")
 nnoremap("<leader>ef", require("nacro.functions").configure_filetype)
 
 nmap("<leader>", "<Nop>")
-nmap("<CR>", "<Nop>")
 
 keymap.set("i", "<C-l>", "<Del>")
 
-keymap.set("i", "<C-a>", "<Esc>ggvG")
+keymap.set("i", "<C-a>", "<Esc>gg0vG$")
 
 keymap.set("c", "%%", require("nacro.functions").expand_percentage_if_in_command, { expr = true })
 
