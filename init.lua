@@ -12,32 +12,15 @@ local api = vim.api
 local fn = vim.fn
 local keymap = vim.keymap
 
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  }
-end
-vim.opt.rtp:prepend(lazypath)
-
-local lazy = require "lazy"
-lazy.setup("nacro.plugins", {
-  dev = {
-    path = "~/Projects/plugins",
-  },
-  checker = {
-    notify = false,
-  },
-})
+local nlazy = require "nacro.lazy"
+nlazy.bootstrap()
+nlazy.setup()
 
 command("LuaHas", function(keys)
   vim.notify(vim.inspect(pcall(require, keys.args)))
-end, { nargs = 1 })
+end, {
+  nargs = 1,
+})
 
 command("RemoveTrailingWhitespace", [[%substitute/\s\+$//]], { nargs = 0 })
 

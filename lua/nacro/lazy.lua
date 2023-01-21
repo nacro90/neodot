@@ -15,9 +15,9 @@ function M.bootstrap()
   vim.opt.rtp:prepend(lazypath)
 end
 
-function M.setup(module)
+function M.setup()
   local lazy = require "lazy"
-  lazy.setup(module, {
+  lazy.setup("nacro.plugins", {
     dev = {
       path = "~/Projects/plugins",
     },
@@ -25,7 +25,6 @@ function M.setup(module)
       notify = false,
     },
   })
-  lazy.install()
 end
 
 return M
