@@ -1,9 +1,5 @@
-local n_gitsigns = {}
-
-local gitsigns = require "gitsigns"
-
-function n_gitsigns.setup()
-  gitsigns.setup {
+local function config()
+  require("gitsigns").setup {
     signs = {
       add = { text = "│" },
       change = { text = "│" },
@@ -42,4 +38,7 @@ function n_gitsigns.setup()
   }
 end
 
-return n_gitsigns
+return {
+  "lewis6991/gitsigns.nvim",
+  config = config,
+}

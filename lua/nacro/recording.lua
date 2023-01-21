@@ -3,7 +3,7 @@ local recording = {}
 local recording_char
 
 function recording.setup()
-  local group = vim.api.nvim_create_augroup("lualine_recording", {})
+  local group = vim.api.nvim_create_augroup("nacro_recording", {})
   vim.api.nvim_create_autocmd("RecordingEnter", {
     group = group,
     callback = function()

@@ -77,10 +77,6 @@ keymap.set("n", "yos", "<Cmd>setlocal spell!<CR>")
 keymap.set("n", "]p", "o<C-r>+<Esc>")
 keymap.set("n", "[p", "O<C-r>+<Esc>")
 
-command("LspAttached", function()
-  vim.notify(#vim.lsp.get_active_clients { bufnr = 0 } > 0)
-end)
-
 command("RenameBuffer", function(arg)
   local name
   if arg and #arg > 0 then
@@ -103,24 +99,15 @@ vim.keymap.set("o", "al", "<Cmd>normal val<CR>")
 
 nnoremap("-", "<Nop>")
 
-require("nacro.lsp").setup()
--- require("nacro.dap").setup()
-require("nacro.lualine").setup()
-require("nacro.gitsigns").setup()
 require("nacro.translate").setup()
 require("nacro.matchparen").setup()
-require("nacro.treesitter").setup()
 require("nacro.terminal").setup()
 require("nacro.todo").setup(vim.env.HOME .. "/Organizers/todo.txt")
 require("nacro.ledger").setup()
--- require("nacro.flutter").setup()
 require("nacro.howdoi").setup()
-require("nacro.indent_blankline").setup()
--- require("nacro.testing").setup()
 -- require("nacro.clipboard_image").setup()
 require("nacro.neovide").setup_if_neovide()
 require("nacro.buffer").setup()
-require("nacro.starlite").setup()
 command("TimestampToDatetime", function(a)
   a = a.args
   print(os.date("%Y-%m-%d %H:%M:%S", a / 1000) .. "." .. a % 1000)

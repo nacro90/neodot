@@ -106,55 +106,8 @@ return {
       }
     end,
   },
-  --
-  -- treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-  },
-  "p00f/nvim-ts-rainbow",
-  {
-    "m-demare/hlargs.nvim",
-    config = true,
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-  },
-  "nvim-treesitter/nvim-treesitter-textobjects",
-  {
-    "windwp/nvim-ts-autotag",
-    ft = {
-      "html",
-      "svelte",
-    },
-    config = true,
-  },
+
   "monkoose/matchparen.nvim",
-
-  -- LSP
-  {
-    "folke/lsp-trouble.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons" },
-    cmd = "Trouble",
-    module = false,
-    config = function()
-      require("trouble").setup {
-        fold_open = "▰",
-        fold_closed = "▪",
-        action_keys = {
-          -- map to {} to remove a mapping, for example:
-          -- close = {},
-          jump = { "<cr>" },
-          open_split = { "<c-s>" },
-          hover = "<C-k>",
-        },
-        use_diagnostic_signs = true,
-      }
-    end,
-  },
-  "jose-elias-alvarez/null-ls.nvim",
-  "ray-x/lsp_signature.nvim",
-  "neovim/nvim-lspconfig",
-
-  "natecraddock/workspaces.nvim",
 
   -- editing
   {
@@ -182,7 +135,7 @@ return {
   {
     "kylechui/nvim-surround",
     config = true,
-    keys = { { "ys" }, { "yS" } },
+    keys = { { "ys" }, { "yS" }, { "cs" }, { "cS" }, { "ds" }, { "dS" } },
     version = "*",
   },
   {
@@ -205,32 +158,14 @@ return {
     dependencies = { "kana/vim-textobj-user" },
   },
   "tpope/vim-repeat",
-  "ironhouzi/starlite-nvim",
 
   -- ui
   {
     "szw/vim-maximizer",
     init = function()
       vim.g.maximizer_set_default_mapping = 0
-      vim.api.nvim_set_keymap("n", "<leader>m", "<Cmd>MaximizerToggle<CR>", { noremap = true })
     end,
     cmd = "MaximizerToggle",
-  },
-  {
-    "RRethy/vim-illuminate",
-    config = function()
-      require("illuminate").configure {}
-    end,
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    {
-      "SmiteshP/nvim-navic",
-      dependencies = "neovim/nvim-lspconfig",
-    },
-  },
-  {
-    "lewis6991/gitsigns.nvim",
   },
   {
     "NvChad/nvim-colorizer.lua",
@@ -242,35 +177,16 @@ return {
       }
     end,
   },
-  "lukas-reineke/indent-blankline.nvim",
   {
     "lcheylus/overlength.nvim",
     ft = { "go", "java" },
     cmd = { "OverlengthEnable", "OverlengthToggle" },
     config = function()
       require("overlength").setup {
-        disable_ft = { "qf", "help", "man", "packer", "NvimTree", "Telescope", "WhichKey" },
+        enabled = false,
+        disable_ft = { "qf", "help", "man", "packer", "NvimTree", "Telescope", "WhichKey", "lazy" },
       }
     end,
-  },
-
-  -- testing
-
-  -- completion
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-nvim-lua",
-      "hrsh7th/cmp-emoji",
-      "onsails/lspkind-nvim",
-      "hrsh7th/cmp-cmdline",
-      "dmitmel/cmp-cmdline-history",
-    },
-    event = "InsertEnter",
   },
 
   -- filesystem
@@ -307,12 +223,6 @@ return {
     cmd = "GV",
   },
 
-  -- debug
-  {
-    "mfussenegger/nvim-dap",
-    lazy = true,
-  },
-
   -- additional helpdocs
   "nanotee/luv-vimdocs",
   "milisims/nvim-luaref",
@@ -325,11 +235,11 @@ return {
   },
   {
     "nacro90/turkishmode.nvim",
-    config = function()
+    init = function()
       vim.api.nvim_create_user_command("Deasciify", function()
         require("turkishmode").deasciify_buffer()
-      end)
+      end, {})
     end,
-    cmd = "DeasciifyBuffer",
+    cmd = "Deasciify",
   },
 }

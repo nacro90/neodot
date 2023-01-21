@@ -24,6 +24,16 @@ function M.setup()
     change_detection = {
       notify = false,
     },
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
   })
 end
 

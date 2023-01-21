@@ -1,24 +1,6 @@
-local M = {}
-
-local lualine = require "lualine"
-
-local navic = require'nvim-navic'
-
-local btc = require "nacro.lualine.btc"
-local recording = require "nacro.lualine.recording"
-
-local fn = vim.fn
-local winwidth = fn.winwidth
-
-local SMALL_WINDOW_THRESHOLD = 75
-
----@diagnostic disable-next-line: unused-local, unused-function
-local function is_window_not_small()
-  return winwidth(0) > SMALL_WINDOW_THRESHOLD
-end
-
-local function setup_lualine()
-  lualine.setup {
+local function config()
+  local recording = require "nacro.recording"
+  require("lualine").setup {
     options = {
       theme = "auto",
       component_separators = { "│", "│" },
@@ -45,14 +27,24 @@ local function setup_lualine()
           color_hint = "#BBBBBB",
           symbols = { error = "▪", warn = "▴", info = "›", hint = "▸" },
         },
-{ navic.get_location, cond = navic.is_available }
+        {
+          function()
+            return require("nvim-navic").get_location()
+          end,
+          cond = function()
+            if #vim.lsp.get_active_clients() == 0 then
+              return false
+            end
+            local exists, navic = pcall(require, "nvim-navic")
+            if not exists then
+              return false
+            end
+            return navic.is_available()
+          end,
+        },
       },
       lualine_x = {
         "searchcount",
-        {
-          btc.create_component_func(),
-          cond = btc.is_enabled,
-        },
         "branch",
         "encoding",
         "fileformat",
@@ -88,11 +80,11 @@ local function setup_lualine()
     },
     extensions = { "nvim-tree", "fugitive" },
   }
-end
 
-function M.setup()
   recording.setup()
-  setup_lualine()
 end
 
-return M
+return {
+  "nvim-lualine/lualine.nvim",
+  config = config,
+}

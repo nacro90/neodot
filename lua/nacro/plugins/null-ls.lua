@@ -1,17 +1,15 @@
-local null = {}
+local function config()
+  local null_ls = require "null-ls"
+  local formatters = null_ls.builtins.formatting
+  local diagnostics = null_ls.builtins.diagnostics
+  local code_actions = null_ls.builtins.code_actions
 
-local null_ls = require "null-ls"
-
-local formatters = null_ls.builtins.formatting
-local diagnostics = null_ls.builtins.diagnostics
-local code_actions = null_ls.builtins.code_actions
-
-function null.setup()
   null_ls.setup {
     sources = {
       formatters.stylua.with {
         args = { "--config-path", vim.fn.stdpath "config" .. "/stylua.toml", "-" },
       },
+
       formatters.black,
       formatters.isort,
       formatters.shfmt,
@@ -20,14 +18,18 @@ function null.setup()
       formatters.golines,
       formatters.goimports,
       formatters.gofumpt,
+      diagnostics.staticcheck,
 
       diagnostics.shellcheck,
       diagnostics.vint,
-      diagnostics.staticcheck,
 
       code_actions.gitrebase,
     },
   }
 end
 
-return null
+return {
+  "jose-elias-alvarez/null-ls.nvim",
+  ft = { "go", "python", "lua", "sh", "bash", "zsh", "vim" },
+  config = config,
+}

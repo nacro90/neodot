@@ -1,6 +1,4 @@
-local M = {}
-
-function M.setup()
+local function config()
   require("indent_blankline").setup {
     char = "·",
     show_trailing_blankline_indent = false,
@@ -11,4 +9,7 @@ function M.setup()
   }
 end
 
-return M
+return {
+  "lukas-reineke/indent-blankline.nvim",
+  config = config,
+}

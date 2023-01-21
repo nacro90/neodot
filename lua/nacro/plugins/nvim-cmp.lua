@@ -1,13 +1,3 @@
-local function create_lspkind_formatter()
-  local exists, lspkind = pcall(require, "lspkind")
-  if not exists then
-    return function(...)
-      return ...
-    end
-  end
-  return lspkind.cmp_format { with_text = false, maxwidth = 50 }
-end
-
 local function create_snippet_config()
   local exists, luasnip = pcall(require, "luasnip")
   local snip_conf
@@ -23,7 +13,6 @@ end
 
 local function config()
   local cmp = require "cmp"
-
   cmp.setup {
     snippet = create_snippet_config(),
     sources = {
@@ -40,7 +29,10 @@ local function config()
     },
     preselect = cmp.PreselectMode.None,
     formatting = {
-      format = create_lspkind_formatter(),
+      format = require("lspkind").cmp_format {
+        with_text = false,
+        maxwidth = 50,
+      },
     },
     mapping = {
       ["<C-n>"] = cmp.mapping(function()

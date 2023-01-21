@@ -110,3 +110,8 @@ g.python_recommended_style = 0
 if require("nacro.os").get_name() == "mac" then
   vim.cmd "language en_US.UTF-8"
 end
+
+vim.diagnostic.config {
+  virtual_text = false,
+}
+

@@ -1,11 +1,10 @@
-local M = {}
-
-local configs = require "nvim-treesitter.configs"
-
-function M.setup()
-  configs.setup {
+local function config()
+  require("nvim-treesitter.configs").setup {
     ensure_installed = "all",
-    highlight = { enable = true, disable = { "markdown" } },
+    highlight = {
+      enable = true,
+      disable = { "markdown" },
+    },
     textobjects = {
       select = {
         enable = true,
@@ -32,9 +31,34 @@ function M.setup()
     autotag = { enable = true },
     rainbow = {
       enable = true,
-      disable = { "go", "python", "lua", "dart" },
+      disable = {
+        "go",
+        "python",
+        "lua",
+        "dart",
+      },
     },
   }
 end
 
-return M
+return {
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  config = config,
+  dependencies = {
+    "p00f/nvim-ts-rainbow",
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    {
+      "m-demare/hlargs.nvim",
+      config = true,
+    },
+    {
+      "windwp/nvim-ts-autotag",
+      ft = {
+        "html",
+        "svelte",
+      },
+      config = true,
+    },
+  },
+}

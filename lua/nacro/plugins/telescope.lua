@@ -31,7 +31,11 @@ local function config()
         },
       },
     },
-    extensions = {},
+    extensions = {
+      dap = {
+        list_breakpoints = {},
+      },
+    },
     pickers = {
       find_files = {
         find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
@@ -59,6 +63,9 @@ local function config()
       },
       git_status = {
         initial_mode = "normal",
+      },
+      builtin = {
+        include_extensions = true,
       },
     },
   }
@@ -144,7 +151,14 @@ local keys = {
       }
     end,
   },
-  { "<leader>j", builtiner "diagnostics" },
+  {
+    "<leader>j",
+    function()
+      require("telescope.builtin").diagnostics {
+        layout_strategy = "vertical",
+      }
+    end,
+  },
   { "<leader><leader>", builtiner "resume" },
   { "<leader>gs", builtiner "git_status" },
   { "<leader>gc", builtiner "git_bcommits" },
@@ -156,6 +170,7 @@ return {
   "nvim-lua/telescope.nvim",
   version = "1.1.x",
   keys = keys,
+  cmd = "Telescope",
   config = config,
   dependencies = {
     "nvim-lua/plenary.nvim",

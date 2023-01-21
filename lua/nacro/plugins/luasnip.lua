@@ -18,20 +18,19 @@ local function create_custom_snippets_table()
   return elements
 end
 
-local function next_choice()
-  return luasnip.choice_active() and luasnip.change_choice(1)
-end
-
-local function prev_choice()
-  return luasnip.choice_active() and luasnip.change_choice(-1)
-end
-
 local function config()
   local luasnip = require "luasnip"
-  local vscode_loader = require "luasnip.loaders.from_vscode"
   local snipmate_loader = require "luasnip.loaders.from_snipmate"
 
   local keymap = vim.keymap
+
+  local function next_choice()
+    return luasnip.choice_active() and luasnip.change_choice(1)
+  end
+
+  local function prev_choice()
+    return luasnip.choice_active() and luasnip.change_choice(-1)
+  end
 
   local function jump_forward()
     luasnip.jump(1)
@@ -54,7 +53,6 @@ local function config()
     luasnip.add_snippets(ft, snips)
   end
 
-  -- vscode_loader.lazy_load()
   snipmate_loader.lazy_load()
 end
 
