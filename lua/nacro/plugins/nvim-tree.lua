@@ -86,6 +86,11 @@ local function config()
   }
 end
 
+local function is_nvim_tree_focused()
+  local bufname = vim.api.nvim_buf_get_name(0)
+  return not not bufname:find "NvimTree"
+end
+
 return {
   "kyazdani42/nvim-tree.lua",
   config = config,
@@ -93,7 +98,12 @@ return {
     {
       "<leader>f",
       function()
-        require("nvim-tree").focus()
+        local nvimtree = require "nvim-tree"
+        if is_nvim_tree_focused() then
+          nvimtree.toggle()
+          return
+        end
+        nvimtree.focus()
       end,
     },
     {
