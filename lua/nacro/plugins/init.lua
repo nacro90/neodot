@@ -324,9 +324,11 @@ return {
     config = true,
   },
   {
-    dir = "~/Projects/plugins/turkishmode.nvim",
+    "nacro90/turkishmode.nvim",
     config = function()
-      vim.cmd [[command! DeasciifyBuffer lua require('turkishmode').deasciify_buffer()]]
+      vim.api.nvim_create_user_command("Deasciify", function()
+        require("turkishmode").deasciify_buffer()
+      end)
     end,
     cmd = "DeasciifyBuffer",
   },
