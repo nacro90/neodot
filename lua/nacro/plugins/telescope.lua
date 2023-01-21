@@ -56,7 +56,10 @@ local function config()
       },
       lsp_implementations = {
         layout_strategy = "vertical",
-      }
+      },
+      git_status = {
+        initial_mode = "normal",
+      },
     },
   }
   telescope.load_extension "fzf"
@@ -143,7 +146,7 @@ local keys = {
   },
   { "<leader>j", builtiner "diagnostics" },
   { "<leader><leader>", builtiner "resume" },
-  { "<leader>gg", builtiner "git_status" },
+  { "<leader>gs", builtiner "git_status" },
   { "<leader>gc", builtiner "git_bcommits" },
   { "<leader>gC", builtiner "git_commits" },
   { "<leader>gb", builtiner "git_branches" },
