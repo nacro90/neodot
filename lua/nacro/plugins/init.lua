@@ -189,6 +189,41 @@ return {
     end,
   },
 
+  {
+    "jvgrootveld/telescope-zoxide",
+    config = function()
+      require("telescope").load_extension "zoxide"
+    end,
+    keys = {
+      {
+        "<leader>c",
+        function()
+          require("telescope").extensions.zoxide.list { layout_strategy = "center" }
+        end,
+      },
+    },
+    dependencies = "nvim-lua/telescope.nvim",
+  },
+  {
+    "barrett-ruth/telescope-http.nvim",
+    config = function()
+      require("telescope").load_extension "http"
+    end,
+    lazy = true,
+    dependencies = "nvim-lua/telescope.nvim",
+  },
+  {
+    "edolphin-ydf/goimpl.nvim",
+    config = function()
+      require("telescope").load_extension "goimpl"
+    end,
+    lazy = true,
+    dependencies = {
+      "nvim-lua/telescope.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
+
   -- filesystem
   {
     "mbbill/undotree",
@@ -242,4 +277,13 @@ return {
     end,
     cmd = "Deasciify",
   },
+  {
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("toggleterm").setup {
+        open_mapping = "<C-t>",
+      }
+    end,
+  },
+  "gillyb/stable-windows",
 }
