@@ -162,7 +162,6 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
-    "jvgrootveld/telescope-zoxide",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
