@@ -34,6 +34,9 @@ function todo.edit_todo_popup(size)
     style = "minimal",
   }
   local win = api.nvim_open_win(buf, 1, opts)
+  vim.keymap.set("n", "q", function()
+    vim.api.nvim_win_close(0, true)
+  end, { buffer = true })
 
   vim.cmd("edit " .. todo.default_todo_file)
 end
