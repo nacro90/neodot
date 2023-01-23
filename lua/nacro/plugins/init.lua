@@ -223,6 +223,30 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
   },
+  {
+    "mrjones2014/smart-splits.nvim",
+    keys = {
+      {
+        "<leader>R",
+        function()
+          require("smart-splits").start_resize_mode()
+        end,
+      },
+    },
+    config = function()
+      require("smart-splits").setup {
+        resize_mode = {
+          silent = true,
+          hooks = {
+            on_enter = function()
+              vim.notify "Entering resize mode"
+            end,
+          },
+        },
+        tmux_integration = false,
+      }
+    end,
+  },
 
   -- filesystem
   {
