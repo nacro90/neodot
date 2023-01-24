@@ -310,4 +310,23 @@ return {
     end,
   },
   "gillyb/stable-windows",
+  {
+    "chentoast/marks.nvim",
+    keys = {
+      { "]m" },
+      { "[m" },
+      { "m" },
+      { "dm" },
+    },
+    config = function()
+      require("marks").setup {
+        mappings = {
+          next = "]m",
+          prev = "[m",
+          delete_line = "dmm",
+          delete_buffer = "dmae",
+        },
+      }
+    end,
+  },
 }
