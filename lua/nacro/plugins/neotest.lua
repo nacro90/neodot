@@ -9,17 +9,37 @@ local function config()
       },
     },
   }
-  vim.keymap.set("n", "<leader>tt", neotest.run.run)
-  vim.keymap.set("n", "<leader>tae", function()
-    neotest.run.run(vim.fn.expand "%")
-  end)
-  vim.keymap.set("n", "<leader>tx", neotest.run.stop)
-  vim.keymap.set("n", "<leader>to", neotest.output.open)
 end
 
 return {
   "nvim-neotest/neotest",
   ft = { "python", "go" },
+  keys = {
+    {
+      "<leader>tt",
+      function()
+        require("neotest").run.run()
+      end,
+    },
+    {
+      "<leader>tae",
+      function()
+        require("neotest").run.run(vim.fn.expand "%")
+      end,
+    },
+    {
+      "<leader>tx",
+      function()
+        require("neotest").run.stop()
+      end,
+    },
+    {
+      "<leader>to",
+      function()
+        require("neotest").output.open()
+      end,
+    },
+  },
   config = config,
   dependencies = {
     "nvim-lua/plenary.nvim",
