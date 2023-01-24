@@ -61,21 +61,26 @@ local function config()
   -- setup has a metatable that can be called and can be used as a table
   ---@diagnostic disable-next-line: undefined-field
   cmp.setup.cmdline("/", {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
       { name = "buffer" },
     },
   })
   cmp.setup.cmdline("?", {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
       { name = "buffer" },
     },
   })
   ---@diagnostic disable-next-line: undefined-field
   cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
+    completion = {
+      autocomplete = false,
+    },
     sources = {
       { name = "cmdline" },
       { name = "path" },
-      { name = "cmdline_history" },
     },
   })
 end
