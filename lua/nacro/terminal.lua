@@ -5,7 +5,7 @@ local api = vim.api
 local keymap = vim.keymap
 
 local function setup_keymaps()
-  keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]])
+  keymap.set("t", "<Esc>", [[<C-\><C-n>]])
   keymap.set({ "n", "t" }, "<C-Space><C-m>", "<Cmd>tabedit | terminal<CR>")
 end
 
