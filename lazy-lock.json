@@ -13,7 +13,7 @@
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
   "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
   "gitsigns.nvim": { "branch": "main", "commit": "0d4fe37ba5285171f3729da955955205f3fa945b" },
-  "goimpl.nvim": { "branch": "main", "commit": "1d14529ec6143e4b6e51a83738d61de7333267fb" },
+  "goimpl.nvim": { "branch": "main", "commit": "df010c46af75f3231e5369e60dd39a69fbc9449b" },
   "goto-breakpoints.nvim": { "branch": "master", "commit": "af43bb905cbff6c8ebb8e6438b75853b7baf1c74" },
   "gv.vim": { "branch": "master", "commit": "320cc8c477c5acc4fa0e52a460d87b2af54fa051" },
   "hlargs.nvim": { "branch": "main", "commit": "88b925d699fb39633cdda02c24f0b3ba5d0e6964" },

@@ -1,16 +1,10 @@
 require "nacro.options"
+require "nacro.keymaps"
 
 local command = require "nacro.utils.command"
-local map = require "nacro.utils.map"
 
-local nnoremap = map.nnoremap
-local xmap = map.xmap
-local nmap = map.nmap
-
--- local placeholders to improve performance
 local api = vim.api
 local fn = vim.fn
-local keymap = vim.keymap
 
 local nlazy = require "nacro.lazy"
 nlazy.bootstrap()
@@ -24,29 +18,10 @@ end, {
 
 command("RemoveTrailingWhitespace", [[%substitute/\s\+$//]], { nargs = 0 })
 
-nnoremap("Q", "<Nop>")
-
 command("W", "w")
 command("Q", "q")
 command("Wq", "wq")
 command("WQ", "wq")
-
-nnoremap("<leader>ef", require("nacro.functions").configure_filetype)
-
-nmap("<leader>", "<Nop>")
-
-keymap.set("i", "<C-l>", "<Del>")
-
-keymap.set("i", "<C-a>", "<Esc>gg0vG$")
-
-keymap.set("c", "%%", require("nacro.functions").expand_percentage_if_in_command, { expr = true })
-
-xmap("s", "<Esc>lys`<")
-
--- (') can be very annoying when it can not do the (`)
-nmap("'", "`")
-
-nnoremap("zz", "zzzH")
 
 api.nvim_create_autocmd("TextYankPost", {
   group = api.nvim_create_augroup("highlight_yank", {}),
@@ -54,28 +29,6 @@ api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
   end,
 })
-
-for _, key in ipairs { "j", "k", "^" } do
-  keymap.set({ "n", "v" }, key, "g" .. key, { remap = true, silent = true })
-end
-
-for _, mode in pairs { "i", "n", "v" } do
-  keymap.set(mode, "<F1>", "<Nop>")
-end
-
--- cmd('autocmd! BufWritePost plugins.lua execute "Reload" | PackerCompile')
-
-nnoremap("<C-w>n", "<Cmd>vertical new<CR>")
-nnoremap("<C-w><C-n>", "<Cmd>vertical new<CR>")
-
-nnoremap("yon", "<Cmd>setlocal number!<CR>")
-nnoremap("yor", "<Cmd>setlocal relativenumber!<CR>")
-nnoremap("yow", "<Cmd>setlocal wrap!<CR>")
-nnoremap("yoc", "<Cmd>setlocal cursorline!<CR>")
-keymap.set("n", "yos", "<Cmd>setlocal spell!<CR>")
-
-keymap.set("n", "]p", "o<C-r>+<Esc>")
-keymap.set("n", "[p", "O<C-r>+<Esc>")
 
 command("RenameBuffer", function(arg)
   local name
@@ -92,18 +45,10 @@ end, {
   nargs = "?",
 })
 
-vim.keymap.set("x", "il", "g_o^")
-vim.keymap.set("o", "il", "<Cmd>normal vil<CR>")
-vim.keymap.set("x", "al", "$o^")
-vim.keymap.set("o", "al", "<Cmd>normal val<CR>")
-
-nnoremap("-", "<Nop>")
-
 require("nacro.translate").setup()
 require("nacro.matchparen").setup()
 require("nacro.terminal").setup()
 require("nacro.todo").setup(vim.env.HOME .. "/Organizers/todo.txt")
-require("nacro.ledger").setup()
 require("nacro.howdoi").setup()
 -- require("nacro.clipboard_image").setup()
 require("nacro.neovide").setup_if_neovide()
@@ -114,8 +59,3 @@ command("TimestampToDatetime", function(a)
 end, {
   nargs = 1,
 })
-
-nnoremap("<leader>>", "<Cmd>tabmove +<CR>")
-nnoremap("<leader><lt>", "<Cmd>tabmove -<CR>")
-
-vim.keymap.set("n", "<BS>", "<NOP>", {})
