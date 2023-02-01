@@ -18,7 +18,7 @@ local function config()
       formatters.golines,
       formatters.goimports,
       formatters.gofumpt,
-      diagnostics.staticcheck,
+      -- diagnostics.staticcheck,
 
       diagnostics.shellcheck,
       diagnostics.vint,
