@@ -303,6 +303,7 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
+    enabled = false,
     config = function()
       require("toggleterm").setup {
         open_mapping = "<C-t>",
