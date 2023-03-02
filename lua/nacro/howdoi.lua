@@ -3,6 +3,10 @@ local howdoi = {}
 local Job = require "plenary.job"
 
 function howdoi.get(arg)
+  if vim.fn.executable("howdoi") ~= 1 then
+    vim.notify("howdoi executable not found")
+    return
+  end
   local job = Job:new {
     command = "howdoi",
     args = { arg },
