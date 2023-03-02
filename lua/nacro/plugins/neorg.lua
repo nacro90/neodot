@@ -17,7 +17,7 @@ local function config()
       ["core.norg.dirman"] = {
         config = {
           workspaces = {
-            my_workspace = "~/neorg",
+            my_workspace = "~/Norgs",
           },
         },
       },
@@ -32,7 +32,7 @@ end
 
 return {
   "nvim-neorg/neorg",
-  ft = "norg",
+  run = ":Neorg sync-parsers",
   config = config,
   dependencies = { "nvim-lua/plenary.nvim" },
 }
