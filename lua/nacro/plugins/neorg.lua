@@ -1,23 +1,12 @@
 local function config()
-  -- local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-  --
-  -- parser_configs.norg = {
-  --   install_info = {
-  --     url = "https://github.com/nvim-neorg/tree-sitter-norg",
-  --     files = { "src/parser.c", "src/scanner.cc" },
-  --     branch = "main",
-  --   },
-  -- }
-
-  local neorg = require "neorg"
-  neorg.setup {
+  require("neorg").setup {
     load = {
       ["core.defaults"] = {},
       ["core.norg.concealer"] = {},
       ["core.norg.dirman"] = {
         config = {
           workspaces = {
-            my_workspace = "~/Norgs",
+            norgs = "~/Norgs",
           },
         },
       },
@@ -26,6 +15,25 @@ local function config()
           engine = "nvim-cmp",
         },
       },
+      ["core.keybinds"] = {
+        config = {
+          hook = function(keybinds)
+            keybinds.remap_event("norg", "n", "<leader>Z", "core.norg.dirman.new.note")
+            keybinds.map_event_to_mode("norg", {
+              n = {
+                { "<leader>l", "core.integrations.telescope.find_linkable" },
+              },
+              i = {
+                { "<C-l>", "core.integrations.telescope.insert_link" },
+              },
+            }, {
+              silent = true,
+              noremap = true,
+            })
+          end,
+        },
+      },
+      ["core.integrations.telescope"] = {},
     },
   }
 end
@@ -34,5 +42,8 @@ return {
   "nvim-neorg/neorg",
   run = ":Neorg sync-parsers",
   config = config,
-  dependencies = { "nvim-lua/plenary.nvim" },
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-neorg/neorg-telescope",
+  },
 }

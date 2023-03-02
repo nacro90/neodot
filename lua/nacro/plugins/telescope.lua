@@ -109,6 +109,12 @@ local keys = {
       require("telescope.builtin").find_files { cwd = vim.fn.stdpath "data" }
     end,
   },
+  {
+    "<leader>z",
+    function()
+      require("telescope.builtin").find_files { cwd = vim.env.HOME .. "/Norgs" }
+    end,
+  },
   { "<leader>o", builtiner "live_grep" },
   {
     "<leader>O",
