@@ -22,6 +22,13 @@ return {
       end,
     },
   },
+  cmd = {
+    "WorkspacesAdd",
+    "WorkspacesList",
+    "WorkspacesOpen",
+    "WorkspacesRemove",
+    "WorkspacesRename",
+  },
   config = config,
   dependencies = { "nvim-lua/telescope.nvim" },
 }
