@@ -43,6 +43,10 @@ return {
     config = true,
     lazy = true,
   },
+  {
+    "AlexvZyl/nordic.nvim",
+    lazy = true,
+  },
 
   -- filetype
   {
