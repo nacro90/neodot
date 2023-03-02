@@ -65,7 +65,7 @@ local configs = {
       end
     end,
   },
-  sumneko_lua = {
+  lua_ls = {
     settings = {
       Lua = {
         runtime = { version = "LuaJIT" },
@@ -87,9 +87,9 @@ local function config()
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
     on_attach = on_attach,
   }
-  for name, config in pairs(configs) do
-    config = vim.tbl_extend("force", default_config, config)
-    require("lspconfig")[name].setup(config)
+  for name, cfg in pairs(configs) do
+    cfg = vim.tbl_extend("force", default_config, cfg)
+    require("lspconfig")[name].setup(cfg)
   end
 end
 
