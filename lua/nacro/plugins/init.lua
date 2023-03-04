@@ -9,6 +9,8 @@ return {
     cmd = {
       "Remove",
       "Move",
+      "Chmod",
+      "Mkdir",
     },
   },
 
