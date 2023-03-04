@@ -312,6 +312,7 @@ return {
     config = function()
       require("toggleterm").setup {
         open_mapping = "<C-t>",
+        insert_mappings = false,
       }
     end,
   },
