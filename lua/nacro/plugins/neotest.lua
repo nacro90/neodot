@@ -4,26 +4,32 @@ local function config()
     diagnostic = { enabled = false },
     adapters = {
       require "neotest-go",
-      require "neotest-dart" {
-        command = vim.env.HOME .. "/.local/lib/flutter/bin/flutter",
-      },
+      require "neotest-dart",
+    },
+    quickfix = {
+      enabled = false,
+    },
+    output = {
+      open_on_run = false,
     },
   }
 end
 
 return {
   "nvim-neotest/neotest",
-  ft = { "python", "go" },
+  ft = { "python", "go", "dart" },
   keys = {
     {
       "<leader>tt",
       function()
+        vim.cmd "write"
         require("neotest").run.run()
       end,
     },
     {
       "<leader>tae",
       function()
+        vim.cmd "write"
         require("neotest").run.run(vim.fn.expand "%")
       end,
     },
@@ -37,6 +43,12 @@ return {
       "<leader>to",
       function()
         require("neotest").output.open()
+      end,
+    },
+    {
+      "<leader>ts",
+      function()
+        require("neotest").summary.toggle()
       end,
     },
   },

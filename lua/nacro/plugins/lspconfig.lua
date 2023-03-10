@@ -109,6 +109,7 @@ return {
     "typescript",
     "yaml",
     "zig",
+    "dart",
   },
   dependencies = {
     "nvim-lua/telescope.nvim",

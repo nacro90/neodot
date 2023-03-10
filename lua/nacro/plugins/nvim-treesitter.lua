@@ -38,6 +38,9 @@ local function config()
         "dart",
       },
     },
+    playground = {
+      enable = true,
+    },
   }
 end
 
@@ -60,5 +63,6 @@ return {
       },
       config = true,
     },
+    "nvim-treesitter/playground",
   },
 }

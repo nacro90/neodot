@@ -1,3 +1,20 @@
+---@diagnostic disable-next-line: unused-local, unused-function
+local function norg_search_dirs()
+  local ok, neorg = pcall(require, "neorg")
+  if not ok then
+    return
+  end
+  local dirman = neorg.configuration.modules["core.norg.dirman"]
+  if not dirman then
+    return
+  end
+  local dirs = {}
+  for _, dir in pairs(dirman.workspaces) do
+    dirs[#dirs + 1] = vim.fn.expand(dir)
+  end
+  return dirs
+end
+
 local function config()
   local telescope = require "telescope"
   local actions = require "telescope.actions"
