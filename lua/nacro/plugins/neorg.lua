@@ -2,9 +2,15 @@ local function config()
   require("neorg").setup {
     load = {
       ["core.defaults"] = {},
-      ["core.norg.concealer"] = {},
+      ["core.norg.concealer"] = {
+        config = {
+          icon_preset = "diamond",
+        },
+      },
       ["core.norg.dirman"] = {
         config = {
+          default_workspace = "norgs",
+          use_popup = false,
           workspaces = {
             norgs = "~/Norgs",
           },
@@ -40,6 +46,7 @@ end
 
 return {
   "nvim-neorg/neorg",
+  cmd = "Neorg",
   run = ":Neorg sync-parsers",
   config = config,
   dependencies = {
