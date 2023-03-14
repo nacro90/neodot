@@ -46,6 +46,7 @@ end
 
 return {
   "nvim-neorg/neorg",
+  lazy = false,
   cmd = "Neorg",
   run = ":Neorg sync-parsers",
   config = config,
