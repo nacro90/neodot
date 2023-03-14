@@ -135,7 +135,9 @@ return {
   },
   {
     "numToStr/Comment.nvim",
-    keys = { "gc" },
+    keys = {
+      { "gc", mode = { "v", "n" } },
+    },
     config = true,
   },
   {
@@ -147,8 +149,7 @@ return {
   {
     "junegunn/vim-easy-align",
     keys = {
-      { "ga", "<Plug>(EasyAlign)" },
-      { "ga", "<Plug>(EasyAlign)", mode = "x" },
+      { "ga", "<Plug>(EasyAlign)", mode = { "x", "n" } },
     },
   },
   {
