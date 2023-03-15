@@ -29,7 +29,7 @@
   "matchparen.nvim": { "branch": "main", "commit": "dc511ea561bb34c99d0fad9a6fd08bb0e4187a5e" },
   "mellifluous.nvim": { "branch": "main", "commit": "d88a83afd349a78e577ab39c0d30b95c6da42664" },
   "monokai.nvim": { "branch": "master", "commit": "b8bd44d5796503173627d7a1fc51f77ec3a08a63" },
-  "neorg": { "branch": "main", "commit": "7ce2db5d2eeec37b4a4c4bc43009c4741c3755da" },
+  "neorg": { "branch": "main", "commit": "764dec5de14947f2f5d08bd3e0452324538e9a4d" },
   "neorg-telescope": { "branch": "main", "commit": "9deacda7abbfe09cd80ba86d0eefad514cda0b11" },
   "neotest": { "branch": "master", "commit": "95f95e346090ad96c657f021ad4d47f93c915598" },
   "neotest-dart": { "branch": "main", "commit": "ceef1a7b06b50d2fe4ad914b584406c9ca554e29" },

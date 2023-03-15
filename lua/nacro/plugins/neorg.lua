@@ -13,6 +13,7 @@ local function config()
           use_popup = false,
           workspaces = {
             norgs = "~/Norgs",
+            trendyol = "~/Norgs/trendyol"
           },
         },
       },
