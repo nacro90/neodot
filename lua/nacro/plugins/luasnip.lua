@@ -40,7 +40,14 @@ local function config()
     luasnip.jump(-1)
   end
 
-  keymap.set("i", "<C-k>", luasnip.expand_or_jump, { silent = true })
+  keymap.set("i", "<C-k>", function()
+    local ls = require'luasnip'
+    if ls.expand_or_locally_jumpable() then
+      ls.expand_or_jump()
+      return
+    end
+    -- TODO: Trigger default <C-k>
+  end, { silent = true })
   keymap.set("i", "<C-j>", jump_back, { silent = true })
   keymap.set("s", "<C-k>", jump_forward, { silent = true })
   keymap.set("s", "<C-j>", jump_back, { silent = true })
