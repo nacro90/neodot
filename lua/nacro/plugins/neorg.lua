@@ -5,6 +5,16 @@ local function config()
       ["core.norg.concealer"] = {
         config = {
           icon_preset = "diamond",
+          icons = {
+            todo = {
+              undone = {
+                enabled = false,
+              },
+              uncertain = {
+                enabled = false,
+              }
+            },
+          },
         },
       },
       ["core.norg.dirman"] = {
@@ -13,7 +23,7 @@ local function config()
           use_popup = false,
           workspaces = {
             norgs = "~/Norgs",
-            trendyol = "~/Norgs/trendyol"
+            trendyol = "~/Norgs/trendyol",
           },
         },
       },
