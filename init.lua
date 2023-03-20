@@ -16,7 +16,7 @@ end, {
   nargs = 1,
 })
 
-command("RemoveTrailingWhitespace", [[%substitute/\s\+$//]], { nargs = 0 })
+command("RemoveTrailingWhitespace", [[silent! %substitute/\s\+$//]], { nargs = 0 })
 
 command("W", "w")
 command("Q", "q")
