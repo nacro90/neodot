@@ -12,7 +12,7 @@ local function config()
               },
               uncertain = {
                 enabled = false,
-              }
+              },
             },
           },
         },
@@ -35,10 +35,29 @@ local function config()
       ["core.keybinds"] = {
         config = {
           hook = function(keybinds)
-            keybinds.remap_event("norg", "n", "<leader>Z", "core.norg.dirman.new.note")
+            keybinds.remap_event("all", "n", "<leader>Z", "core.norg.dirman.new.note")
+            keybinds.map_event_to_mode("norg", {
+              n = {
+                { "]h", "core.integrations.treesitter.next.heading" },
+                { "[h", "core.integrations.treesitter.previous.heading" },
+              },
+            }, {
+              silent = true,
+              noremap = true,
+            })
+            keybinds.map_to_mode("all", {
+              n = {
+                { "<leader>mn", "<Cmd>Neorg mode norg<CR>" },
+                { "<leader>mh", "<Cmd>Neorg mode traverse-heading<CR>" },
+              },
+            }, {
+              silent = true,
+              noremap = true,
+            })
             keybinds.map_event_to_mode("norg", {
               n = {
                 { "<leader>l", "core.integrations.telescope.find_linkable" },
+                { "<leader>s", "core.integrations.telescope.search_headings" },
               },
               i = {
                 { "<C-l>", "core.integrations.telescope.insert_link" },
