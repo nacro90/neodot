@@ -32,6 +32,11 @@ local function config()
           engine = "nvim-cmp",
         },
       },
+      ["core.norg.journal"] = {
+        config = {
+          workspace = "norgs",
+        },
+      },
       ["core.keybinds"] = {
         config = {
           hook = function(keybinds)
