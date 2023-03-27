@@ -1,3 +1,40 @@
+local function extend_metagen_template(template, extend)
+  local new_template = vim.deepcopy(template)
+  for i, t in ipairs(new_template) do
+    local k = t[1]
+    if extend[k] then
+      new_template[i] = { k, extend[k] }
+      extend[k] = nil
+    end
+  end
+  for k, v in pairs(extend) do
+    new_template[#new_template + 1] = { k, v }
+  end
+  return new_template
+end
+
+local function remove_keys_metagen_template(template, keys)
+  local new_template = vim.deepcopy(template)
+  for i, t in ipairs(new_template) do
+    local k = t[1]
+    if vim.tbl_contains(keys, k) then
+      table.remove(new_template, i)
+    end
+  end
+  return new_template
+end
+
+local function create_metagen_template()
+  local metagen = require "neorg.modules.core.norg.esupports.metagen.module"
+  local default_template = metagen.config.public.template
+  local removed = remove_keys_metagen_template(default_template, { "categories", "description" })
+  return extend_metagen_template(removed, {
+    id = function()
+      return os.date "%y%m%d%H%M%S"
+    end,
+  })
+end
+
 local function config()
   require("neorg").setup {
     load = {
@@ -35,6 +72,12 @@ local function config()
       ["core.norg.journal"] = {
         config = {
           workspace = "norgs",
+        },
+      },
+      ["core.norg.esupports.metagen"] = {
+        config = {
+          type = "auto",
+          template = create_metagen_template(),
         },
       },
       ["core.keybinds"] = {
@@ -75,6 +118,7 @@ local function config()
         },
       },
       ["core.integrations.telescope"] = {},
+      ["external.zettelkasten"] = {},
     },
   }
 end
@@ -88,5 +132,6 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-neorg/neorg-telescope",
+    "max397574/neorg-zettelkasten",
   },
 }
