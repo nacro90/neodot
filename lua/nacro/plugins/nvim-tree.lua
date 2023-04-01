@@ -50,7 +50,7 @@ local function config()
           file = true,
           folder = true,
           folder_arrow = false,
-          git = true,
+          git = false,
         },
         glyphs = {
           bookmark = "⋄",
@@ -98,18 +98,18 @@ return {
     {
       "<leader>f",
       function()
-        local nvimtree = require "nvim-tree"
+        local api = require "nvim-tree.api"
         if is_nvim_tree_focused() then
-          nvimtree.toggle()
+          api.tree.toggle()
           return
         end
-        nvimtree.focus()
+        api.tree.focus()
       end,
     },
     {
       "<leader>F",
       function()
-        require("nvim-tree").find_file()
+        require("nvim-tree.api").tree.find_file()
       end,
     },
     {
