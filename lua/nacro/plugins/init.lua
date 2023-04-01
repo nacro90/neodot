@@ -36,16 +36,6 @@ return {
     end,
   },
   {
-    "lewpoly/sherbet.nvim",
-    lazy = true,
-  },
-  {
-    "ramojus/mellifluous.nvim",
-    dependencies = { "rktjmp/lush.nvim" },
-    config = true,
-    lazy = true,
-  },
-  {
     "AlexvZyl/nordic.nvim",
     lazy = true,
   },
