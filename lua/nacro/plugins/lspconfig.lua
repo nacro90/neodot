@@ -87,6 +87,12 @@ local function config()
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
     on_attach = on_attach,
   }
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = "solid",
+  })
+  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = "solid",
+  })
   for name, cfg in pairs(configs) do
     cfg = vim.tbl_extend("force", default_config, cfg)
     require("lspconfig")[name].setup(cfg)
