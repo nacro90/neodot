@@ -25,14 +25,17 @@ local function setup_keymaps(bufnr)
   vim.keymap.set("n", "<leader>s", tb.lsp_dynamic_workspace_symbols, { buffer = bufnr })
   vim.keymap.set("n", "<leader>S", tb.lsp_document_symbols, { buffer = bufnr })
   vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { buffer = bufnr })
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr })
+  vim.keymap.set("n", "]d", function()
+    vim.diagnostic.goto_next {
+      severity = vim.diagnostic.severity.WARN,
+    }
+  end, { buffer = bufnr })
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr })
-  vim.keymap.set("n", "g<C-d>", vim.lsp.buf.implementation, { buffer = bufnr })
   vim.keymap.set("n", "<C-q>", vim.lsp.buf.signature_help, { buffer = bufnr })
   vim.keymap.set("i", "<C-q>", vim.lsp.buf.signature_help, { buffer = bufnr })
-  vim.keymap.set("n", "1gD", vim.lsp.buf.type_definition, { buffer = bufnr })
+  vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, { buffer = bufnr })
   vim.keymap.set({ "n", "v" }, "gl", vim.lsp.buf.format, { buffer = bufnr })
-  vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = bufnr })
+  -- vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = bufnr })
 end
 
 local function on_attach(client, bufnr)
@@ -127,6 +130,13 @@ return {
       config = function()
         require("illuminate").configure {}
       end,
+    },
+    {
+      "smjonas/inc-rename.nvim",
+      keys = {
+        { "<leader>r", ":IncRename " },
+      },
+      config = true,
     },
   },
 }
