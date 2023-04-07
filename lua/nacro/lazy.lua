@@ -19,7 +19,7 @@ function M.setup()
   local lazy = require "lazy"
   lazy.setup("nacro.plugins", {
     dev = {
-      path = "~/Projects/plugins",
+      path = "~/Projects",
     },
     change_detection = {
       notify = false,

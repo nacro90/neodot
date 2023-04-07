@@ -65,6 +65,7 @@ return {
   {
     "plasticboy/vim-markdown",
     ft = "markdown",
+    enabled = false,
     init = function()
       vim.g.vim_markdown_frontmatter = 1
       vim.g.vim_markdown_strikethrough = 1
@@ -286,6 +287,7 @@ return {
   -- mine
   {
     "nacro90/numb.nvim",
+    dev = true,
     event = "CmdlineEnter",
     config = true,
   },

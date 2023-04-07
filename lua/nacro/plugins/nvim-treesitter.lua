@@ -3,7 +3,6 @@ local function config()
     ensure_installed = "all",
     highlight = {
       enable = true,
-      disable = { "markdown" },
     },
     textobjects = {
       select = {
@@ -30,7 +29,7 @@ local function config()
     indent = { enable = false },
     autotag = { enable = true },
     rainbow = {
-      enable = true,
+      enable = false,
       disable = {
         "go",
         "python",
