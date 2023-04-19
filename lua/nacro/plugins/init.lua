@@ -338,4 +338,8 @@ return {
       }
     end,
   },
+  {
+    "folke/zen-mode.nvim",
+    config = true,
+  },
 }
