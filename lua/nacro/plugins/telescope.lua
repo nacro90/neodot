@@ -180,7 +180,7 @@ local keys = {
 }
 
 return {
-  "nvim-lua/telescope.nvim",
+  "nvim-telescope/telescope.nvim",
   version = "1.1.x",
   keys = keys,
   cmd = "Telescope",

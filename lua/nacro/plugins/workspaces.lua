@@ -30,5 +30,5 @@ return {
     "WorkspacesRename",
   },
   config = config,
-  dependencies = { "nvim-lua/telescope.nvim" },
+  dependencies = { "nvim-telescope/telescope.nvim" },
 }

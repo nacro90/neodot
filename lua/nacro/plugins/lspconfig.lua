@@ -121,7 +121,7 @@ return {
     "dart",
   },
   dependencies = {
-    "nvim-lua/telescope.nvim",
+    "nvim-telescope/telescope.nvim",
     "hrsh7th/cmp-nvim-lsp",
     "ray-x/lsp_signature.nvim",
     "SmiteshP/nvim-navic",

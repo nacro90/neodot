@@ -84,6 +84,7 @@ opt.swapfile = false
 opt.updatetime = 500
 opt.shortmess:append "c"
 opt.shortmess:append "S"
+opt.shortmess:append "W"
 opt.lazyredraw = true
 opt.fillchars = {
   vert = "┃",
@@ -114,4 +115,3 @@ end
 vim.diagnostic.config {
   virtual_text = false,
 }
-

@@ -11,6 +11,7 @@ return {
       "Move",
       "Chmod",
       "Mkdir",
+      "Rename",
     },
   },
 
@@ -76,6 +77,7 @@ return {
   },
   {
     "renerocksai/telekasten.nvim",
+    enabled = false,
     keys = {
       {
         "<leader>ez",
@@ -200,7 +202,7 @@ return {
         end,
       },
     },
-    dependencies = "nvim-lua/telescope.nvim",
+    dependencies = "nvim-telescope/telescope.nvim",
   },
   {
     "barrett-ruth/telescope-http.nvim",
@@ -208,7 +210,7 @@ return {
       require("telescope").load_extension "http"
     end,
     lazy = true,
-    dependencies = "nvim-lua/telescope.nvim",
+    dependencies = "nvim-telescope/telescope.nvim",
   },
   {
     "edolphin-ydf/goimpl.nvim",
@@ -217,7 +219,7 @@ return {
     end,
     lazy = true,
     dependencies = {
-      "nvim-lua/telescope.nvim",
+      "nvim-telescope/telescope.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
   },

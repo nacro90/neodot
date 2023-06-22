@@ -20,7 +20,7 @@ local function config()
       { name = "nvim_lua" },
       { name = "luasnip", max_item_count = 1 },
       { name = "path" },
-      { name = "buffer" },
+      -- { name = "buffer" },
       { name = "emoji", options = { insert = true } },
       { name = "neorg" },
     },
@@ -54,7 +54,7 @@ local function config()
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-d>"] = cmp.mapping { c = cmp.mapping.complete() },
-      ["<C-e>"] = cmp.mapping { c = cmp.mapping.abort() },
+      ["<C-e>"] = cmp.mapping.abort(),
       ["<CR>"] = cmp.mapping.confirm { select = true },
     },
   }

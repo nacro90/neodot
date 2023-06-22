@@ -154,7 +154,7 @@ return {
       config = function()
         require("telescope").load_extension "dap"
       end,
-      dependencies = { "nvim-lua/telescope.nvim" },
+      dependencies = { "nvim-telescope/telescope.nvim" },
     },
     {
       "leoluz/nvim-dap-go",
