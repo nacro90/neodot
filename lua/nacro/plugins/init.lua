@@ -333,6 +333,7 @@ return {
   {
     "chomosuke/term-edit.nvim",
     version = "1.*",
+    lazy = false,
     config = function()
       require("term-edit").setup {
         prompt_end = "[❮❯] ",
