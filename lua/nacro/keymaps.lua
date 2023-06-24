@@ -6,6 +6,7 @@ set("n", "<leader>", "<Nop>", { remap = true })
 set({ "i", "n", "v" }, "<F1>", "<Nop>")
 set("n", "-", "<Nop>")
 set("n", "<BS>", "<NOP>")
+set("n", "<CR>", "<NOP>")
 
 set("n", "'", "`", { remap = true })
 set("n", "zz", "zzzH")

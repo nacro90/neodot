@@ -21,6 +21,8 @@ function os.get_name()
   return sysname_os_map[sysname]
 end
 
+---returns opener command of current OS
+---@return string
 function os.get_opener()
   return openers_by_os[uv.os_uname().sysname]
 end
