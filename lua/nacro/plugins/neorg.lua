@@ -24,8 +24,9 @@ local function remove_keys_metagen_template(template, keys)
   return new_template
 end
 
+---@diagnostic disable-next-line: unused-function, unused-local
 local function create_metagen_template()
-  local metagen = require "neorg.modules.core.norg.esupports.metagen.module"
+  local metagen = require "neorg.modules.core.esupports.metagen.module"
   local default_template = metagen.config.public.template
   local removed = remove_keys_metagen_template(default_template, { "categories", "description" })
   return extend_metagen_template(removed, {
@@ -39,7 +40,7 @@ local function config()
   require("neorg").setup {
     load = {
       ["core.defaults"] = {},
-      ["core.norg.concealer"] = {
+      ["core.concealer"] = {
         config = {
           icon_preset = "diamond",
           icons = {
@@ -54,7 +55,7 @@ local function config()
           },
         },
       },
-      ["core.norg.dirman"] = {
+      ["core.dirman"] = {
         config = {
           default_workspace = "norgs",
           use_popup = false,
@@ -64,26 +65,26 @@ local function config()
           },
         },
       },
-      ["core.norg.completion"] = {
+      ["core.completion"] = {
         config = {
           engine = "nvim-cmp",
         },
       },
-      ["core.norg.journal"] = {
+      ["core.journal"] = {
         config = {
           workspace = "norgs",
         },
       },
-      ["core.norg.esupports.metagen"] = {
-        config = {
-          type = "auto",
-          template = create_metagen_template(),
-        },
-      },
+      -- ["core.esupports.metagen"] = {
+      --   config = {
+      --     type = "auto",
+      --     template = create_metagen_template(),
+      --   },
+      -- },
       ["core.keybinds"] = {
         config = {
           hook = function(keybinds)
-            keybinds.remap_event("all", "n", "<leader>Z", "core.norg.dirman.new.note")
+            keybinds.remap_event("all", "n", "<leader>Z", "core.dirman.new.note")
             keybinds.map_event_to_mode("norg", {
               n = {
                 { "]h", "core.integrations.treesitter.next.heading" },
