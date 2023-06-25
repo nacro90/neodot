@@ -295,7 +295,7 @@ return {
   },
   {
     "nacro90/turkishmode.nvim",
-    init = function()
+    config = function()
       vim.api.nvim_create_user_command("Deasciify", function()
         require("turkishmode").deasciify_buffer()
       end, {})
