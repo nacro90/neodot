@@ -12,9 +12,16 @@ return {
     follow_url_func = function(url)
       vim.fn.jobstart { os.get_opener(), url }
     end,
+    note_id_func = function(title)
+      if not title then
+        title = vim.fn.input "New zettel: "
+      end
+      title = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+      return title
+    end,
   },
   config = function(_, opts)
-    local obsidian = require("obsidian")
+    local obsidian = require "obsidian"
 
     obsidian.setup(opts)
 
