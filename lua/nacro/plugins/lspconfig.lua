@@ -119,6 +119,7 @@ return {
     "yaml",
     "zig",
     "dart",
+    "java",
   },
   dependencies = {
     "nvim-telescope/telescope.nvim",

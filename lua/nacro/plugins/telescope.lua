@@ -190,6 +190,7 @@ return {
     "nvim-telescope/telescope-ui-select.nvim",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
+      enabled = true,
       build = "make",
     },
   },
