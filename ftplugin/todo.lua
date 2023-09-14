@@ -35,17 +35,17 @@ keymap.set(
   { buffer = true, remap = true }
 )
 
-vim.cmd [[
-  augroup orcan_todo_txt
-      autocmd!
-      autocmd BufWritePre <buffer> silent! %substitute/\s\+$//
-      autocmd BufWritePre <buffer> silent! sort
-  augroup end
-]]
-
 local function format()
+  local cursor = vim.api.nvim_win_get_cursor(0)
   vim.cmd [[silent! %substitute/\s\+$//]]
   vim.cmd "silent! sort"
+  vim.api.nvim_win_set_cursor(0, cursor)
 end
 
 keymap.set("n", "gl", format, { buffer = true })
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePre" }, {
+  group = vim.api.nvim_create_augroup("nacro_todo_txt", {}),
+  pattern = "todo.txt",
+  callback = format,
+})
