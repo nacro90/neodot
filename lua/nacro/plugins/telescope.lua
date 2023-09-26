@@ -23,7 +23,7 @@ local function config()
     defaults = {
       layout_strategy = "flex",
       selection_strategy = "reset",
-      path_display = { "smart" },
+      path_display = { truncate = 2 },
       history = {
         path = vim.fn.stdpath "data" .. "/telescope_history.sqlite3",
         limit = 100,
@@ -164,7 +164,7 @@ local keys = {
       require("telescope.builtin").buffers { only_cwd = true }
     end,
   },
-  { "<leader>H", builtiner "oldfiles" },
+  { "<leader>H",     builtiner "oldfiles" },
   { "<leader><C-h>", builtiner "help_tags" },
   {
     "<leader>j",
@@ -173,10 +173,10 @@ local keys = {
     end,
   },
   { "<leader><leader>", builtiner "resume" },
-  { "<leader>gs", builtiner "git_status" },
-  { "<leader>gc", builtiner "git_bcommits" },
-  { "<leader>gC", builtiner "git_commits" },
-  { "<leader>gb", builtiner "git_branches" },
+  { "<leader>gs",       builtiner "git_status" },
+  { "<leader>gc",       builtiner "git_bcommits" },
+  { "<leader>gC",       builtiner "git_commits" },
+  { "<leader>gb",       builtiner "git_branches" },
 }
 
 return {
