@@ -177,6 +177,12 @@ local keys = {
   { "<leader>gc",       builtiner "git_bcommits" },
   { "<leader>gC",       builtiner "git_commits" },
   { "<leader>gb",       builtiner "git_branches" },
+  {
+    "<leader>ec",
+    function()
+      require("telescope.builtin").find_files { cwd = vim.env.XDG_CONFIG_HOME }
+    end,
+  },
 }
 
 return {
