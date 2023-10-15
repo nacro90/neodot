@@ -29,7 +29,7 @@ local function config()
 end
 
 return {
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   ft = { "go", "python", "lua", "sh", "bash", "zsh", "vim" },
   config = config,
 }
