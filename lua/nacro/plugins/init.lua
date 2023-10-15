@@ -136,7 +136,7 @@ return {
   {
     "kylechui/nvim-surround",
     config = true,
-    keys = { { "ys" }, { "yS" }, { "cs" }, { "cS" }, { "ds" }, { "dS" } },
+    keys = { { "ys" }, { "yS" }, { "cs" }, { "cS" }, { "ds" }, { "dS" }, { "S" } },
     version = "*",
   },
   {
