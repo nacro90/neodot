@@ -187,7 +187,7 @@ local keys = {
 
 return {
   "nvim-telescope/telescope.nvim",
-  version = "1.1.x",
+  tag = "0.1.4",
   keys = keys,
   cmd = "Telescope",
   config = config,
