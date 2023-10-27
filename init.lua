@@ -48,7 +48,7 @@ end, {
 require("nacro.translate").setup()
 require("nacro.matchparen").setup()
 require("nacro.terminal").setup()
--- require("nacro.todo").setup(vim.env.HOME .. "/Organizers/todo.txt")
+require("nacro.todo").setup(vim.env.HOME .. "/Organizers/todo.txt")
 require("nacro.howdoi").setup()
 -- require("nacro.clipboard_image").setup()
 require("nacro.neovide").setup_if_neovide()
