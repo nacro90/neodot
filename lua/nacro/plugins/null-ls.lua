@@ -14,14 +14,16 @@ local function config()
       formatters.isort,
       formatters.shfmt,
       formatters.json_tool,
-
+      formatters.sql_formatter,
       formatters.golines,
       formatters.goimports,
       formatters.gofumpt,
-      -- diagnostics.staticcheck,
 
       diagnostics.shellcheck,
       diagnostics.vint,
+      diagnostics.sqlfluff.with {
+        extra_args = { "--dialect", "postgres" }, -- change to your dialect
+      },
 
       code_actions.gitrebase,
     },
