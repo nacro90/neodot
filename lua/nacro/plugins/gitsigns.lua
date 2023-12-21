@@ -75,6 +75,7 @@ return {
       add = { text = "│" },
       change = { text = "│" },
       delete = { text = "│" },
+      untracked = { text = "│" },
     },
     preview_config = {
       border = "none",

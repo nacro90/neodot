@@ -59,11 +59,6 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
   },
   {
-    "NTBBloodbath/rest.nvim",
-    ft = "http",
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
-  {
     "plasticboy/vim-markdown",
     ft = "markdown",
     enabled = false,
@@ -112,11 +107,11 @@ return {
   {
     "tommcdo/vim-exchange",
     keys = {
-      { "gx",  "<Plug>(Exchange)" },
-      { "gx",  "<Plug>(Exchange)",     mode = "x" },
+      { "gx", "<Plug>(Exchange)" },
+      { "gx", "<Plug>(Exchange)", mode = "x" },
       { "gxc", "<Plug>(ExchangeClear)" },
       { "gxx", "<Plug>(ExchangeLine)" },
-      { "gX",  "gx$",                  remap = true },
+      { "gX", "gx$", remap = true },
     },
   },
   {
@@ -295,11 +290,26 @@ return {
   },
   {
     "nacro90/turkishmode.nvim",
+    dev = true,
     config = function()
       vim.api.nvim_create_user_command("Deasciify", function()
         require("turkishmode").deasciify_buffer()
       end, {})
     end,
+    keys = {
+      {
+        "<leader>Tc",
+        function()
+          require("turkishmode").deasciify_clipboard()
+        end,
+      },
+      {
+        "`",
+        function()
+          require("turkishmode").toggle_current_char()
+        end,
+      },
+    },
     cmd = "Deasciify",
   },
   {

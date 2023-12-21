@@ -52,7 +52,7 @@ return {
     },
     renderer = {
       group_empty = true,
-      highlight_git = true,
+      highlight_git = false,
       highlight_modified = "none",
       indent_markers = {
         enable = true,
