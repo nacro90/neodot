@@ -15,19 +15,20 @@ local function config()
   local cmp = require "cmp"
   cmp.setup {
     snippet = create_snippet_config(),
-    sources = {
+    sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "nvim_lua" },
       { name = "luasnip", max_item_count = 1 },
+    }, {
+      { name = "buffer" },
       { name = "path" },
-      -- { name = "buffer" },
+    }, {
       { name = "emoji", options = { insert = true } },
-      { name = "neorg" },
-    },
+    }),
     experimental = {
       ghost_text = true,
     },
-    preselect = cmp.PreselectMode.None,
+    preselect = cmp.PreselectMode.Item,
     formatting = {
       format = require("lspkind").cmp_format {
         with_text = false,
@@ -62,26 +63,35 @@ local function config()
   ---@diagnostic disable-next-line: undefined-field
   cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = {
+    sources = cmp.config.sources({
       { name = "buffer" },
-    },
+    }, {
+      { name = "fuzzy_buffer" },
+    }),
   })
   cmp.setup.cmdline("?", {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = {
+    sources = cmp.config.sources({
       { name = "buffer" },
-    },
+    }, {
+      { name = "fuzzy_buffer" },
+    }),
   })
   ---@diagnostic disable-next-line: undefined-field
   cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
-    completion = {
-      autocomplete = false,
-    },
-    sources = {
+    sources = cmp.config.sources({
       { name = "cmdline" },
-      { name = "path" },
-    },
+    }, {
+      { name = "fuzzy_path" },
+    }),
+  })
+  cmp.setup.filetype("gitcommit", {
+    sources = cmp.config.sources({
+      { name = "git" }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+    }, {
+      { name = "buffer" },
+    }),
   })
 end
 
@@ -99,5 +109,7 @@ return {
     "onsails/lspkind-nvim",
     "hrsh7th/cmp-cmdline",
     "dmitmel/cmp-cmdline-history",
+    { "tzachar/cmp-fuzzy-path", dependencies = { "tzachar/fuzzy.nvim" } },
+    { "tzachar/cmp-fuzzy-buffer", dependencies = { "tzachar/fuzzy.nvim" } },
   },
 }
