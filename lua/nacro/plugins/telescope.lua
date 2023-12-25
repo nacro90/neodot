@@ -157,9 +157,9 @@ local keys = {
       require("telescope.builtin").search_history { layout_strategy = "center" }
     end,
   },
-  { "<leader>B", builtiner "buffers" },
+  { "<leader>b", builtiner "buffers" },
   {
-    "<leader>b",
+    "<leader>B",
     function()
       require("telescope.builtin").buffers { only_cwd = true }
     end,
