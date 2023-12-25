@@ -8,7 +8,7 @@ set("n", "-", "<Nop>")
 set("n", "<BS>", "<NOP>")
 set("n", "<CR>", "<NOP>")
 
-set("n", "'", "`", { remap = true })
+set("n", "'", "`")
 set("n", "zz", "zzzH")
 for _, key in ipairs { "j", "k", "^" } do
   set({ "n", "v" }, key, "g" .. key, { remap = true, silent = true })
