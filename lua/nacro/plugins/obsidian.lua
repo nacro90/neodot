@@ -41,7 +41,7 @@ return {
       "<Cmd>ObsidianNew<CR>",
     },
     {
-      "<leader><leader>z",
+      "<leader><C-z>",
       "<Cmd>ObsidianSearch<CR>",
     },
   },
