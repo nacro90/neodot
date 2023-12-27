@@ -17,6 +17,7 @@ local function config()
     snippet = create_snippet_config(),
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
+      { name = "zsh" },
       { name = "nvim_lua" },
       { name = "luasnip", max_item_count = 1 },
     }, {
@@ -111,5 +112,12 @@ return {
     "dmitmel/cmp-cmdline-history",
     { "tzachar/cmp-fuzzy-path", dependencies = { "tzachar/fuzzy.nvim" } },
     { "tzachar/cmp-fuzzy-buffer", dependencies = { "tzachar/fuzzy.nvim" } },
+    {
+      "tamago324/cmp-zsh",
+      config = true,
+      opts = {
+        filetypes = { "deoledit", "zsh" },
+      },
+    },
   },
 }
