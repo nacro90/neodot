@@ -94,6 +94,11 @@ local function config()
       { name = "buffer" },
     }),
   })
+  cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+    sources = {
+      { name = "dap" },
+    },
+  })
 end
 
 return {
@@ -119,5 +124,6 @@ return {
         filetypes = { "deoledit", "zsh" },
       },
     },
+    "rcarriga/cmp-dap",
   },
 }
