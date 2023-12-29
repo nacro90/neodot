@@ -175,6 +175,13 @@ return {
         },
       },
       config = true,
+      opts = {
+        delve = {
+          args = {
+            "--check-go-version=false",
+          },
+        },
+      },
     },
     {
       "ofirgall/goto-breakpoints.nvim",
