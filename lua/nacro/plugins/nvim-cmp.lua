@@ -40,8 +40,6 @@ local function config()
       ["<C-n>"] = cmp.mapping(function()
         if cmp.visible() then
           cmp.select_next_item()
-        else
-          cmp.complete()
         end
       end, {
         "i",
@@ -49,10 +47,8 @@ local function config()
       ["<C-p>"] = cmp.mapping(function()
         if cmp.visible() then
           cmp.select_prev_item()
-        else
-          cmp.complete()
         end
-      end),
+      end, { "i" }),
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-d>"] = cmp.mapping { c = cmp.mapping.complete() },
