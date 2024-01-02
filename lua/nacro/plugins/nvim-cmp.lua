@@ -64,6 +64,9 @@ local function config()
   ---@diagnostic disable-next-line: undefined-field
   cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
+    completion = {
+      autocomplete = false,
+    },
     sources = cmp.config.sources({
       { name = "buffer" },
     }, {
@@ -72,6 +75,9 @@ local function config()
   })
   cmp.setup.cmdline("?", {
     mapping = cmp.mapping.preset.cmdline(),
+    completion = {
+      autocomplete = false,
+    },
     sources = cmp.config.sources({
       { name = "buffer" },
     }, {
@@ -81,6 +87,9 @@ local function config()
   ---@diagnostic disable-next-line: undefined-field
   cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
+    completion = {
+      autocomplete = false,
+    },
     sources = cmp.config.sources({
       { name = "cmdline" },
     }, {
