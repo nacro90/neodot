@@ -3,8 +3,8 @@ local function config()
   require("lualine").setup {
     options = {
       theme = "auto",
-      component_separators = { "│", "│" },
-      section_separators = { "|", "|" },
+      component_separators = { left = "", right = "" },
+      section_separators = { left = "", right = "" },
       globalstatus = true,
     },
     sections = {
@@ -44,13 +44,13 @@ local function config()
         },
       },
       lualine_x = {
+        "tabs",
         "searchcount",
-        "branch",
+        "selectioncount",
         "encoding",
-        "fileformat",
         "filetype",
       },
-      lualine_y = { "progress" },
+      lualine_y = { "branch" },
       lualine_z = { "location" },
     },
     inactive_sections = {
@@ -61,7 +61,23 @@ local function config()
       lualine_y = {},
       lualine_z = {},
     },
-    tabline = {},
+    tabline = {
+      lualine_a = {
+        {
+          "tabs",
+          mode = 2,
+          use_mode_colors = true,
+          tabs_color = {
+            inactive = "lualine_b_inactive", -- Color for inactive tab.
+          },
+        },
+      },
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = {},
+      lualine_z = {},
+    },
     winbar = {
       lualine_a = {},
       lualine_b = {},
