@@ -44,7 +44,6 @@ local function config()
         },
       },
       lualine_x = {
-        "tabs",
         "searchcount",
         "selectioncount",
         "encoding",
