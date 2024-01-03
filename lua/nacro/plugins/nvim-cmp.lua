@@ -37,16 +37,20 @@ local function config()
       },
     },
     mapping = {
-      ["<C-n>"] = cmp.mapping(function()
+      ["<C-n>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
+        else
+          fallback()
         end
       end, {
         "i",
       }),
-      ["<C-p>"] = cmp.mapping(function()
+      ["<C-p>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
+        else
+          fallback()
         end
       end, { "i" }),
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),

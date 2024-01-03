@@ -3,6 +3,7 @@ local snippet_fts = {
   "go",
   "telekasten",
   "dart",
+  "markdown",
 }
 
 local function create_custom_snippets_table()
@@ -12,7 +13,7 @@ local function create_custom_snippets_table()
     if exists then
       elements[ft] = snips
     else
-      print("No snippet module found for", ft)
+      vim.print("No snippet module found for", ft)
     end
   end
   return elements
@@ -25,7 +26,7 @@ local function config()
   local keymap = vim.keymap
 
   local function next_choice()
-    return luasnip.choice_active() and luasnip.change_choice(1)
+    return luasnip.change_choice(1)
   end
 
   local function prev_choice()
@@ -41,18 +42,13 @@ local function config()
   end
 
   keymap.set("i", "<C-k>", function()
-    local ls = require'luasnip'
-    if ls.expand_or_locally_jumpable() then
-      ls.expand_or_jump()
-      return
-    end
-    -- TODO: Trigger default <C-k>
+    return luasnip.expand_or_locally_jumpable() and luasnip.expand_or_jump()
   end, { silent = true })
   keymap.set("i", "<C-j>", jump_back, { silent = true })
   keymap.set("s", "<C-k>", jump_forward, { silent = true })
   keymap.set("s", "<C-j>", jump_back, { silent = true })
-  keymap.set("s", "<C-n>", next_choice, { silent = true })
-  keymap.set("s", "<C-p>", prev_choice, { silent = true })
+  keymap.set("i", "<C-n>", next_choice, { silent = true })
+  keymap.set("i", "<C-p>", prev_choice, { silent = true })
 
   local ft_snippets = create_custom_snippets_table()
 
