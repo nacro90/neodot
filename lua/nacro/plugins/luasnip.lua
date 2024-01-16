@@ -50,9 +50,7 @@ local function config()
   keymap.set("i", "<C-n>", next_choice, { silent = true })
   keymap.set("i", "<C-p>", prev_choice, { silent = true })
 
-  local ft_snippets = create_custom_snippets_table()
-
-  for ft, snips in pairs(ft_snippets) do
+  for ft, snips in pairs(create_custom_snippets_table()) do
     luasnip.add_snippets(ft, snips)
   end
 
