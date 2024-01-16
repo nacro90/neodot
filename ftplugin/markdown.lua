@@ -14,9 +14,11 @@ opt_local.spelllang = { "en", "tr" }
 opt_local.wrap = true
 opt_local.linebreak = true
 
-keymap.set("n", "<leader>x", "<Cmd>normal! 0f[lrX<CR>", {buffer = true})
+keymap.set("n", "<leader>x", "<Cmd>normal! 0f[lrx<CR>", { buffer = true })
 
 highlight("mkdLineBreak", { guibg = "NONE" })
+
+vim.cmd "abbreviate ... …"
 
 --[[
 set iskeyword+=-
@@ -24,4 +26,5 @@ set formatoptions=tlnqr
 
 " Mappings
 " autocmd! BufWritePre *.md,*.mkd,*.markdown substitute
-]]--
+]]
+--
