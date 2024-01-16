@@ -56,7 +56,7 @@ return {
       { silent = true },
     },
     { "<leader>dd", dapper "continue", { silent = true } },
-    { "<leader>dd", dapper "restart", { silent = true } },
+    { "<leader>dr", dapper "restart", { silent = true } },
     { "<leader>dn", dapper "step_over", { silent = true } },
     { "<leader>di", dapper "step_into", { silent = true } },
     { "<leader>do", dapper "step_out", { silent = true } },
