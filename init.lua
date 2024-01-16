@@ -53,6 +53,7 @@ require("nacro.howdoi").setup()
 -- require("nacro.clipboard_image").setup()
 require("nacro.neovide").setup_if_neovide()
 require("nacro.buffer").setup()
+
 command("TimestampToDatetime", function(a)
   a = a.args
   print(os.date("%Y-%m-%d %H:%M:%S", a / 1000) .. "." .. a % 1000)
