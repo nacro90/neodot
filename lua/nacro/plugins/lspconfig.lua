@@ -38,7 +38,7 @@ local function setup_keymaps(bufnr)
   -- vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = bufnr })
 end
 
-local function on_attach(client, bufnr)
+function on_attach(client, bufnr)
   setup_keymaps(bufnr)
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
@@ -96,6 +96,10 @@ local function config()
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
     border = "solid",
   })
+  local _, exists = pcall(require, "flutter-tools")
+  if exists and configs.dartls then
+    configs.dartls = nil
+  end
   for name, cfg in pairs(configs) do
     cfg = vim.tbl_extend("force", default_config, cfg)
     require("lspconfig")[name].setup(cfg)
@@ -140,4 +144,5 @@ return {
       config = true,
     },
   },
+  on_attach = on_attach,
 }
