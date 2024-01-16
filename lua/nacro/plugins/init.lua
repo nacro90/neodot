@@ -366,4 +366,13 @@ return {
     "lukas-reineke/headlines.nvim",
     opts = {},
   },
+  {
+    "ekickx/clipboard-image.nvim",
+    config = true,
+    opts = {
+      markdown = {
+        img_dir = "static",
+      },
+    },
+  },
 }
