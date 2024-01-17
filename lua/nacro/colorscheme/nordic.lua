@@ -15,4 +15,5 @@ return function()
   highlight("DapUIDecoration", "NvimTreeFolderIcon")
   highlight("IncSearch", "Visual")
   highlight("Search", "Visual")
+  highlight("Substitute", "Visual")
 end

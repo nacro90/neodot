@@ -139,7 +139,9 @@ return {
     {
       "smjonas/inc-rename.nvim",
       keys = {
-        { "<leader>r", ":IncRename " },
+        { "<leader>r", function()
+          vim.api.nvim_feedkeys(":IncRename " .. vim.fn.expand("<cword>"), 'n', false)
+        end},
       },
       config = true,
     },
