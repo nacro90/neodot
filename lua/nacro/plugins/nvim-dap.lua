@@ -22,8 +22,8 @@ local function setup_signs()
   vim.fn.sign_define("DapBreakpoint", {
     text = "⬤",
     texthl = "ErrorMsg",
-    linehl = "DiffDelete",
-    numhl = "DiffDelete",
+    linehl = "DapBreakpointLine",
+    numhl = "DapBreakpointLine",
   })
   vim.fn.sign_define("DapBreakpointRejected", {
     text = "∅",
@@ -34,8 +34,8 @@ local function setup_signs()
   vim.fn.sign_define("DapStopped", {
     text = "",
     texthl = "Constant",
-    linehl = "Visual",
-    numhl = "Visual",
+    linehl = "DapExecutionLine",
+    numhl = "DapExecutionLine",
   })
 end
 
@@ -87,12 +87,6 @@ return {
           end,
         },
         {
-          "K",
-          function()
-            require("dapui").float_element "scopes"
-          end,
-        },
-        {
           "<leader>K",
           function()
             require("dapui").float_element()
@@ -103,7 +97,7 @@ return {
           function()
             require("dapui").eval()
           end,
-          mode = "v",
+          mode = { "n", "v" },
         },
       },
       config = function()
@@ -122,12 +116,12 @@ return {
             {
               elements = {
                 {
-                  id = "scopes",
-                  size = 0.5,
+                  id = "stacks",
+                  size = 0.2,
                 },
                 {
-                  id = "repl",
-                  size = 0.5,
+                  id = "scopes",
+                  size = 0.8,
                 },
               },
               position = "bottom",
@@ -177,6 +171,24 @@ return {
       },
       config = true,
       opts = {
+        dap_configurations = {
+          {
+            type = "go",
+            name = "UberCloud Data Insights",
+            request = "launch",
+            program = "cmd/server/main.go",
+            args = {
+              "--debug",
+              "--port",
+              "3000",
+              "--static",
+              "../build/web",
+              "--db",
+              "postgresql://apiuser:password@localhost:5432/datainsights",
+              "--enable-swagger",
+            },
+          },
+        },
         delve = {
           args = {
             "--check-go-version=false",
