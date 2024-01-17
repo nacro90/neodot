@@ -17,13 +17,19 @@ end
 
 local function setup_keymaps(bufnr)
   local tb = require "telescope.builtin"
-  vim.keymap.set("n", "<leader>u", tb.lsp_references, { buffer = bufnr })
-  vim.keymap.set("n", "<leader>i", tb.lsp_implementations, { buffer = bufnr })
+  vim.keymap.set("n", "<leader>u", function()
+    tb.lsp_references { show_line = false }
+  end, { buffer = bufnr })
+  vim.keymap.set("n", "<leader>i", function()
+    tb.lsp_implementations { show_line = false }
+  end, { buffer = bufnr })
+  vim.keymap.set("n", "<leader>s", function()
+    tb.lsp_dynamic_workspace_symbols { fname_width = 80, symbol_width = 80 } -- TODO: make dynamic
+  end, { buffer = bufnr })
+  vim.keymap.set("n", "<leader>S", tb.lsp_document_symbols, { buffer = bufnr })
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
   vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover, { buffer = bufnr })
   vim.keymap.set("n", "<C-j>", vim.diagnostic.open_float, { buffer = bufnr })
-  vim.keymap.set("n", "<leader>s", tb.lsp_dynamic_workspace_symbols, { buffer = bufnr })
-  vim.keymap.set("n", "<leader>S", tb.lsp_document_symbols, { buffer = bufnr })
   vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { buffer = bufnr })
   vim.keymap.set("n", "]d", function()
     vim.diagnostic.goto_next {
@@ -38,7 +44,7 @@ local function setup_keymaps(bufnr)
   -- vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = bufnr })
 end
 
-function on_attach(client, bufnr)
+local function on_attach(client, bufnr)
   setup_keymaps(bufnr)
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
@@ -139,9 +145,12 @@ return {
     {
       "smjonas/inc-rename.nvim",
       keys = {
-        { "<leader>r", function()
-          vim.api.nvim_feedkeys(":IncRename " .. vim.fn.expand("<cword>"), 'n', false)
-        end},
+        {
+          "<leader>r",
+          function()
+            vim.api.nvim_feedkeys(":IncRename " .. vim.fn.expand "<cword>", "n", false)
+          end,
+        },
       },
       config = true,
     },
