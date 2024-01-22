@@ -76,9 +76,16 @@ local function config()
       },
       lsp_dynamic_workspace_symbols = {
         layout_strategy = "vertical",
+        fname_width = 80,
+        symbol_width = 80,
       },
       lsp_implementations = {
         layout_strategy = "vertical",
+        fname_width = 100,
+      },
+      lsp_references = {
+        layout_strategy = "vertical",
+        fname_width = 100,
       },
       git_status = {
         initial_mode = "normal",
