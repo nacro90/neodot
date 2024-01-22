@@ -37,12 +37,16 @@ return {
   end,
   keys = {
     {
-      "<leader>Z",
+      "<leader><C-z>",
       "<Cmd>ObsidianNew<CR>",
     },
+    -- {
+    --   "<leader><C-z>",
+    --   "<Cmd>ObsidianSearch<CR>",
+    -- },
     {
-      "<leader><C-z>",
-      "<Cmd>ObsidianSearch<CR>",
+      "<leader>Z",
+      "<Cmd>ObsidianToday<CR>",
     },
   },
 }
