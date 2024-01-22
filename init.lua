@@ -30,6 +30,16 @@ api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+-- Jump to the last known cursor position
+api.nvim_create_autocmd("BufReadPost", {
+  callback = function()
+    local pos = vim.fn.line "'\""
+    if pos > 0 and pos <= vim.api.nvim_buf_line_count(0) then
+      vim.cmd 'normal g`"'
+    end
+  end,
+})
+
 command("RenameBuffer", function(arg)
   local name
   if arg and #arg > 0 then
@@ -60,4 +70,3 @@ command("TimestampToDatetime", function(a)
 end, {
   nargs = 1,
 })
-
