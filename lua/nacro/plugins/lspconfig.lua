@@ -17,12 +17,8 @@ end
 
 local function setup_keymaps(bufnr)
   local tb = require "telescope.builtin"
-  vim.keymap.set("n", "<leader>u", function()
-    tb.lsp_references { show_line = false }
-  end, { buffer = bufnr })
-  vim.keymap.set("n", "<leader>i", function()
-    tb.lsp_implementations { show_line = false }
-  end, { buffer = bufnr })
+  vim.keymap.set("n", "<leader>u", tb.lsp_references, { buffer = bufnr })
+  vim.keymap.set("n", "<leader>i", tb.lsp_implementations, { buffer = bufnr })
   vim.keymap.set("n", "<leader>s", function()
     tb.lsp_dynamic_workspace_symbols { fname_width = 80, symbol_width = 80 } -- TODO: make dynamic
   end, { buffer = bufnr })
@@ -33,10 +29,14 @@ local function setup_keymaps(bufnr)
   vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { buffer = bufnr })
   vim.keymap.set("n", "]d", function()
     vim.diagnostic.goto_next {
-      severity = vim.diagnostic.severity.WARN,
+      severity = { min = vim.diagnostic.severity.WARN },
     }
   end, { buffer = bufnr })
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr })
+  vim.keymap.set("n", "[d", function()
+    vim.diagnostic.goto_next {
+      severity = { min = vim.diagnostic.severity.WARN },
+    }
+  end, { buffer = bufnr })
   vim.keymap.set("n", "<C-q>", vim.lsp.buf.signature_help, { buffer = bufnr })
   vim.keymap.set("i", "<C-q>", vim.lsp.buf.signature_help, { buffer = bufnr })
   vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, { buffer = bufnr })
