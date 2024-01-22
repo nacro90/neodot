@@ -10,6 +10,7 @@ opt_local.autoindent = true
 opt_local.suffixesadd = ".lua"
 opt_local.foldmethod = "expr"
 opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+opt_local.foldenable = false
 
 local function toggle_local_keyword()
   local line = api.nvim_get_current_line()
