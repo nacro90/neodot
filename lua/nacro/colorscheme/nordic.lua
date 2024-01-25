@@ -16,4 +16,8 @@ return function()
   highlight("IncSearch", "Visual")
   highlight("Search", "Visual")
   highlight("Substitute", "Visual")
+  highlight("DapUIModifiedValue", "Visual")
+  highlight("DiffAdd", { gui = "NONE" })
+  highlight("DiffChange", { gui = "NONE" })
+  highlight("DiffText", { gui = "NONE" })
 end
