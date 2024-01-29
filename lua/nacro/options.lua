@@ -82,6 +82,7 @@ opt.cmdheight = 0
 opt.swapfile = false
 opt.swapfile = false
 opt.updatetime = 500
+opt.virtualedit = "onemore"
 opt.shortmess:append "c"
 opt.shortmess:append "S"
 opt.shortmess:append "W"
