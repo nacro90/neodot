@@ -108,6 +108,11 @@ local function config()
       { name = "dap" },
     },
   })
+  cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
+    sources = {
+      { name = "vim-dadbod-completion" },
+    },
+  })
 end
 
 return {
@@ -134,5 +139,6 @@ return {
       },
     },
     "rcarriga/cmp-dap",
+    "kristijanhusak/vim-dadbod-completion",
   },
 }
