@@ -57,7 +57,7 @@ local function config()
     },
     pickers = {
       find_files = {
-        find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--no-ignore-vcs" },
+        find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--no-ignore-vcs", "--exclude", "node_modules"},
       },
       buffers = {
         sort_mru = true,
