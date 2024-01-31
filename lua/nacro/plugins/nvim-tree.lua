@@ -34,6 +34,9 @@ return {
     reload_on_bufenter = true,
     respect_buf_cwd = true,
     hijack_cursor = true,
+    view = {
+      width = {},
+    },
     modified = {
       enable = true,
     },
