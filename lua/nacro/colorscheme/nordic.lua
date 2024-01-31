@@ -20,4 +20,6 @@ return function()
   highlight("DiffAdd", { gui = "NONE" })
   highlight("DiffChange", { gui = "NONE" })
   highlight("DiffText", { gui = "NONE" })
+  highlight("TelescopeSelection", "Visual")
+  highlight("TelescopeMultiSelection", "Visual")
 end
