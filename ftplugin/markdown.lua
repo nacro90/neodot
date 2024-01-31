@@ -18,7 +18,7 @@ keymap.set("n", "<leader>x", "<Cmd>normal! 0f[lrx<CR>", { buffer = true })
 
 highlight("mkdLineBreak", { guibg = "NONE" })
 
-vim.cmd "abbreviate ... …"
+vim.cmd  "abbreviate <buffer> ... …"
 
 --[[
 set iskeyword+=-
