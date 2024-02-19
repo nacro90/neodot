@@ -390,4 +390,15 @@ return {
       { "<leader>l", "<Cmd>LazyDocker<CR>" },
     },
   },
+  {
+    "yamatsum/nvim-cursorline",
+    opts = {
+      cursorline = {
+        timeout = 500,
+      },
+      cursorword = {
+        enable = false,
+      }
+    },
+  },
 }
