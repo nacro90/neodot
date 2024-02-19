@@ -321,12 +321,19 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
-    config = function()
-      require("toggleterm").setup {
-        open_mapping = "<C-t>",
-        insert_mappings = false,
-      }
-    end,
+    opts = {
+      open_mapping = "<C-t>",
+      insert_mappings = false,
+      on_open = function(term)
+        vim.api.nvim_buf_set_keymap(
+          term.bufnr,
+          "n",
+          "q",
+          "<cmd>close<CR>",
+          { noremap = true, silent = true }
+        )
+      end,
+    },
   },
   {
     "chentoast/marks.nvim",

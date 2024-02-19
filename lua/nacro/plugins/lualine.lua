@@ -1,4 +1,17 @@
 local function config()
+  local filename = {
+    "filename",
+    separator = { left = "", right = "" },
+    newfile_status = true,
+  }
+  local winbar_diagnostics = {
+    "diagnostics",
+    sources = { "nvim_diagnostic" },
+    sections = { "error", "warn" },
+    symbols = { error = "▪", warn = "▴", info = "›", hint = "▸" },
+    padding = { left = 0, right = 1 },
+    separator = { left = "", right = "" },
+  }
   local recording = require "nacro.recording"
   require("lualine").setup {
     options = {
@@ -15,48 +28,17 @@ local function config()
           cond = recording.is_recording,
         },
       },
-      lualine_b = { "filename" },
-      lualine_c = {
-        {
-          "diagnostics",
-          sources = { "nvim_diagnostic" },
-          sections = { "error", "warn", "info", "hint" },
-          color_error = "#F44747",
-          color_warn = "#CE9178",
-          color_info = "#BBBBBB",
-          color_hint = "#BBBBBB",
-          symbols = { error = "▪", warn = "▴", info = "›", hint = "▸" },
-        },
-        {
-          function()
-            return require("nvim-navic").get_location()
-          end,
-          cond = function()
-            if #vim.lsp.get_active_clients() == 0 then
-              return false
-            end
-            local exists, navic = pcall(require, "nvim-navic")
-            if not exists then
-              return false
-            end
-            return navic.is_available()
-          end,
-        },
-      },
-      lualine_x = {
-        "searchcount",
-        "selectioncount",
-        "encoding",
-        "filetype",
-      },
-      lualine_y = { "branch" },
+      lualine_b = { "overseer" },
+      lualine_c = {},
+      lualine_x = { "selectioncount" },
+      lualine_y = {},
       lualine_z = { "location" },
     },
     inactive_sections = {
       lualine_a = {},
       lualine_b = {},
-      lualine_c = { "filename" },
-      lualine_x = { "filetype" },
+      lualine_c = {},
+      lualine_x = {},
       lualine_y = {},
       lualine_z = {},
     },
@@ -64,37 +46,82 @@ local function config()
       lualine_a = {
         {
           "tabs",
-          max_length = vim.o.columns,
-          mode = 2,
+          cond = function()
+            return #vim.api.nvim_list_tabpages() > 1
+          end,
+          mode = 0,
           use_mode_colors = true,
+          show_modified_status = false,
           tabs_color = {
-            inactive = "lualine_b_inactive", -- Color for inactive tab.
+            inactive = "lualine_b_inactive",
           },
         },
       },
       lualine_b = {},
       lualine_c = {},
-      lualine_x = {},
-      lualine_y = {},
+      lualine_x = { "diff" },
+      lualine_y = {
+        {
+          function()
+            return vim.fn.getcwd():gsub(vim.env.HOME, "~")
+          end,
+        },
+      },
       lualine_z = {},
     },
     winbar = {
       lualine_a = {},
-      lualine_b = {},
-      lualine_c = {},
+      lualine_b = {
+        {
+          "filetype",
+          icon_only = true,
+          colored = true,
+          padding = { left = 1, right = 0 },
+          icon = { align = "left" },
+        },
+        filename,
+        winbar_diagnostics,
+      },
+      lualine_c = {
+        {
+          "navic",
+          color_correction = "dynamic",
+          draw_empty = true,
+        },
+      },
       lualine_x = {},
       lualine_y = {},
-      lualine_z = {},
+      lualine_z = { "searchcount" },
     },
     inactive_winbar = {
       lualine_a = {},
       lualine_b = {},
-      lualine_c = {},
+      lualine_c = {
+        {
+          "filetype",
+          icon_only = true,
+          colored = false,
+          padding = { left = 1, right = 0 },
+        },
+        filename,
+        winbar_diagnostics,
+      },
       lualine_x = {},
-      lualine_y = {},
+      lualine_y = { "searchcount" },
       lualine_z = {},
     },
-    extensions = { "nvim-tree", "fugitive" },
+    extensions = {
+      "nvim-tree",
+      "fugitive",
+      "nvim-dap-ui",
+      "overseer",
+      "toggleterm",
+      "mason",
+      "trouble",
+      "oil",
+      "lazy",
+      "man",
+    },
   }
 
   recording.setup()
@@ -102,5 +129,15 @@ end
 
 return {
   "nvim-lualine/lualine.nvim",
+  dependencies = {
+    "SmiteshP/nvim-navic",
+    opts = {
+      highlight = true,
+      separator = "  ",
+      lsp = {
+        auto_attach = true,
+      },
+    },
+  },
   config = config,
 }

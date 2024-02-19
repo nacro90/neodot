@@ -57,7 +57,15 @@ local function config()
     },
     pickers = {
       find_files = {
-        find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--no-ignore-vcs", "--exclude", "node_modules"},
+        find_command = {
+          "fd",
+          "--type",
+          "f",
+          "--strip-cwd-prefix",
+          "--no-ignore-vcs",
+          "--exclude",
+          "node_modules",
+        },
       },
       buffers = {
         sort_mru = true,
@@ -86,9 +94,6 @@ local function config()
       lsp_references = {
         layout_strategy = "vertical",
         fname_width = 100,
-      },
-      git_status = {
-        initial_mode = "normal",
       },
       builtin = {
         include_extensions = true,
@@ -190,6 +195,10 @@ local keys = {
       require("telescope.builtin").find_files { cwd = vim.env.XDG_CONFIG_HOME }
     end,
   },
+  { "<leader>u", builtiner "lsp_references" },
+  { "<leader>i", builtiner "lsp_implementations" },
+  { "<leader>s", builtiner "lsp_dynamic_workspace_symbols" },
+  { "<leader>S", builtiner "lsp_document_symbols" },
 }
 
 return {

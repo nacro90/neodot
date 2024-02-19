@@ -5,9 +5,9 @@ local api = vim.api
 local cmd = vim.cmd
 local fn = vim.fn
 
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
+vim.opt_local.tabstop = 2
+vim.opt_local.shiftwidth = 2
+vim.opt_local.expandtab = true
 
 local bufnr = api.nvim_get_current_buf()
 
@@ -31,4 +31,4 @@ end
 
 -- Flatten the json and remove the white spaces for oneline sending (e.g Kafka event)
 nnoremap("gL", flatten_buf, bufnr)
-nnoremap("gl", format_buf, bufnr)
+-- nnoremap("gl", format_buf, bufnr)

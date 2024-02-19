@@ -15,40 +15,7 @@ local function has_golines()
   return false
 end
 
-local function setup_keymaps(bufnr)
-  local tb = require "telescope.builtin"
-  vim.keymap.set("n", "<leader>u", tb.lsp_references, { buffer = bufnr })
-  vim.keymap.set("n", "<leader>i", tb.lsp_implementations, { buffer = bufnr })
-  vim.keymap.set("n", "<leader>s", function()
-    tb.lsp_dynamic_workspace_symbols { fname_width = 80, symbol_width = 80 } -- TODO: make dynamic
-  end, { buffer = bufnr })
-  vim.keymap.set("n", "<leader>S", tb.lsp_document_symbols, { buffer = bufnr })
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
-  vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover, { buffer = bufnr })
-  vim.keymap.set("n", "<C-j>", vim.diagnostic.open_float, { buffer = bufnr })
-  vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { buffer = bufnr })
-  vim.keymap.set("n", "]d", function()
-    vim.diagnostic.goto_next {
-      severity = { min = vim.diagnostic.severity.WARN },
-    }
-  end, { buffer = bufnr })
-  vim.keymap.set("n", "[d", function()
-    vim.diagnostic.goto_next {
-      severity = { min = vim.diagnostic.severity.WARN },
-    }
-  end, { buffer = bufnr })
-  vim.keymap.set("n", "<C-q>", vim.lsp.buf.signature_help, { buffer = bufnr })
-  vim.keymap.set("i", "<C-q>", vim.lsp.buf.signature_help, { buffer = bufnr })
-  vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, { buffer = bufnr })
-  vim.keymap.set({ "n", "v" }, "gl", vim.lsp.buf.format, { buffer = bufnr })
-  -- vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = bufnr })
-end
-
 local function on_attach(client, bufnr)
-  setup_keymaps(bufnr)
-  if client.server_capabilities.documentSymbolProvider then
-    require("nvim-navic").attach(client, bufnr)
-  end
   require("lsp_signature").on_attach(client)
 end
 
@@ -88,6 +55,21 @@ local configs = {
       },
     },
   },
+  angularls = {
+    on_attach = function(client, bufnr)
+      on_attach(client, bufnr)
+      vim.keymap.set("n", "<leader>.", function()
+        print "hellooo"
+        local ng = require "ng"
+        local ft = vim.opt.filetype:get()
+        if ft == "html" then
+          ng.goto_component_with_template_file()
+        elseif ft == "typescript" then
+          ng.goto_template_for_component()
+        end
+      end, { buffer = bufnr })
+    end,
+  },
 }
 
 local function config()
@@ -114,27 +96,9 @@ end
 return {
   "neovim/nvim-lspconfig",
   config = config,
-  ft = {
-    "c",
-    "cpp",
-    "dockerfile",
-    "go",
-    "javascript",
-    "kotlin",
-    "lua",
-    "python",
-    "svelte",
-    "typescript",
-    "yaml",
-    "zig",
-    "dart",
-    "java",
-  },
   dependencies = {
-    "nvim-telescope/telescope.nvim",
     "hrsh7th/cmp-nvim-lsp",
     "ray-x/lsp_signature.nvim",
-    "SmiteshP/nvim-navic",
     {
       "smjonas/inc-rename.nvim",
       keys = {
@@ -147,6 +111,7 @@ return {
       },
       config = true,
     },
+    "joeveiga/ng.nvim",
   },
   on_attach = on_attach,
 }
