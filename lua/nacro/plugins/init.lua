@@ -405,4 +405,9 @@ return {
     "RRethy/vim-illuminate",
     lazy = false,
   },
+  {
+    "nvimdev/hlsearch.nvim",
+    event = "BufRead",
+    opts = {},
+  },
 }
