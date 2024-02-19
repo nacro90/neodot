@@ -398,7 +398,11 @@ return {
       },
       cursorword = {
         enable = false,
-      }
+      },
     },
+  },
+  {
+    "RRethy/vim-illuminate",
+    lazy = false,
   },
 }
