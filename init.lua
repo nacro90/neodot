@@ -70,3 +70,29 @@ command("TimestampToDatetime", function(a)
 end, {
   nargs = 1,
 })
+
+vim.diagnostic.config {
+  virtual_text = false,
+  underline = {
+    severity = { min = vim.diagnostic.severity.WARN },
+  }
+}
+
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover)
+vim.keymap.set("n", "<C-j>", vim.diagnostic.open_float)
+vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action)
+vim.keymap.set("n", "]d", function()
+  vim.diagnostic.goto_next {
+    severity = { min = vim.diagnostic.severity.WARN },
+  }
+end)
+vim.keymap.set("n", "[d", function()
+  vim.diagnostic.goto_next {
+    severity = { min = vim.diagnostic.severity.WARN },
+  }
+end)
+vim.keymap.set("n", "<C-q>", vim.lsp.buf.signature_help)
+vim.keymap.set("i", "<C-q>", vim.lsp.buf.signature_help)
+vim.keymap.set("n", "gD", vim.lsp.buf.type_definition)
+vim.keymap.set({ "n", "v" }, "gl", vim.lsp.buf.format, { desc = "LSP format buffer" })
