@@ -59,7 +59,6 @@ local configs = {
     on_attach = function(client, bufnr)
       on_attach(client, bufnr)
       vim.keymap.set("n", "<leader>.", function()
-        print "hellooo"
         local ng = require "ng"
         local ft = vim.opt.filetype:get()
         if ft == "html" then
