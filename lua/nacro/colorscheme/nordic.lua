@@ -39,4 +39,5 @@ return function()
   highlight("NavicIconsMethod", "Function")
   highlight("NavicIconsFunction", "Function")
   highlight("NavicIconsConstant", "Constant")
+  highlight("NavicIconsInterface", "Keyword")
 end
