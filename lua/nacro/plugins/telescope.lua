@@ -21,6 +21,13 @@ local function config()
   local layout = require "telescope.actions.layout"
   telescope.setup {
     defaults = {
+      border = true,
+      borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+      dynamic_preview_title = true,
+      results_title = false,
+      selection_caret = " ",
+      entry_prefix = " ",
+      prompt_prefix = " ",
       layout_strategy = "flex",
       selection_strategy = "reset",
       path_display = { truncate = 2 },
@@ -62,9 +69,12 @@ local function config()
           "--type",
           "f",
           "--strip-cwd-prefix",
+          "--hidden",
           "--no-ignore-vcs",
           "--exclude",
           "node_modules",
+          "--exclude",
+          ".git",
         },
       },
       buffers = {
