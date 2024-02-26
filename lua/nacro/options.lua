@@ -5,7 +5,7 @@ vim.cmd "filetype plugin indent on"
 
 opt.termguicolors = true
 opt.syntax = "enable"
-opt.cursorline = true
+opt.cursorline = false
 opt.number = true
 opt.relativenumber = false
 opt.hidden = true
@@ -79,7 +79,6 @@ opt.formatoptions = "tcqj"
 opt.showbreak = "\\"
 opt.errorbells = false
 opt.cmdheight = 0
-opt.swapfile = false
 opt.swapfile = false
 opt.updatetime = 500
 opt.virtualedit = "onemore"
