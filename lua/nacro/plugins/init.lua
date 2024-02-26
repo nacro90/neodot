@@ -386,17 +386,6 @@ return {
     },
   },
   {
-    "yamatsum/nvim-cursorline",
-    opts = {
-      cursorline = {
-        timeout = 500,
-      },
-      cursorword = {
-        enable = false,
-      },
-    },
-  },
-  {
     "RRethy/vim-illuminate",
     lazy = false,
   },
