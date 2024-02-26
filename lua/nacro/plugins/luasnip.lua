@@ -20,41 +20,10 @@ local function create_custom_snippets_table()
 end
 
 local function config()
-  local luasnip = require "luasnip"
-  local snipmate_loader = require "luasnip.loaders.from_snipmate"
-
-  local keymap = vim.keymap
-
-  local function next_choice()
-    return luasnip.change_choice(1)
-  end
-
-  local function prev_choice()
-    return luasnip.choice_active() and luasnip.change_choice(-1)
-  end
-
-  local function jump_forward()
-    luasnip.jump(1)
-  end
-
-  local function jump_back()
-    luasnip.jump(-1)
-  end
-
-  keymap.set("i", "<C-k>", function()
-    return luasnip.expand_or_locally_jumpable() and luasnip.expand_or_jump()
-  end, { silent = true })
-  keymap.set("i", "<C-j>", jump_back, { silent = true })
-  keymap.set("s", "<C-k>", jump_forward, { silent = true })
-  keymap.set("s", "<C-j>", jump_back, { silent = true })
-  keymap.set("i", "<C-n>", next_choice, { silent = true })
-  keymap.set("i", "<C-p>", prev_choice, { silent = true })
-
   for ft, snips in pairs(create_custom_snippets_table()) do
-    luasnip.add_snippets(ft, snips)
+    require("luasnip").add_snippets(ft, snips)
   end
-
-  snipmate_loader.lazy_load()
+  require("luasnip.loaders.from_snipmate").lazy_load()
 end
 
 return {

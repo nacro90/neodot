@@ -1,25 +1,58 @@
-local function create_snippet_config()
-  local exists, luasnip = pcall(require, "luasnip")
-  local snip_conf
-  if exists then
-    snip_conf = {
-      expand = function(args)
-        luasnip.lsp_expand(args.body)
-      end,
-    }
-  end
-  return snip_conf
+local function on_demand_complete()
+  require("cmp").complete {
+    config = {
+      sources = {
+        { name = "codeium" },
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "path" },
+        { name = "buffer" },
+        { name = "fuzzy_buffer" },
+      },
+    },
+  }
 end
 
 local function config()
   local cmp = require "cmp"
+  local luasnip = require "luasnip"
+
+  vim.keymap.set({ "i", "s" }, "<C-n>", function()
+    if cmp.visible() then
+      cmp.select_next_item()
+    elseif luasnip.locally_jumpable(1) then
+      luasnip.jump(1)
+    else
+      on_demand_complete()
+    end
+  end, { silent = true })
+  vim.keymap.set({ "i", "s" }, "<C-p>", function()
+    if cmp.visible() then
+      cmp.select_prev_item()
+    elseif luasnip.locally_jumpable(-1) then
+      luasnip.jump(-1)
+    else
+      on_demand_complete()
+    end
+  end, { silent = true })
+
   cmp.setup {
-    snippet = create_snippet_config(),
+    snippet = {
+      expand = function(args)
+        require("luasnip").lsp_expand(args.body)
+      end,
+    },
+    window = {
+      documentation = {
+        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+      },
+    },
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "zsh" },
       { name = "nvim_lua" },
-      { name = "luasnip", max_item_count = 1 },
+      { name = "luasnip" },
+      { name = "codeium" },
     }, {
       { name = "buffer" },
       { name = "path" },
@@ -29,35 +62,42 @@ local function config()
     experimental = {
       ghost_text = true,
     },
-    preselect = cmp.PreselectMode.Item,
+    preselect = cmp.PreselectMode.None,
     formatting = {
       format = require("lspkind").cmp_format {
-        with_text = false,
+        mode = "symbol",
         maxwidth = 50,
+        symbol_map = { Codeium = "" },
       },
+      expandable_indicator = true,
     },
     mapping = {
-      ["<C-n>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        else
-          fallback()
-        end
-      end, {
-        "i",
-      }),
-      ["<C-p>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
+      ["<C-u>"] = cmp.mapping(function(fallback)
+        if cmp.visible_docs() then
+          cmp.scroll_docs(-4)
         else
           fallback()
         end
       end, { "i" }),
-      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-d>"] = cmp.mapping { c = cmp.mapping.complete() },
-      ["<C-e>"] = cmp.mapping.abort(),
+      ["<C-d>"] = cmp.mapping(function(fallback)
+        if cmp.visible_docs() then
+          cmp.scroll_docs(4)
+        else
+          fallback()
+        end
+      end, { "i" }),
+      ["<C-e>"] = cmp.mapping.close(),
       ["<CR>"] = cmp.mapping.confirm { select = true },
+      ["<C-x>"] = cmp.mapping(
+        cmp.mapping.complete_common_string {
+          config = {
+            sources = cmp.config.sources {
+              { name = "nvim_lsp" },
+            },
+          },
+        },
+        { "i" }
+      ),
     },
   }
   -- setup has a metatable that can be called and can be used as a table
@@ -96,6 +136,9 @@ local function config()
       { name = "fuzzy_path" },
     }),
   })
+  cmp.setup.filetype("OverseerForm", {
+    enabled = false,
+  })
   cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
       { name = "git" }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
@@ -120,11 +163,18 @@ return {
   event = { "CmdlineEnter", "InsertEnter" },
   config = config,
   dependencies = {
+    "L3MON4D3/LuaSnip",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-nvim-lua",
+    {
+      "Exafunction/codeium.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+      cmd = "Codeium",
+      opts = {},
+    },
     "hrsh7th/cmp-emoji",
     "onsails/lspkind-nvim",
     "hrsh7th/cmp-cmdline",
@@ -133,12 +183,30 @@ return {
     { "tzachar/cmp-fuzzy-buffer", dependencies = { "tzachar/fuzzy.nvim" } },
     {
       "tamago324/cmp-zsh",
-      config = true,
-      opts = {
-        filetypes = { "deoledit", "zsh" },
-      },
+      opts = { filetypes = { "deoledit", "zsh" } },
     },
     "rcarriga/cmp-dap",
     "kristijanhusak/vim-dadbod-completion",
+    {
+      "tzachar/cmp-ai",
+      enabled = false,
+      dependencies = "nvim-lua/plenary.nvim",
+      config = function()
+        require("cmp_ai.config"):setup {
+          max_lines = 100,
+          provider = "Ollama",
+          notify = true,
+          notify_callback = function(msg)
+            vim.notify(msg)
+          end,
+          run_on_every_keystroke = false,
+          ignored_file_types = {
+            -- default is not to ignore
+            -- uncomment to ignore in lua:
+            -- lua = true
+          },
+        }
+      end,
+    },
   },
 }
