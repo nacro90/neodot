@@ -191,24 +191,13 @@ return {
               "--enable-swagger",
             },
           },
-          -- {
-          --   type = "go",
-          --   name = "UberCloud Data Insights with SpiceDB",
-          --   request = "launch",
-          --   program = "cmd/server/main.go",
-          --   args = {
-          --     "--debug",
-          --     "--port",
-          --     "3000",
-          --     "--static",
-          --     "../build/web",
-          --     "--db",
-          --     "postgresql://apiuser:password@localhost:5432/datainsights",
-          --     "--authstore",
-          --     "spicedb://localhost:50051?presharedkey",
-          --     "--enable-swagger",
-          --   },
-          -- },
+          {
+            type = "go",
+            name = "MiniSera Backend",
+            request = "launch",
+            program = "cmd/minisera/main.go",
+            args = {},
+          },
         },
         delve = {
           args = {
