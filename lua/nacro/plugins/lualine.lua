@@ -3,6 +3,9 @@ local function config()
     "filename",
     separator = { left = "", right = "" },
     newfile_status = true,
+    symbols = {
+      readonly = "",
+    },
   }
   local winbar_diagnostics = {
     "diagnostics",
@@ -19,6 +22,14 @@ local function config()
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
       globalstatus = true,
+      disabled_filetypes = {
+        winbar = {
+          "NvimTree",
+          "undotree",
+          "OverseerList",
+          "oil",
+        },
+      },
     },
     sections = {
       lualine_a = {
@@ -28,10 +39,16 @@ local function config()
           cond = recording.is_recording,
         },
       },
-      lualine_b = { "overseer" },
-      lualine_c = {},
+      lualine_b = {},
+      lualine_c = {
+        {
+          function()
+            return vim.fn.getcwd():gsub(vim.env.HOME, "~")
+          end,
+        },
+      },
       lualine_x = { "selectioncount" },
-      lualine_y = {},
+      lualine_y = { "overseer" },
       lualine_z = { "location" },
     },
     inactive_sections = {
@@ -59,14 +76,8 @@ local function config()
       },
       lualine_b = {},
       lualine_c = {},
-      lualine_x = { "diff" },
-      lualine_y = {
-        {
-          function()
-            return vim.fn.getcwd():gsub(vim.env.HOME, "~")
-          end,
-        },
-      },
+      lualine_x = {},
+      lualine_y = {},
       lualine_z = {},
     },
     winbar = {
@@ -89,7 +100,7 @@ local function config()
           draw_empty = true,
         },
       },
-      lualine_x = {},
+      lualine_x = { "diff" },
       lualine_y = {},
       lualine_z = { "searchcount" },
     },
@@ -106,12 +117,11 @@ local function config()
         filename,
         winbar_diagnostics,
       },
-      lualine_x = {},
+      lualine_x = { "diff" },
       lualine_y = { "searchcount" },
       lualine_z = {},
     },
     extensions = {
-      "nvim-tree",
       "fugitive",
       "nvim-dap-ui",
       "overseer",
@@ -134,6 +144,7 @@ return {
     opts = {
       highlight = true,
       separator = "  ",
+      click = true,
       lsp = {
         auto_attach = true,
       },
