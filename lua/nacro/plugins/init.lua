@@ -272,18 +272,6 @@ return {
     cmd = { "Bdelete", "Bwipeout" },
   },
 
-  -- git
-  {
-    "tpope/vim-fugitive",
-    keys = { { "<leader>G", "<Cmd>vertical Git<CR>" } },
-    cmd = "Git",
-  },
-  {
-    "junegunn/gv.vim",
-    dependencies = { "tpope/vim-fugitive" },
-    cmd = "GV",
-  },
-
   -- additional helpdocs
   "nanotee/luv-vimdocs",
   "milisims/nvim-luaref",
