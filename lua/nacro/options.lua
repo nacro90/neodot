@@ -51,12 +51,16 @@ opt.softtabstop = 4
 opt.undofile = true
 opt.nrformats = { "bin", "hex" }
 opt.sessionoptions = {
+  "blank",
   "buffers",
   "curdir",
   "folds",
   "help",
   "tabpages",
   "winsize",
+  "winpos",
+  "terminal",
+  "localoptions",
 }
 opt.viewoptions = {
   "cursor",

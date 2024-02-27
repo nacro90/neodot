@@ -32,6 +32,8 @@ local configs = {
   kotlin_language_server = {},
   dartls = {},
   zls = {},
+  jsonls = {},
+  bashls = {},
   gopls = {
     on_attach = function(client, bufnr)
       on_attach(client, bufnr)

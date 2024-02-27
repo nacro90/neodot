@@ -76,7 +76,9 @@ local function config()
       },
       lualine_b = {},
       lualine_c = {},
-      lualine_x = {},
+      lualine_x = {
+        require("auto-session.lib").current_session_name,
+      },
       lualine_y = {},
       lualine_z = {},
     },

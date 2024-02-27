@@ -114,11 +114,11 @@ return {
   {
     "tommcdo/vim-exchange",
     keys = {
-      { "gx", "<Plug>(Exchange)" },
-      { "gx", "<Plug>(Exchange)", mode = "x" },
+      { "gx",  "<Plug>(Exchange)" },
+      { "gx",  "<Plug>(Exchange)",     mode = "x" },
       { "gxc", "<Plug>(ExchangeClear)" },
       { "gxx", "<Plug>(ExchangeLine)" },
-      { "gX", "gx$", remap = true },
+      { "gX",  "gx$",                  remap = true },
     },
   },
   {

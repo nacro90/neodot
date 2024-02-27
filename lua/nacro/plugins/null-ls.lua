@@ -12,7 +12,6 @@ local function config()
       formatting.black,
       formatting.isort,
       formatting.shfmt,
-      formatting.jq,
       formatting.sql_formatter,
       formatting.markdownlint,
       formatting.prettier.with {
@@ -22,7 +21,6 @@ local function config()
       formatting.goimports,
       -- formatters.gofumpt,
 
-      diagnostics.shellcheck,
       diagnostics.vint,
       diagnostics.sqlfluff.with {
         extra_args = { "--dialect", "postgres" }, -- change to your dialect
