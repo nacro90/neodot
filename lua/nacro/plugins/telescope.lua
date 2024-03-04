@@ -59,7 +59,12 @@ local function config()
     },
     extensions = {
       dap = {
-        list_breakpoints = {},
+        list_breakpoints = {
+          layout_strategy = "center",
+        },
+      },
+      ["ui-select"] = {
+        layout_strategy = "center",
       },
     },
     pickers = {
@@ -75,6 +80,8 @@ local function config()
           "node_modules",
           "--exclude",
           ".git",
+          "--exclude",
+          ".dart_tool",
         },
       },
       buffers = {
@@ -93,6 +100,11 @@ local function config()
         layout_strategy = "vertical",
       },
       lsp_dynamic_workspace_symbols = {
+        layout_strategy = "vertical",
+        fname_width = 80,
+        symbol_width = 80,
+      },
+      lsp_document_symbols = {
         layout_strategy = "vertical",
         fname_width = 80,
         symbol_width = 80,
