@@ -8,7 +8,7 @@ return function()
   vim.api.nvim_set_hl(0, "DiffAdd", { bold = false })
   vim.api.nvim_set_hl(0, "DiffChange", { bold = false })
   vim.api.nvim_set_hl(0, "DiffText", { bold = false })
-  vim.api.nvim_set_hl(0, "CursorLine", { bg = "#20252d" })
+  vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
   vim.api.nvim_set_hl(0, "Function", { bg = "NONE" })
 
   vim.api.nvim_set_hl(0, "Pmenu", { bg = "#1f242d" })

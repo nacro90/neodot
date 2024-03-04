@@ -5,7 +5,7 @@ vim.cmd "filetype plugin indent on"
 
 opt.termguicolors = true
 opt.syntax = "enable"
-opt.cursorline = false
+opt.cursorline = true
 opt.number = true
 opt.relativenumber = false
 opt.hidden = true
