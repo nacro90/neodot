@@ -96,3 +96,10 @@ vim.keymap.set("n", "<C-q>", vim.lsp.buf.signature_help)
 vim.keymap.set("i", "<C-q>", vim.lsp.buf.signature_help)
 vim.keymap.set("n", "gD", vim.lsp.buf.type_definition)
 vim.keymap.set({ "n", "v" }, "gl", vim.lsp.buf.format, { desc = "LSP format buffer" })
+
+vim.keymap.set(
+  "n",
+  "<C-w>N",
+  require("nacro.kitty").buffer_to_new_window,
+  { desc = "Open buffer in a new kitty window" }
+)
