@@ -78,7 +78,7 @@ return {
       untracked = { text = "│" },
     },
     preview_config = {
-      border = "none",
+      border = "solid",
     },
     on_attach = on_attach,
   },
