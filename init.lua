@@ -72,10 +72,12 @@ end, {
 })
 
 vim.diagnostic.config {
-  virtual_text = false,
+  virtual_text = {
+    severity = { min = vim.diagnostic.severity.ERROR },
+  },
   underline = {
     severity = { min = vim.diagnostic.severity.WARN },
-  }
+  },
 }
 
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
