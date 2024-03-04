@@ -84,10 +84,6 @@ local function config()
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
     border = "solid",
   })
-  local _, exists = pcall(require, "flutter-tools")
-  if exists and configs.dartls then
-    configs.dartls = nil
-  end
   for name, cfg in pairs(configs) do
     cfg = vim.tbl_extend("force", default_config, cfg)
     require("lspconfig")[name].setup(cfg)
