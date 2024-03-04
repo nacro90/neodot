@@ -139,6 +139,11 @@ local function config()
   cmp.setup.filetype("OverseerForm", {
     enabled = false,
   })
+  cmp.setup.filetype("markdown", {
+    completion = {
+      autocomplete = false,
+    },
+  })
   cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
       { name = "git" }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
