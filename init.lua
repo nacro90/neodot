@@ -94,8 +94,7 @@ vim.keymap.set("n", "[d", function()
     severity = { min = vim.diagnostic.severity.WARN },
   }
 end)
-vim.keymap.set("n", "<C-q>", vim.lsp.buf.signature_help)
-vim.keymap.set("i", "<C-q>", vim.lsp.buf.signature_help)
+vim.keymap.set({ "i", "n" }, "<C-q>", vim.lsp.buf.signature_help)
 vim.keymap.set("n", "gD", vim.lsp.buf.type_definition)
 vim.keymap.set({ "n", "v" }, "gl", vim.lsp.buf.format, { desc = "LSP format buffer" })
 

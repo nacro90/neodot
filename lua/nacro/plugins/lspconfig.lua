@@ -15,10 +15,6 @@ local function has_golines()
   return false
 end
 
-local function on_attach(client, bufnr)
-  require("lsp_signature").on_attach(client)
-end
-
 local configs = {
   hls = {},
   dockerls = {},
@@ -35,8 +31,7 @@ local configs = {
   jsonls = {},
   bashls = {},
   gopls = {
-    on_attach = function(client, bufnr)
-      on_attach(client, bufnr)
+    on_attach = function(client, _)
       if has_golines() then
         client.server_capabilities.document_formatting = false
       end
@@ -58,8 +53,7 @@ local configs = {
     },
   },
   angularls = {
-    on_attach = function(client, bufnr)
-      on_attach(client, bufnr)
+    on_attach = function(_, bufnr)
       vim.keymap.set("n", "<leader>.", function()
         local ng = require "ng"
         local ft = vim.opt.filetype:get()
@@ -76,7 +70,6 @@ local configs = {
 local function config()
   local default_config = {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
-    on_attach = on_attach,
   }
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "solid",
@@ -95,7 +88,6 @@ return {
   config = config,
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
-    "ray-x/lsp_signature.nvim",
     {
       "smjonas/inc-rename.nvim",
       keys = {
@@ -110,5 +102,4 @@ return {
     },
     "joeveiga/ng.nvim",
   },
-  on_attach = on_attach,
 }
