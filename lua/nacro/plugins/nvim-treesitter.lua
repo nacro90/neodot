@@ -13,8 +13,8 @@ local function config()
           ["if"] = "@function.inner",
           ["at"] = "@class.outer",
           ["it"] = "@class.inner",
-          ["ig"] = "@block.inner",
-          ["ag"] = "@block.outer",
+          ["ib"] = "@block.inner",
+          ["ab"] = "@block.outer",
           ["io"] = "@call.inner",
           ["ao"] = "@call.outer",
           ["ij"] = "@conditional.inner",
@@ -29,18 +29,7 @@ local function config()
     },
     indent = { enable = false },
     autotag = { enable = true },
-    rainbow = {
-      enable = false,
-      disable = {
-        "go",
-        "python",
-        "lua",
-        "dart",
-      },
-    },
-    playground = {
-      enable = true,
-    },
+    playground = { enable = true },
   }
 end
 
@@ -49,7 +38,6 @@ return {
   build = ":TSUpdate",
   config = config,
   dependencies = {
-    "p00f/nvim-ts-rainbow",
     "nvim-treesitter/nvim-treesitter-textobjects",
     {
       "m-demare/hlargs.nvim",
