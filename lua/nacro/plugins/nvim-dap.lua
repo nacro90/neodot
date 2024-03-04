@@ -1,6 +1,5 @@
 local function dart()
   local dap = require "dap"
-
   dap.adapters.dart = {
     type = "executable",
     command = "flutter",
@@ -10,10 +9,26 @@ local function dart()
     {
       type = "dart",
       request = "launch",
-      name = "Launch Flutter Program",
+      name = "Flutter Chrome",
+      program = "lib/main.dart",
+      cwd = "${workspaceFolder}",
+      args = { "-d", "chrome" },
+    },
+    {
+      type = "dart",
+      request = "launch",
+      name = "Flutter Linux",
       program = "lib/main.dart",
       cwd = "${workspaceFolder}",
       args = { "-d", "linux" },
+    },
+    {
+      type = "dart",
+      request = "launch",
+      name = "Flutter Emulator",
+      program = "lib/main.dart",
+      cwd = "${workspaceFolder}",
+      args = { "-d", "emulator-5554" },
     },
   }
 end
@@ -117,12 +132,12 @@ return {
             {
               elements = {
                 {
-                  id = "stacks",
-                  size = 0.2,
+                  id = "scopes",
+                  size = 0.5,
                 },
                 {
-                  id = "scopes",
-                  size = 0.8,
+                  id = "repl",
+                  size = 0.5,
                 },
               },
               position = "bottom",
@@ -130,7 +145,7 @@ return {
             },
           },
         }
-        dap.listeners.after.event_initialized["dapui_config"] = dapui.open
+        -- dap.listeners.after.event_initialized["dapui_config"] = dapui.open
         dap.listeners.before.event_terminated["dapui_config"] = dapui.close
         dap.listeners.before.event_exited["dapui_config"] = dapui.close
         dart()
