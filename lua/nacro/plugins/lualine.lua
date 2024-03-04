@@ -48,8 +48,30 @@ local function config()
         },
       },
       lualine_x = { "selectioncount" },
-      lualine_y = { "overseer" },
-      lualine_z = { "location" },
+      lualine_y = {
+        "overseer",
+        {
+          function()
+            return "⚙️ "
+          end,
+          cond = function()
+            return #require("dap").sessions() > 0
+          end,
+        },
+      },
+      lualine_z = {
+        {
+          "progress",
+          padding = { left = 1, right = 0 },
+        },
+        function()
+          return "|"
+        end,
+        {
+          "location",
+          padding = { left = -1, right = 1 },
+        },
+      },
     },
     inactive_sections = {
       lualine_a = {},
