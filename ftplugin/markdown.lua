@@ -17,7 +17,7 @@ keymap.set("n", "<leader>x", "<Cmd>normal! 0f[lrx<CR>", { buffer = true })
 
 highlight("mkdLineBreak", { guibg = "NONE" })
 
-vim.cmd  "abbreviate <buffer> ... …"
+vim.cmd "abbreviate <buffer> ... …"
 
 --[[
 set iskeyword+=-
@@ -27,3 +27,12 @@ set formatoptions=tlnqr
 " autocmd! BufWritePre *.md,*.mkd,*.markdown substitute
 ]]
 --
+--
+
+vim.keymap.set("n", "<CR>", function()
+  if require("obsidian").util.cursor_on_markdown_link() then
+    return "<Cmd>ObsidianFollowLink<CR>"
+  else
+    return "<CR>"
+  end
+end, { expr = true, buffer = true })

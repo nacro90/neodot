@@ -28,30 +28,11 @@ return {
       -- template = nil
     },
   },
-  config = function(_, opts)
-    local obsidian = require "obsidian"
-
-    obsidian.setup(opts)
-
-    vim.keymap.set("n", "<CR>", function()
-      if obsidian.util.cursor_on_markdown_link() then
-        return "<Cmd>ObsidianFollowLink<CR>"
-      else
-        return "<CR>"
-      end
-    end, {
-      expr = true,
-    })
-  end,
   keys = {
     {
       "<leader><C-z>",
       "<Cmd>ObsidianNew<CR>",
     },
-    -- {
-    --   "<leader><C-z>",
-    --   "<Cmd>ObsidianSearch<CR>",
-    -- },
     {
       "<leader>Z",
       "<Cmd>ObsidianToday<CR>",
