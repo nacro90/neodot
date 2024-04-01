@@ -28,7 +28,7 @@ local function config()
       },
     },
     indent = { enable = false },
-    autotag = { enable = true },
+    autotag = { enable = false },
     playground = { enable = true },
   }
 end

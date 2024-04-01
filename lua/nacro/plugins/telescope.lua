@@ -82,6 +82,8 @@ local function config()
           ".git",
           "--exclude",
           ".dart_tool",
+          "--exclude",
+          ".angular",
         },
       },
       buffers = {
@@ -160,15 +162,15 @@ local keys = {
       require("telescope.builtin").find_files { cwd = vim.fn.stdpath "data" }
     end,
   },
-  {
-    "<leader>z",
-    function()
-      require("telescope.builtin").find_files {
-        find_command = { "fd", "--type", "f", "--extension", "md", "--strip-cwd-prefix" },
-        cwd = vim.env.HOME .. "/Zettels",
-      }
-    end,
-  },
+  -- {
+  --   "<leader>z",
+  --   function()
+  --     require("telescope.builtin").find_files {
+  --       find_command = { "fd", "--type", "f", "--extension", "md", "--strip-cwd-prefix" },
+  --       cwd = vim.env.HOME .. "/Zettels",
+  --     }
+  --   end,
+  -- },
   { "<leader>o", builtiner "live_grep" },
   {
     "<leader>O",
@@ -206,7 +208,7 @@ local keys = {
       require("telescope.builtin").diagnostics { layout_strategy = "vertical" }
     end,
   },
-  { "<leader><leader>", builtiner "resume" },
+  { "<leader>k", builtiner "resume" },
   { "<leader>gs", builtiner "git_status" },
   { "<leader>gc", builtiner "git_bcommits" },
   { "<leader>gC", builtiner "git_commits" },

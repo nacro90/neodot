@@ -30,8 +30,8 @@ return {
   },
   keys = {
     {
-      "<leader><C-z>",
-      "<Cmd>ObsidianNew<CR>",
+      "<leader>z",
+      "<Cmd>ObsidianQuickSwitch<CR>",
     },
     {
       "<leader>Z",

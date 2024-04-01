@@ -16,6 +16,13 @@ local function config()
     separator = { left = "", right = "" },
   }
   local recording = require "nacro.recording"
+  local arrow = {
+    function()
+      return require("arrow.statusline").text_for_statusline_with_icons()
+    end,
+    separator = { left = "", right = "" },
+    padding = { left = 0, right = 1 },
+  }
   require("lualine").setup {
     options = {
       theme = "auto",
@@ -115,6 +122,7 @@ local function config()
           icon = { align = "left" },
         },
         filename,
+        arrow,
         winbar_diagnostics,
       },
       lualine_c = {
@@ -139,6 +147,7 @@ local function config()
           padding = { left = 1, right = 0 },
         },
         filename,
+        arrow,
         winbar_diagnostics,
       },
       lualine_x = { "diff" },
@@ -164,15 +173,18 @@ end
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
-    "SmiteshP/nvim-navic",
-    opts = {
-      highlight = true,
-      separator = "  ",
-      click = true,
-      lsp = {
-        auto_attach = true,
+    {
+      "SmiteshP/nvim-navic",
+      opts = {
+        highlight = true,
+        separator = "  ",
+        click = true,
+        lsp = {
+          auto_attach = true,
+        },
       },
     },
+    "otavioschwanck/arrow.nvim",
   },
   config = config,
 }

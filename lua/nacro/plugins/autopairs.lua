@@ -5,7 +5,7 @@ local function config()
   local cmp_autopairs = require "nvim-autopairs.completion.cmp"
 
   autopairs.setup {
-    enable_move_right = false,
+    enable_move_right = true,
     disable_in_macro = true,
   }
   autopairs.add_rules(require "nvim-autopairs.rules.endwise-lua")

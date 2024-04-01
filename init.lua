@@ -55,10 +55,8 @@ end, {
   nargs = "?",
 })
 
-require("nacro.translate").setup()
 require("nacro.matchparen").setup()
 require("nacro.terminal").setup()
-require("nacro.todo").setup(vim.env.HOME .. "/Organizers/todo.txt")
 require("nacro.howdoi").setup()
 -- require("nacro.clipboard_image").setup()
 require("nacro.neovide").setup_if_neovide()
@@ -80,7 +78,9 @@ vim.diagnostic.config {
   },
 }
 
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "gd", function()
+  vim.lsp.buf.definition { reuse_win = true }
+end)
 vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover)
 vim.keymap.set("n", "<C-j>", vim.diagnostic.open_float)
 vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action)
@@ -95,7 +95,9 @@ vim.keymap.set("n", "[d", function()
   }
 end)
 vim.keymap.set({ "i", "n" }, "<C-q>", vim.lsp.buf.signature_help)
-vim.keymap.set("n", "gD", vim.lsp.buf.type_definition)
+vim.keymap.set("n", "gD", function()
+  vim.lsp.buf.type_definition { reuse_win = true }
+end)
 vim.keymap.set({ "n", "v" }, "gl", vim.lsp.buf.format, { desc = "LSP format buffer" })
 
 vim.keymap.set(

@@ -49,6 +49,8 @@ return function()
   vim.api.nvim_set_hl(0, "NeogitTagName", { link = "Special" })
   vim.api.nvim_set_hl(0, "NeogitRecentCommits", { link = "Title" })
   vim.api.nvim_set_hl(0, "NeogitUnstagedchanges", { link = "Title" })
+  vim.api.nvim_set_hl(0, "NeogitStashes", { link = "Title" })
+  vim.api.nvim_set_hl(0, "NeogitUntrackedFiles", { link = "Title" })
   vim.api.nvim_set_hl(0, "NeogitBranch", { link = "Directory" })
 
   vim.api.nvim_set_hl(0, "NavicIconsProperty", { link = "Field" })

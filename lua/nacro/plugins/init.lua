@@ -394,6 +394,10 @@ return {
     },
   },
   {
+    "folke/todo-comments.nvim",
+    opts = {},
+  },
+  {
     "RRethy/vim-illuminate",
     lazy = false,
   },
@@ -402,4 +406,8 @@ return {
     event = "BufRead",
     opts = {},
   },
+  {
+    "tpope/vim-sleuth",
+    event = "BufRead"
+  }
 }

@@ -3,6 +3,7 @@ return {
   opts = {
     log_level = "error",
     auto_save_enabled = true,
+    auto_session_suppress_dirs = { "home/nacro90", "~/", "~/Projects", "~/Downloads", "/" },
     cwd_change_handling = {
       restore_upcoming_session = true,
     },
