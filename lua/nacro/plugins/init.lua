@@ -263,6 +263,10 @@ return {
     "mbbill/undotree",
     init = function()
       vim.g.undotree_WindowLayout = 3
+      vim.g.undotree_SetFocusWhenToggle = 1
+      vim.g.undotree_TreeReturnShape = "╲"
+      vim.g.undotree_TreeSplitShape = "╱"
+      vim.g.undotree_TreeVertShape = "│"
     end,
     cmd = "UndotreeToggle",
   },
