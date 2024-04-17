@@ -114,7 +114,12 @@ return {
     {
       "<leader>F",
       function()
-        require("nvim-tree.api").tree.find_file()
+        local api = require "nvim-tree.api"
+        if not api.tree.is_visible() then
+          api.tree.open { find_file = true }
+        else
+          api.tree.find_file { focus = true }
+        end
       end,
     },
     {
