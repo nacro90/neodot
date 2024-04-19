@@ -6,7 +6,7 @@ function neovide.set_font_size(size)
 end
 
 function neovide.setup()
-  vim.opt.guifont = "jetbrainsmono Nerd Font:h14:w27"
+  vim.opt.guifont = "jetbrainsmono Nerd Font:h10.5"
 
   vim.g.neovide_hide_mouse_when_typing = false
 
@@ -16,6 +16,7 @@ function neovide.setup()
   vim.keymap.set("n", "<D-f>", function()
     vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
   end)
+  vim.g.neovide_refresh_rate = 120
 
   vim.cmd "cd ~"
 end
