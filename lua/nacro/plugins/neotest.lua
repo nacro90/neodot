@@ -59,5 +59,6 @@ return {
     "antoinemadec/FixCursorHold.nvim",
     "nvim-neotest/neotest-go",
     "sidlatau/neotest-dart",
+    "nvim-neotest/nvim-nio",
   },
 }
