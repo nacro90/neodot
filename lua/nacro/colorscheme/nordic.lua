@@ -51,6 +51,7 @@ return function()
   vim.api.nvim_set_hl(0, "NeogitUnstagedchanges", { link = "Title" })
   vim.api.nvim_set_hl(0, "NeogitStashes", { link = "Title" })
   vim.api.nvim_set_hl(0, "NeogitUntrackedFiles", { link = "Title" })
+  vim.api.nvim_set_hl(0, "NeogitNeogitUnmergedInto", { link = "Title" })
   vim.api.nvim_set_hl(0, "NeogitBranch", { link = "Directory" })
 
   vim.api.nvim_set_hl(0, "NavicIconsProperty", { link = "Field" })
