@@ -106,7 +106,13 @@ local function config()
       lualine_b = {},
       lualine_c = {},
       lualine_x = {
-        require("auto-session.lib").current_session_name,
+        function()
+          local exists, autosession = pcall(require, "auto-session.lib")
+          if not exists then
+            return ""
+          end
+          return autosession.current_session_name()
+        end,
       },
       lualine_y = {},
       lualine_z = {},
