@@ -404,6 +404,15 @@ return {
   {
     "RRethy/vim-illuminate",
     lazy = false,
+    config = function()
+      require("illuminate").configure {
+        filetypes_denylist = {
+          "markdown",
+          "dirvish",
+          "fugitive",
+        },
+      }
+    end,
   },
   {
     "nvimdev/hlsearch.nvim",
