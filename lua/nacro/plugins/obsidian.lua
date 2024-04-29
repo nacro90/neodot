@@ -2,7 +2,8 @@ local os = require "nacro.os"
 
 return {
   "epwalsh/obsidian.nvim",
-  event = { "BufReadPre " .. vim.fn.expand "~" .. "/Zettels/**.md" },
+  version = "*",
+  ft = "markdown",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
@@ -19,6 +20,12 @@ return {
       title = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
       return title
     end,
+    ui = {
+      checkboxes = {
+        [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
+        ["x"] = { char = "", hl_group = "ObsidianDone" },
+      },
+    },
     daily_notes = {
       folder = "daily",
       -- date_format = "%Y-%m-%d",
@@ -26,6 +33,9 @@ return {
       -- alias_format = "%B %-d, %Y",
       -- -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
       -- template = nil
+    },
+    attachments = {
+      img_folder = "static",
     },
   },
   keys = {
@@ -35,7 +45,7 @@ return {
     },
     {
       "<leader>Z",
-      "<Cmd>ObsidianToday<CR>",
+      "<Cmd>ObsidianDailies<CR>",
     },
   },
 }
