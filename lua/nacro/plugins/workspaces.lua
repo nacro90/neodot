@@ -1,7 +1,13 @@
 local saferequire = require("nacro.module").saferequire
 
 local function config()
-  require("workspaces").setup()
+  require("workspaces").setup {
+    hooks = {
+      open = function()
+        require("arrow.persist").load_cache_file()
+      end,
+    },
+  }
   require("telescope").load_extension "workspaces"
 end
 
