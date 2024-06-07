@@ -2,6 +2,7 @@ return {
   "NTBBloodbath/rest.nvim",
   ft = "http",
   dependencies = { "nvim-lua/plenary.nvim" },
+  main = 'rest-nvim',
   opts = {
     stay_in_current_window_after_split = true,
     result = {
