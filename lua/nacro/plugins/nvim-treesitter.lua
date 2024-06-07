@@ -36,6 +36,7 @@ end
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
+  -- commit = "33eb472b459f1d2bf49e16154726743ab3ca1c6d",
   config = config,
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
