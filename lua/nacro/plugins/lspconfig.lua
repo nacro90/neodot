@@ -36,6 +36,15 @@ local configs = {
         client.server_capabilities.document_formatting = false
       end
     end,
+    settings = {
+      gopls = {
+        completeUnimported = true,
+        usePlaceholders = true,
+        analyses = {
+          unusedparams = true,
+        },
+      },
+    },
   },
   lua_ls = {
     settings = {
@@ -52,19 +61,19 @@ local configs = {
       },
     },
   },
-  angularls = {
-    on_attach = function(_, bufnr)
-      vim.keymap.set("n", "<leader>.", function()
-        local ng = require "ng"
-        local ft = vim.opt.filetype:get()
-        if ft == "html" then
-          ng.goto_component_with_template_file()
-        elseif ft == "typescript" then
-          ng.goto_template_for_component()
-        end
-      end, { buffer = bufnr })
-    end,
-  },
+  -- angularls = {
+  --   on_attach = function(_, bufnr)
+  --     vim.keymap.set("n", "<leader>.", function()
+  --       local ng = require "ng"
+  --       local ft = vim.opt.filetype:get()
+  --       if ft == "html" then
+  --         ng.goto_component_with_template_file()
+  --       elseif ft == "typescript" then
+  --         ng.goto_template_for_component()
+  --       end
+  --     end, { buffer = bufnr })
+  --   end,
+  -- },
 }
 
 local function config()
@@ -79,6 +88,9 @@ local function config()
   })
   for name, cfg in pairs(configs) do
     cfg = vim.tbl_extend("force", default_config, cfg)
+    if name == "gopls" then
+      vim.print(cfg)
+    end
     require("lspconfig")[name].setup(cfg)
   end
 end
