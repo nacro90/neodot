@@ -200,15 +200,18 @@ local keys = {
       require("telescope.builtin").buffers { only_cwd = true }
     end,
   },
-  { "<leader>H", builtiner "oldfiles" },
+  { "<leader>H",     builtiner "oldfiles" },
   { "<leader><C-h>", builtiner "help_tags" },
   {
     "<leader>j",
     function()
-      require("telescope.builtin").diagnostics { layout_strategy = "vertical" }
+      require("telescope.builtin").diagnostics {
+        layout_strategy = "vertical",
+        severity_limit = "WARN",
+      }
     end,
   },
-  { "<leader>k", builtiner "resume" },
+  { "<leader>k",  builtiner "resume" },
   { "<leader>gs", builtiner "git_status" },
   { "<leader>gc", builtiner "git_bcommits" },
   { "<leader>gC", builtiner "git_commits" },
