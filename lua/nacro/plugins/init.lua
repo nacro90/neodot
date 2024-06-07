@@ -8,10 +8,6 @@ return {
     end,
   },
   {
-    "williamboman/mason.nvim",
-    config = true,
-  },
-  {
     "tpope/vim-eunuch",
     cmd = {
       "Remove",
