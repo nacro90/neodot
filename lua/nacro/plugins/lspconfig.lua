@@ -24,7 +24,32 @@ local configs = {
   flow = {},
   svelte = {},
   yamlls = {},
-  tsserver = {},
+  tsserver = {
+    settings = {
+      typescript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayEnumMemberNameHintsWhenTypeMatchesName = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = "all",
+        },
+      },
+      javascript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayEnumMemberNameHintsWhenTypeMatchesName = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = "all",
+        },
+      },
+    },
+  },
   kotlin_language_server = {},
   dartls = {},
   zls = {},
@@ -42,6 +67,14 @@ local configs = {
         usePlaceholders = true,
         analyses = {
           unusedparams = true,
+        },
+        hints = {
+          assignVariableTypes = false,
+          compositeLiteralFields = true,
+          compositeLiteralTypes = true,
+          rangeVariableTypes = true,
+          parameterNames = true,
+          constantValues = true,
         },
       },
     },
@@ -77,6 +110,7 @@ local configs = {
 }
 
 local function config()
+  vim.lsp.inlay_hint.enable(true)
   local default_config = {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
   }
