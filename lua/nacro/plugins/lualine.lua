@@ -7,6 +7,10 @@ local function config()
       readonly = "",
     },
   }
+  local function dbui()
+    local text = vim.fn["db_ui#statusline"]()
+    return vim.startswith(text, "DBUI") and "" or text
+  end
   local winbar_diagnostics = {
     "diagnostics",
     sources = { "nvim_diagnostic" },
@@ -137,6 +141,7 @@ local function config()
           color_correction = "dynamic",
           draw_empty = true,
         },
+        dbui,
       },
       lualine_x = { "diff" },
       lualine_y = {},
@@ -155,6 +160,7 @@ local function config()
         filename,
         arrow,
         winbar_diagnostics,
+        dbui,
       },
       lualine_x = { "diff" },
       lualine_y = { "searchcount" },

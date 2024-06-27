@@ -88,9 +88,6 @@ local function config()
   })
   for name, cfg in pairs(configs) do
     cfg = vim.tbl_extend("force", default_config, cfg)
-    if name == "gopls" then
-      vim.print(cfg)
-    end
     require("lspconfig")[name].setup(cfg)
   end
 end
