@@ -20,3 +20,5 @@ vim.api.nvim_create_autocmd("TextChanged", {
     vim.api.nvim_win_set_cursor(0, new_cursor)
   end,
 })
+
+vim.opt.commentstring = '// %s'
