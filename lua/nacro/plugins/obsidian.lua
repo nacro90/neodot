@@ -1,4 +1,4 @@
-local os = require "nacro.os"
+local nos = require "nacro.os"
 
 return {
   "epwalsh/obsidian.nvim",
@@ -11,7 +11,7 @@ return {
   opts = {
     dir = "~/Zettels",
     follow_url_func = function(url)
-      vim.fn.jobstart { os.get_opener(), url }
+      vim.fn.jobstart { nos.get_opener(), url }
     end,
     note_id_func = function(title)
       if not title then
@@ -19,6 +19,9 @@ return {
       end
       title = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
       return title
+    end,
+    image_name_func = function()
+      return string.format("%s-", os.time())
     end,
     ui = {
       checkboxes = {
@@ -36,6 +39,10 @@ return {
     },
     attachments = {
       img_folder = "static",
+      img_text_func = function(client, path)
+        path = client:vault_relative_path(path) or path
+        return string.format("![[%s]]", path)
+      end,
     },
   },
   keys = {
