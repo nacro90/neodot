@@ -8,7 +8,7 @@ return {
     "DBUIFindBuffer",
   },
   keys = {
-    { "<leader>D", "<Cmd>DBUIToggle<CR>" },
+    { "<leader>D", "<Cmd>tab DBUI<CR>" },
   },
   dependencies = {
     { "tpope/vim-dadbod", lazy = true },

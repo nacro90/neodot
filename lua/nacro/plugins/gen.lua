@@ -1,5 +1,6 @@
 return {
   "David-Kunz/gen.nvim",
+  enabled = false,
   cmd = "Gen",
   opts = {
     model = "codellama",

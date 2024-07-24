@@ -125,7 +125,22 @@ return {
     },
   },
   {
+    "vhyrro/luarocks.nvim",
+    priority = 1000,
+    config = true,
+    opts = {
+      rocks = {
+        "lua-curl",
+        "nvim-nio",
+        "mimetypes",
+        "xml2lua",
+        "magick",
+      },
+    },
+  },
+  {
     "numToStr/Comment.nvim",
+    enabled = false,
     keys = {
       { "gc", mode = { "v", "n" } },
     },
@@ -368,6 +383,7 @@ return {
   {
     "lukas-reineke/headlines.nvim",
     opts = {},
+    enabled = false,
   },
   {
     "ekickx/clipboard-image.nvim",
@@ -418,5 +434,19 @@ return {
   {
     "tpope/vim-sleuth",
     event = "BufRead",
+  },
+  {
+    "MeanderingProgrammer/markdown.nvim",
+    main = "render-markdown",
+    opts = {
+      bullet = {
+        icons = { "•", "◦", "⁃" },
+      },
+    },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+  },
+  {
+    "3rd/image.nvim",
+    opts = {},
   },
 }

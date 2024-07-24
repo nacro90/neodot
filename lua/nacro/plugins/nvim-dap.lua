@@ -38,6 +38,14 @@ local function dart()
       cwd = "${workspaceFolder}",
       args = { "-d", "emulator-5554" },
     },
+    {
+      type = "dart",
+      request = "launch",
+      name = "Flutter Samsung",
+      program = "lib/main.dart",
+      cwd = "${workspaceFolder}",
+      args = { "-d", "R5CW91RN97P" },
+    },
   }
 end
 
@@ -222,6 +230,13 @@ return {
             name = "MiniSera Backend",
             request = "launch",
             program = "cmd/minisera/main.go",
+            args = {},
+          },
+          {
+            type = "go",
+            name = "RipeCheck Core",
+            request = "launch",
+            program = "cmd/ripecheck/main.go",
             args = {},
           },
         },
