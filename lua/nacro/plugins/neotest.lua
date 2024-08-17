@@ -1,6 +1,5 @@
 local function config()
-  local neotest = require "neotest"
-  neotest.setup {
+  require("neotest").setup {
     diagnostic = { enabled = false },
     adapters = {
       require "neotest-go",

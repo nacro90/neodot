@@ -21,4 +21,4 @@ vim.api.nvim_create_autocmd("TextChanged", {
   end,
 })
 
-vim.opt.commentstring = '// %s'
+vim.opt.commentstring = "// %s"
