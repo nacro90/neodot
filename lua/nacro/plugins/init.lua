@@ -449,4 +449,11 @@ return {
     "3rd/image.nvim",
     opts = {},
   },
+  {
+    "chipsenkbeil/distant.nvim",
+    branch = "v0.3",
+    config = function()
+      require("distant"):setup()
+    end,
+  },
 }
