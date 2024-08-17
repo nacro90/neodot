@@ -64,7 +64,7 @@ local configs = {
     settings = {
       gopls = {
         completeUnimported = true,
-        usePlaceholders = true,
+        usePlaceholders = false,
         analyses = {
           unusedparams = true,
         },
@@ -73,7 +73,7 @@ local configs = {
           compositeLiteralFields = true,
           compositeLiteralTypes = true,
           rangeVariableTypes = true,
-          parameterNames = true,
+          parameterNames = false,
           constantValues = true,
         },
       },
@@ -110,7 +110,7 @@ local configs = {
 }
 
 local function config()
-  vim.lsp.inlay_hint.enable(true)
+  vim.lsp.inlay_hint.enable(false)
   local default_config = {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
   }
