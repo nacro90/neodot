@@ -61,49 +61,6 @@ return {
     end,
     dependencies = { "nvim-lua/plenary.nvim" },
   },
-  {
-    "plasticboy/vim-markdown",
-    ft = "markdown",
-    enabled = false,
-    init = function()
-      vim.g.vim_markdown_frontmatter = 1
-      vim.g.vim_markdown_strikethrough = 1
-      vim.g.vim_markdown_math = 1
-      vim.g.vim_markdown_conceal = 2
-      vim.g.vim_markdown_conceal_code_blocks = 0
-    end,
-  },
-  {
-    "renerocksai/telekasten.nvim",
-    enabled = false,
-    keys = {
-      {
-        "<leader>ez",
-        function()
-          require("telekasten").find_notes()
-        end,
-      },
-      {
-        "<leader>eZ",
-        function()
-          require("telekasten").new_note()
-        end,
-      },
-    },
-    config = function()
-      require("telekasten").setup {
-        home = vim.env.HOME .. "/Zettels",
-        image_subdir = "static",
-        follow_creates_nonexisting = false,
-        dailies_create_nonexisting = false,
-        weeklies_create_nonexisting = false,
-        image_link_style = "wiki",
-        sort = "modified",
-        tag_notation = "yaml-bare",
-      }
-    end,
-  },
-
   "monkoose/matchparen.nvim",
 
   -- editing
@@ -137,14 +94,6 @@ return {
         "magick",
       },
     },
-  },
-  {
-    "numToStr/Comment.nvim",
-    enabled = false,
-    keys = {
-      { "gc", mode = { "v", "n" } },
-    },
-    config = true,
   },
   {
     "kylechui/nvim-surround",
@@ -198,18 +147,6 @@ return {
       }
     end,
   },
-  {
-    "lcheylus/overlength.nvim",
-    ft = { "go", "java" },
-    cmd = { "OverlengthEnable", "OverlengthToggle" },
-    config = function()
-      require("overlength").setup {
-        enabled = false,
-        disable_ft = { "qf", "help", "man", "packer", "NvimTree", "Telescope", "WhichKey", "lazy" },
-      }
-    end,
-  },
-
   {
     "jvgrootveld/telescope-zoxide",
     config = function()
@@ -379,11 +316,6 @@ return {
   {
     "folke/zen-mode.nvim",
     config = true,
-  },
-  {
-    "lukas-reineke/headlines.nvim",
-    opts = {},
-    enabled = false,
   },
   {
     "ekickx/clipboard-image.nvim",
