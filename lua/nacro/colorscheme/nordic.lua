@@ -5,9 +5,9 @@ return function()
   vim.api.nvim_set_hl(0, "IncSearch", { link = "Visual" })
   vim.api.nvim_set_hl(0, "Search", { link = "Visual" })
   vim.api.nvim_set_hl(0, "Substitute", { link = "Visual" })
-  -- vim.api.nvim_set_hl(0, "DiffAdd", { bold = false })
-  -- vim.api.nvim_set_hl(0, "DiffChange", { bold = false })
-  -- vim.api.nvim_set_hl(0, "DiffText", { bold = false })
+  vim.cmd "hi DiffText gui=NONE"
+  vim.cmd "hi DiffAdd gui=NONE"
+  vim.cmd "hi DiffChange gui=NONE"
   vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
   vim.api.nvim_set_hl(0, "Function", { bg = "NONE" })
 
