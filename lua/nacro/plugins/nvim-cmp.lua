@@ -139,6 +139,17 @@ local function config()
   cmp.setup.filetype("OverseerForm", {
     enabled = false,
   })
+  cmp.setup.filetype("todo", {
+    sources = cmp.config.sources({
+      {
+        name = "buffer",
+        trigger_characters = { "@", "+" },
+        option = { keyword_pattern = [=[[@+]\w\+]=] },
+      },
+    }, {
+      { name = "luasnip" },
+    }),
+  })
   cmp.setup.filetype("markdown", {
     completion = {
       autocomplete = false,
@@ -184,7 +195,7 @@ return {
     "onsails/lspkind-nvim",
     "hrsh7th/cmp-cmdline",
     "dmitmel/cmp-cmdline-history",
-    { "tzachar/cmp-fuzzy-path", dependencies = { "tzachar/fuzzy.nvim" } },
+    { "tzachar/cmp-fuzzy-path",   dependencies = { "tzachar/fuzzy.nvim" } },
     { "tzachar/cmp-fuzzy-buffer", dependencies = { "tzachar/fuzzy.nvim" } },
     {
       "tamago324/cmp-zsh",
