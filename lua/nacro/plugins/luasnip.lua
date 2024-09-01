@@ -4,6 +4,7 @@ local snippet_fts = {
   "telekasten",
   "dart",
   "markdown",
+  "todo",
 }
 
 local function create_custom_snippets_table()
