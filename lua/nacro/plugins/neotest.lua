@@ -1,15 +1,8 @@
 local function config()
   require("neotest").setup {
-    diagnostic = { enabled = false },
     adapters = {
-      require "neotest-go",
+      require "neotest-golang",
       require "neotest-dart",
-    },
-    quickfix = {
-      enabled = false,
-    },
-    output = {
-      open_on_run = false,
     },
   }
 end
@@ -57,6 +50,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "antoinemadec/FixCursorHold.nvim",
     "nvim-neotest/neotest-go",
+    "fredrikaverpil/neotest-golang",
     "sidlatau/neotest-dart",
     "nvim-neotest/nvim-nio",
   },
