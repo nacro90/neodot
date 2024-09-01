@@ -1,9 +1,7 @@
-local opt = vim.opt
-
-opt.tabstop = 2
-opt.softtabstop = 2
-opt.shiftwidth = 2
-opt.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
 
 vim.keymap.set("n", "<leader>mp", "mlBi_`ll", { buffer = 0 })
 
@@ -22,3 +20,7 @@ vim.api.nvim_create_autocmd("TextChanged", {
 })
 
 vim.opt.commentstring = "// %s"
+
+vim.keymap.set("n", "<leader>n", function()
+  require("telescope.builtin").find_files { search_file = ".*\\.dart" }
+end)
