@@ -1,5 +1,30 @@
 local nos = require "nacro.os"
 
+local function scratch_popup()
+  local width = 80
+  local height = 20
+  local buf = vim.api.nvim_create_buf(false, true)
+  local ui = vim.api.nvim_list_uis()[1]
+  local opts = {
+    relative = "editor",
+    width = width,
+    height = height,
+    col = (ui.width / 2) - (width / 2),
+    row = (ui.height / 2) - (height / 2),
+    anchor = "NW",
+    style = "minimal",
+    border = "solid",
+  }
+  local win = vim.api.nvim_open_win(buf, true, opts)
+  vim.keymap.set("n", "<leader>C", function()
+    vim.print "o ye"
+    vim.api.nvim_win_close(win, true)
+  end, { buffer = buf })
+
+  vim.cmd "edit ~/Zettels/scratch.md"
+  vim.cmd "normal G"
+end
+
 return {
   "epwalsh/obsidian.nvim",
   version = "*",
@@ -52,7 +77,7 @@ return {
     },
     {
       "<leader>Z",
-      "<Cmd>ObsidianDailies<CR>",
+      scratch_popup,
     },
   },
 }
