@@ -1,6 +1,8 @@
 return {
   "NTBBloodbath/rest.nvim",
   ft = "http",
+  enabled = false,
+  branch = "v3",
   dependencies = { "luarocks.nvim" },
   main = "rest-nvim",
   opts = {
