@@ -86,13 +86,33 @@ return {
       end,
       { silent = true },
     },
-    { "<leader>dd", dapper "continue",      { silent = true } },
-    { "<leader>dr", dapper "restart",       { silent = true } },
-    { "<leader>dn", dapper "step_over",     { silent = true } },
-    { "<leader>dN", dapper "run_to_cursor", { silent = true } },
-    { "<leader>di", dapper "step_into",     { silent = true } },
-    { "<leader>do", dapper "step_out",      { silent = true } },
-    { "<leader>dq", dapper "terminate",     { silent = true } },
+    { "<leader>dd", dapper "continue", { silent = true } },
+    { "<leader>dr", dapper "restart",  { silent = true } },
+    {
+      "<leader>dn",
+      function()
+        require("dap").step_over { askForTargets = true }
+      end,
+      { silent = true },
+    },
+    {
+      "<leader>dN",
+      function()
+        require("dap").step_back { askForTargets = true }
+      end,
+      { silent = true },
+    },
+    { "<leader>dD", dapper "run_last",  { silent = true } },
+    {
+      "<leader>di",
+      function()
+        require("dap").step_into { askForTargets = true }
+        require("goto-breakpoints").stopped()
+      end,
+      { silent = true },
+    },
+    { "<leader>do", dapper "step_out",  { silent = true } },
+    { "<leader>dq", dapper "terminate", { silent = true } },
     {
       "<leader>dc",
       function()
@@ -105,10 +125,6 @@ return {
     setup_signs()
   end,
   dependencies = {
-    {
-      "theHamsta/nvim-dap-virtual-text",
-      config = true,
-    },
     {
       "rcarriga/nvim-dap-ui",
       dependencies = {
@@ -167,6 +183,11 @@ return {
         -- dap.listeners.after.event_initialized["dapui_config"] = dapui.open
         dap.listeners.before.event_terminated["dapui_config"] = dapui.close
         dap.listeners.before.event_exited["dapui_config"] = dapui.close
+        dap.listeners.after.event_stopped["jump_to_execution"] = function(_, __)
+          vim.defer_fn(function()
+            require("goto-breakpoints").stopped()
+          end, 50)
+        end
         dart()
       end,
     },
@@ -268,6 +289,12 @@ return {
             require("goto-breakpoints").stopped()
           end,
         },
+      },
+    },
+    {
+      "theHamsta/nvim-dap-virtual-text",
+      opts = {
+        virt_text_pos = "eol",
       },
     },
     {
