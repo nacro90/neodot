@@ -54,6 +54,13 @@ return {
     ft = "todo",
   },
   {
+    "arnarg/todotxt.nvim",
+    opts = {
+      todo_file = "~/Organizers/todo.txt",
+    },
+    dependencies = { "MunifTanjim/nui.nvim" },
+  },
+  {
     "nvim-neorg/neorg",
     ft = "norg",
     config = function()
@@ -160,14 +167,6 @@ return {
         end,
       },
     },
-    dependencies = "nvim-telescope/telescope.nvim",
-  },
-  {
-    "barrett-ruth/telescope-http.nvim",
-    config = function()
-      require("telescope").load_extension "http"
-    end,
-    lazy = true,
     dependencies = "nvim-telescope/telescope.nvim",
   },
   {
@@ -315,11 +314,10 @@ return {
   },
   {
     "folke/zen-mode.nvim",
-    config = true,
+    opts = {},
   },
   {
     "ekickx/clipboard-image.nvim",
-    config = true,
     opts = {
       markdown = {
         img_dir = "static",
@@ -371,8 +369,15 @@ return {
     "MeanderingProgrammer/markdown.nvim",
     main = "render-markdown",
     opts = {
+      preset = "obsidian",
+      heading = {
+        sign = false,
+        left_pad = 1,
+      },
       bullet = {
         icons = { "•", "◦", "⁃" },
+        left_pad = 1,
+        right_pad = 1,
       },
     },
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
