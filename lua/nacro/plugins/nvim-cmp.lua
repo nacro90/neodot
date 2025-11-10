@@ -130,11 +130,9 @@ local function config()
     completion = {
       autocomplete = false,
     },
-    sources = cmp.config.sources({
+    sources = cmp.config.sources {
       { name = "cmdline" },
-    }, {
-      { name = "fuzzy_path" },
-    }),
+    },
   })
   cmp.setup.filetype("OverseerForm", {
     enabled = false,
@@ -187,7 +185,10 @@ return {
     "hrsh7th/cmp-nvim-lua",
     {
       "Exafunction/codeium.nvim",
-      dependencies = { "nvim-lua/plenary.nvim" },
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        commit = "62d1e2e5691865586187bd6aa890e43b85c00518",
+      },
       cmd = "Codeium",
       opts = {},
     },

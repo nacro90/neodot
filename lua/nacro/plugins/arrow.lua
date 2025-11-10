@@ -3,7 +3,7 @@ return {
   opts = {
     show_icons = true,
     leader_key = "<leader><leader>",
-    separate_by_branch = true,
+    separate_by_branch = false,
     index_keys = "ueoa.,kjhtnscrmw'lyfxb",
     mappings = {
       edit = "<C-e>",

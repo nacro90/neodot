@@ -106,3 +106,12 @@ vim.keymap.set(
   require("nacro.kitty").buffer_to_new_window,
   { desc = "Open buffer in a new kitty window" }
 )
+
+vim.keymap.set({ "n", "v" }, "<C-e>", "3<C-e>")
+vim.keymap.set({ "n", "v" }, "<C-y>", "3<C-y>")
+
+vim.filetype.add {
+  extension = {
+    http = "http",
+  },
+}

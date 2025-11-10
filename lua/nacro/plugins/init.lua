@@ -43,6 +43,22 @@ return {
       require("nacro.colorscheme").setup "nordic"
     end,
   },
+  {
+    "rebelot/kanagawa.nvim",
+    lazy = true,
+  },
+  {
+    "olivercederborg/poimandres.nvim",
+    lazy = true,
+  },
+  {
+    "EdenEast/nightfox.nvim",
+    lazy = true,
+  },
+  {
+    "ellisonleao/gruvbox.nvim",
+    lazy = true,
+  },
 
   -- filetype
   {
@@ -50,42 +66,65 @@ return {
     ft = "just",
   },
   {
-    "freitass/todo.txt-vim",
-    ft = "todo",
+    "monkoose/matchparen.nvim",
+    opts = {},
   },
-  {
-    "arnarg/todotxt.nvim",
-    opts = {
-      todo_file = "~/Organizers/todo.txt",
-    },
-    dependencies = { "MunifTanjim/nui.nvim" },
-  },
-  {
-    "nvim-neorg/neorg",
-    ft = "norg",
-    config = function()
-      require("nacro.neorg").setup()
-    end,
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
-  "monkoose/matchparen.nvim",
 
   -- editing
   {
-    "tommcdo/vim-exchange",
+    "gbprod/substitute.nvim",
+    opts = {},
     keys = {
-      { "gx",  "<Plug>(Exchange)" },
-      { "gx",  "<Plug>(Exchange)",     mode = "x" },
-      { "gxc", "<Plug>(ExchangeClear)" },
-      { "gxx", "<Plug>(ExchangeLine)" },
-      { "gX",  "gx$",                  remap = true },
-    },
-  },
-  {
-    "vim-scripts/ReplaceWithRegister",
-    keys = {
-      { "gr" },
-      { "gR", "gr$", remap = true },
+      {
+        "gr",
+        function()
+          require("substitute").operator()
+        end,
+      },
+      {
+        "gr",
+        function()
+          require("substitute").visual()
+        end,
+        mode = "x",
+      },
+      {
+        "grr",
+        function()
+          require("substitute").line()
+        end,
+      },
+      {
+        "gR",
+        function()
+          require("substitute").eol()
+        end,
+      },
+      {
+        "gx",
+        function()
+          require("substitute.exchange").operator()
+        end,
+      },
+      {
+        "gx",
+        function()
+          require("substitute.exchange").visual()
+        end,
+        mode = "x",
+      },
+      {
+        "gxx",
+        function()
+          require("substitute.exchange").line()
+        end,
+      },
+      {
+        "gX",
+        function()
+          require("substitute.exchange").eol()
+        end,
+      },
     },
   },
   {
@@ -104,7 +143,9 @@ return {
   },
   {
     "kylechui/nvim-surround",
-    config = true,
+    version = "*",
+    event = "VeryLazy",
+    opts = {},
     keys = {
       { "ys" },
       { "yS" },
@@ -114,24 +155,20 @@ return {
       { "dS" },
       { "S", mode = { "v" } },
     },
-    version = "*",
-  },
-  {
-    "junegunn/vim-easy-align",
-    keys = {
-      { "ga", "<Plug>(EasyAlign)", mode = { "x", "n" } },
-    },
   },
   {
     "kana/vim-textobj-entire",
+    event = "BufRead",
     dependencies = { "kana/vim-textobj-user" },
   },
   {
     "kana/vim-textobj-indent",
+    event = "BufRead",
     dependencies = { "kana/vim-textobj-user" },
   },
   {
     "glts/vim-textobj-comment",
+    event = "BufRead",
     dependencies = { "kana/vim-textobj-user" },
   },
   "tpope/vim-repeat",
@@ -268,6 +305,7 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
+    keys = { { "<C-t>" } },
     opts = {
       open_mapping = "<C-t>",
       insert_mappings = false,
@@ -283,50 +321,21 @@ return {
     },
   },
   {
-    "chentoast/marks.nvim",
-    keys = {
-      { "]m" },
-      { "[m" },
-      { "m" },
-      { "dm" },
-    },
-    config = function()
-      require("marks").setup {
-        mappings = {
-          next = "]m",
-          prev = "[m",
-          delete_line = "dmm",
-          delete_buffer = "dmae",
-        },
-      }
-    end,
-  },
-  {
     "chomosuke/term-edit.nvim",
     version = "1.*",
-    lazy = false,
-    config = function()
-      require("term-edit").setup {
-        prompt_end = "[❮❯] ",
-        feedkeys_delay = 100,
-      }
-    end,
+    event = "TermOpen",
+    opts = {
+      prompt_end = "[❮❯] ",
+      feedkeys_delay = 100,
+    },
   },
   {
     "folke/zen-mode.nvim",
+    cmd = "ZenMode",
     opts = {},
   },
   {
-    "ekickx/clipboard-image.nvim",
-    opts = {
-      markdown = {
-        img_dir = "static",
-      },
-    },
-  },
-  {
     "crnvl96/lazydocker.nvim",
-    event = "VeryLazy",
     opts = {
       popup_window = {
         relative = "editor",
@@ -336,11 +345,17 @@ return {
       "MunifTanjim/nui.nvim",
     },
     keys = {
-      { "<leader>l", "<Cmd>LazyDocker<CR>" },
+      {
+        "<leader>l",
+        function()
+          require("lazydocker").open()
+        end,
+      },
     },
   },
   {
     "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
   },
   {
@@ -363,10 +378,12 @@ return {
   },
   {
     "tpope/vim-sleuth",
+    enabled = false,
     event = "BufRead",
   },
   {
     "MeanderingProgrammer/markdown.nvim",
+    ft = "markdown",
     main = "render-markdown",
     opts = {
       preset = "obsidian",
@@ -383,14 +400,43 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
   },
   {
-    "3rd/image.nvim",
+    "chipsenkbeil/distant.nvim",
+    branch = "v0.3",
+    opts = {},
+    cmd = { "DistantInstall", "DistantLaunch" },
+  },
+  {
+    "ThePrimeagen/refactoring.nvim",
     opts = {},
   },
   {
-    "chipsenkbeil/distant.nvim",
-    branch = "v0.3",
-    config = function()
-      require("distant"):setup()
-    end,
+    "kelly-lin/ranger.nvim",
+    opts = {
+      replace_netrw = true,
+      enable_cmds = true,
+    },
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "VeryLazy",
+    opts = {},
+  },
+
+  {
+    "johnseth97/codex.nvim",
+    enabled = false,
+    lazy = true,
+    cmd = { "Codex", "CodexToggle" }, -- Optional: Load only on command execution
+    keys = {
+      {
+        "<leader>cc", -- Change this to your preferred keybinding
+        function()
+          require("codex").toggle()
+        end,
+        desc = "Toggle Codex popup",
+      },
+    },
+    opts = {},
   },
 }

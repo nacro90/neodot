@@ -22,5 +22,15 @@ vim.api.nvim_create_autocmd("TextChanged", {
 vim.opt.commentstring = "// %s"
 
 vim.keymap.set("n", "<leader>n", function()
-  require("telescope.builtin").find_files { search_file = ".*\\.dart" }
-end)
+  local patterns = {
+    "\\.dart",
+    "AndroidManifest\\.xml",
+    "pubspec\\.yaml",
+    "\\.gitignore",
+    "\\.gradle",
+    "\\.properties",
+  }
+  require("telescope.builtin").find_files {
+    search_file = (".*(%s)"):format(table.concat(patterns, "|")),
+  }
+end, { buffer = true })

@@ -19,19 +19,22 @@ local function config()
     padding = { left = 0, right = 1 },
     separator = { left = "", right = "" },
   }
-  local recording = require "nacro.recording"
   local arrow = {
     function()
       return require("arrow.statusline").text_for_statusline_with_icons()
     end,
     separator = { left = "", right = "" },
     padding = { left = 0, right = 1 },
+    cond = function()
+      return require("arrow.statusline").is_on_arrow_file()
+    end,
   }
   require("lualine").setup {
     options = {
       theme = "auto",
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
+      always_show_tabline = false,
       globalstatus = true,
       disabled_filetypes = {
         winbar = {
@@ -46,8 +49,17 @@ local function config()
       lualine_a = {
         "mode",
         {
-          recording.get_recording,
-          cond = recording.is_recording,
+          function()
+            char = vim.fn.reg_recording()
+            return char ~= "" and "@" .. char or nil
+          end,
+          cond = function()
+            return vim.fn.reg_recording() ~= ""
+          end,
+          padding = {
+            right = 1,
+            left = 0,
+          },
         },
       },
       lualine_b = {},
@@ -96,15 +108,16 @@ local function config()
       lualine_a = {
         {
           "tabs",
-          cond = function()
-            return #vim.api.nvim_list_tabpages() > 1
-          end,
-          mode = 0,
+          mode = 1,
+          max_length = vim.opt.columns:get(),
           use_mode_colors = true,
           show_modified_status = false,
           tabs_color = {
             inactive = "lualine_b_inactive",
           },
+          fmt = function(name, context)
+            return name ~= "[No Name]" and name or vim.fs.basename(vim.fn.getcwd(-1, context.tabnr))
+          end,
         },
       },
       lualine_b = {},
@@ -167,7 +180,6 @@ local function config()
       lualine_z = {},
     },
     extensions = {
-      "fugitive",
       "nvim-dap-ui",
       "overseer",
       "toggleterm",
@@ -178,8 +190,6 @@ local function config()
       "man",
     },
   }
-
-  recording.setup()
 end
 
 return {

@@ -114,6 +114,7 @@ local function config()
       lsp_implementations = {
         layout_strategy = "vertical",
         fname_width = 100,
+        file_ignore_patterns = { ".*mock.*" },
       },
       lsp_references = {
         layout_strategy = "vertical",

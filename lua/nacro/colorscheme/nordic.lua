@@ -1,5 +1,3 @@
-local highlight = require "nacro.utils.highlight"
-
 return function()
   vim.api.nvim_set_hl(0, "Visual", { bg = "#3b4252" })
   vim.api.nvim_set_hl(0, "IncSearch", { link = "Visual" })
@@ -62,4 +60,25 @@ return function()
   vim.api.nvim_set_hl(0, "NavicIconsFunction", { link = "Function" })
   vim.api.nvim_set_hl(0, "NavicIconsConstant", { link = "Constant" })
   vim.api.nvim_set_hl(0, "NavicIconsInterface", { link = "Keyword" })
+
+  vim.api.nvim_set_hl(0, "TreesitterContext", { link = "WinBar" })
+
+  if vim.g.neovide then
+    vim.g.terminal_color_0 = "#1d202f"
+    vim.g.terminal_color_1 = "#f7768e"
+    vim.g.terminal_color_2 = "#9ece6a"
+    vim.g.terminal_color_3 = "#e0af68"
+    vim.g.terminal_color_4 = "#7aa2f7"
+    vim.g.terminal_color_5 = "#bb9af7"
+    vim.g.terminal_color_6 = "#7dcfff"
+    vim.g.terminal_color_7 = "#a9b1d6"
+    vim.g.terminal_color_8 = "#414868"
+    vim.g.terminal_color_9 = "#f7768e"
+    vim.g.terminal_color_10 = "#9ece6a"
+    vim.g.terminal_color_11 = "#e0af68"
+    vim.g.terminal_color_12 = "#7aa2f7"
+    vim.g.terminal_color_13 = "#bb9af7"
+    vim.g.terminal_color_14 = "#7dcfff"
+    vim.g.terminal_color_15 = "#c0caf5"
+  end
 end

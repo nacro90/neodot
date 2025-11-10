@@ -87,7 +87,7 @@ return {
       { silent = true },
     },
     { "<leader>dd", dapper "continue", { silent = true } },
-    { "<leader>dr", dapper "restart",  { silent = true } },
+    { "<leader>dr", dapper "restart", { silent = true } },
     {
       "<leader>dn",
       function()
@@ -102,7 +102,7 @@ return {
       end,
       { silent = true },
     },
-    { "<leader>dD", dapper "run_last",  { silent = true } },
+    { "<leader>dD", dapper "run_last", { silent = true } },
     {
       "<leader>di",
       function()
@@ -111,7 +111,7 @@ return {
       end,
       { silent = true },
     },
-    { "<leader>do", dapper "step_out",  { silent = true } },
+    { "<leader>do", dapper "step_out", { silent = true } },
     { "<leader>dq", dapper "terminate", { silent = true } },
     {
       "<leader>dc",
@@ -181,7 +181,7 @@ return {
           },
         }
         -- dap.listeners.after.event_initialized["dapui_config"] = dapui.open
-        dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+        -- dap.listeners.before.event_terminated["dapui_config"] = dapui.close
         dap.listeners.before.event_exited["dapui_config"] = dapui.close
         dap.listeners.after.event_stopped["jump_to_execution"] = function(_, __)
           vim.defer_fn(function()
@@ -227,45 +227,28 @@ return {
       },
       config = true,
       opts = {
-        dap_configurations = {
-          {
-            type = "go",
-            name = "UberCloud Data Insights",
-            request = "launch",
-            program = "cmd/server/main.go",
-            args = {
-              "--debug",
-              "--port",
-              "3000",
-              "--static",
-              "../build/web",
-              "--db",
-              "postgresql://apiuser:password@localhost:5432/datainsights",
-              "--metricstore",
-              "http://localhost:9090",
-              "--enable-swagger",
-            },
-          },
-          {
-            type = "go",
-            name = "MiniSera Backend",
-            request = "launch",
-            program = "cmd/minisera/main.go",
-            args = {},
-          },
-          {
-            type = "go",
-            name = "RipeCheck Core",
-            request = "launch",
-            program = "cmd/ripecheck/main.go",
-            args = {},
-          },
-        },
         delve = {
-          args = {
-            "--check-go-version=false",
-          },
+          path = "/home/nacro90/.gvm/pkgsets/go1.23.6/global/bin/dlv",
         },
+      },
+    },
+    {
+      "mxsdev/nvim-dap-vscode-js",
+      build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+      main = "dap-vscode-js",
+      opts = {
+        debugger_path = vim.fn.stdpath "data" .. "/lazy/vscode-js-debug",
+        adapters = {
+          "pwa-node",
+          "pwa-chrome",
+          "pwa-msedge",
+          "node-terminal",
+          "pwa-extensionHost",
+        },
+      },
+      dependencies = {
+        "microsoft/vscode-js-debug",
+        build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
       },
     },
     {
