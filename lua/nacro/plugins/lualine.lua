@@ -145,6 +145,16 @@ local function config()
           icon = { align = "left" },
         },
         filename,
+        {
+          function()
+            return require("nacro.codecompanion_spinner").get()
+          end,
+          cond = function()
+            return vim.bo.filetype == "codecompanion"
+          end,
+          padding = { left = 0, right = 0 },
+          separator = { left = "", right = "" },
+        },
         arrow,
         winbar_diagnostics,
       },
