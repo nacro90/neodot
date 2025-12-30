@@ -36,7 +36,7 @@ local DEFAULT_FONT_SIZE = 10
 
 function neovide.setup()
   vim.opt.guifont = "jetbrainsmono Nerd Font:h" .. DEFAULT_FONT_SIZE
-  vim.opt.linespace = 12
+  vim.opt.linespace = 10
   vim.g.neovide_hide_mouse_when_typing = true
 
   vim.keymap.set("n", "<D-v>", '"+p')
