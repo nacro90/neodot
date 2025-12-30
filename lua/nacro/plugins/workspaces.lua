@@ -17,6 +17,7 @@ end
 
 return {
   "natecraddock/workspaces.nvim",
+  enabled = false,
   keys = {
     { "<leader>w", pick },
     {
