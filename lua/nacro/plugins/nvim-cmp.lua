@@ -52,7 +52,11 @@ local function config()
       { name = "zsh" },
       { name = "nvim_lua" },
       { name = "luasnip" },
-      { name = "codeium" },
+      {
+        per_filetype = {
+          codecompanion = { "codecompanion" },
+        },
+      },
     }, {
       { name = "buffer" },
       { name = "path" },
@@ -227,3 +231,4 @@ return {
     },
   },
 }
+
