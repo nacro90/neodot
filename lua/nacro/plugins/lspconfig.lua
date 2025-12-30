@@ -139,9 +139,12 @@ local function config()
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
     border = "solid",
   })
+  
+  -- Configure and enable LSP servers using vim.lsp.config (Nvim 0.11+)
   for name, cfg in pairs(configs) do
     cfg = vim.tbl_extend("force", default_config, cfg)
-    require("lspconfig")[name].setup(cfg) -- TODO: New lsp initialization
+    vim.lsp.config(name, cfg)
+    vim.lsp.enable(name)
   end
 end
 
@@ -165,3 +168,4 @@ return {
     "joeveiga/ng.nvim",
   },
 }
+
