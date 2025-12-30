@@ -38,7 +38,7 @@ return {
   {
     "AlexvZyl/nordic.nvim",
     lazy = false,
-    priority = 1000,
+    priority = 999,
     config = function()
       require("nacro.colorscheme").setup "nordic"
     end,
@@ -172,6 +172,22 @@ return {
     dependencies = { "kana/vim-textobj-user" },
   },
   "tpope/vim-repeat",
+  {
+    "github/copilot.vim",
+    event = "InsertEnter",
+    enabled = false,
+    config = function()
+      vim.g.copilot_no_tab_map = true
+      vim.api.nvim_set_keymap(
+        "i",
+        "<C-l>",
+        'copilot#Accept("<CR>")',
+        { silent = true, expr = true, replace_keycodes = false }
+      )
+      vim.api.nvim_set_keymap("i", "<M-]>", "<Plug>(copilot-next)", { silent = true })
+      vim.api.nvim_set_keymap("i", "<M-[>", "<Plug>(copilot-previous)", { silent = true })
+    end,
+  },
 
   -- ui
   {
@@ -198,7 +214,7 @@ return {
     end,
     keys = {
       {
-        "<leader>c",
+        "<leader>w",
         function()
           require("telescope").extensions.zoxide.list { layout_strategy = "center" }
         end,
@@ -385,19 +401,12 @@ return {
     "MeanderingProgrammer/markdown.nvim",
     ft = "markdown",
     main = "render-markdown",
-    opts = {
-      preset = "obsidian",
-      heading = {
-        sign = false,
-        left_pad = 1,
-      },
-      bullet = {
-        icons = { "•", "◦", "⁃" },
-        left_pad = 1,
-        right_pad = 1,
-      },
+    opts = {},
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+      "nvim-mini/mini.nvim",
     },
-    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
   },
   {
     "chipsenkbeil/distant.nvim",
@@ -416,27 +425,19 @@ return {
       enable_cmds = true,
     },
   },
-
   {
     "nvim-treesitter/nvim-treesitter-context",
     event = "VeryLazy",
     opts = {},
   },
-
   {
-    "johnseth97/codex.nvim",
-    enabled = false,
-    lazy = true,
-    cmd = { "Codex", "CodexToggle" }, -- Optional: Load only on command execution
-    keys = {
-      {
-        "<leader>cc", -- Change this to your preferred keybinding
-        function()
-          require("codex").toggle()
-        end,
-        desc = "Toggle Codex popup",
+    "supermaven-inc/supermaven-nvim",
+    opts = {
+      keymaps = {
+        accept_suggestion = "<C-l>",
+        clear_suggestion = "<C-e>",
+        accept_word = "<C-/>",
       },
     },
-    opts = {},
   },
 }
