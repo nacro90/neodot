@@ -61,6 +61,7 @@ require("nacro.howdoi").setup()
 -- require("nacro.clipboard_image").setup()
 require("nacro.neovide").setup_if_neovide()
 require("nacro.buffer").setup()
+-- require("caser").setup()
 
 command("TimestampToDatetime", function(a)
   a = a.args
@@ -85,12 +86,16 @@ vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover)
 vim.keymap.set("n", "<C-j>", vim.diagnostic.open_float)
 vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action)
 vim.keymap.set("n", "]d", function()
-  vim.diagnostic.goto_next {
+  vim.diagnostic.jump {
+    count = 1,
+    float = true,
     severity = { min = vim.diagnostic.severity.WARN },
   }
 end)
 vim.keymap.set("n", "[d", function()
-  vim.diagnostic.goto_next {
+  vim.diagnostic.jump {
+    count = -1,
+    float = true,
     severity = { min = vim.diagnostic.severity.WARN },
   }
 end)
