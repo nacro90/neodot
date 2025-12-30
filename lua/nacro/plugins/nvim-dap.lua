@@ -79,47 +79,83 @@ end
 return {
   "mfussenegger/nvim-dap",
   keys = {
+    -- Breakpoints
     {
       "<leader>db",
       function()
         require("persistent-breakpoints.api").toggle_breakpoint()
       end,
-      { silent = true },
+      desc = "Toggle breakpoint",
     },
-    { "<leader>dd", dapper "continue", { silent = true } },
-    { "<leader>dr", dapper "restart", { silent = true } },
+    {
+      "<leader>dc",
+      function()
+        require("persistent-breakpoints.api").clear_all_breakpoints()
+      end,
+      desc = "Clear all breakpoints",
+    },
+    -- Session control (NEW: smart functions)
+    {
+      "<leader>dd",
+      function()
+        require("nacro.dap.restart").smart_continue()
+      end,
+      desc = "Debug: start/continue",
+    },
+    {
+      "<leader>dr",
+      function()
+        require("nacro.dap.restart").smart_restart()
+      end,
+      desc = "Debug: restart (rebuild)",
+    },
+    {
+      "<leader>dR",
+      function()
+        require("nacro.dap.restart").run_last()
+      end,
+      desc = "Debug: run last config",
+    },
+    {
+      "<leader>dp",
+      function()
+        require("nacro.dap.picker").pick_configuration()
+      end,
+      desc = "Debug: pick config",
+    },
+    {
+      "<leader>da",
+      function()
+        require("nacro.dap.picker").attach_to_process()
+      end,
+      desc = "Debug: attach to process",
+    },
+    { "<leader>dq", dapper "terminate", desc = "Debug: terminate" },
+    { "<leader>de", dapper "repl.open", desc = "Debug: open REPL" },
+    -- Stepping
     {
       "<leader>dn",
       function()
         require("dap").step_over { askForTargets = true }
       end,
-      { silent = true },
+      desc = "Debug: step over",
     },
     {
       "<leader>dN",
       function()
         require("dap").step_back { askForTargets = true }
       end,
-      { silent = true },
+      desc = "Debug: step back",
     },
-    { "<leader>dD", dapper "run_last", { silent = true } },
     {
       "<leader>di",
       function()
         require("dap").step_into { askForTargets = true }
         require("goto-breakpoints").stopped()
       end,
-      { silent = true },
+      desc = "Debug: step into",
     },
-    { "<leader>do", dapper "step_out", { silent = true } },
-    { "<leader>dq", dapper "terminate", { silent = true } },
-    {
-      "<leader>dc",
-      function()
-        require("persistent-breakpoints.api").clear_all_breakpoints()
-      end,
-      { silent = true },
-    },
+    { "<leader>do", dapper "step_out", desc = "Debug: step out" },
   },
   init = function()
     setup_signs()
@@ -136,12 +172,14 @@ return {
           function()
             require("dapui").toggle()
           end,
+          desc = "Debug: toggle UI",
         },
         {
           "<leader>K",
           function()
             require("dapui").float_element()
           end,
+          desc = "Debug: float element",
         },
         {
           "K",
@@ -149,6 +187,7 @@ return {
             require("dapui").eval()
           end,
           mode = { "n", "v" },
+          desc = "Debug: evaluate",
         },
       },
       config = function()
@@ -156,32 +195,44 @@ return {
         local dapui = require "dapui"
         dapui.setup {
           icons = {
-            collapsed = "▪",
-            current_frame = "▸",
-            expanded = "-",
+            collapsed = "▸",
+            current_frame = "▶",
+            expanded = "▾",
           },
           floating = {
             border = "solid",
+            max_height = 0.9,
+            max_width = 0.9,
           },
           layouts = {
             {
               elements = {
-                {
-                  id = "scopes",
-                  size = 0.5,
-                },
-                {
-                  id = "repl",
-                  size = 0.5,
-                },
+                { id = "scopes", size = 0.5 },
+                { id = "repl", size = 0.5 },
               },
               position = "bottom",
               size = 10,
             },
           },
+          controls = {
+            enabled = true,
+            element = "scopes",
+            icons = {
+              pause = "⏸",
+              play = "▶",
+              step_into = "↓",
+              step_over = "→",
+              step_out = "↑",
+              step_back = "←",
+              run_last = "⟳",
+              terminate = "■",
+            },
+          },
         }
-        -- dap.listeners.after.event_initialized["dapui_config"] = dapui.open
-        -- dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+        -- Auto-open UI on debug start
+        dap.listeners.after.event_initialized["dapui_open"] = function()
+          dapui.open()
+        end
         dap.listeners.before.event_exited["dapui_config"] = dapui.close
         dap.listeners.after.event_stopped["jump_to_execution"] = function(_, __)
           vim.defer_fn(function()
@@ -199,7 +250,7 @@ return {
           function()
             require("telescope").extensions.dap.list_breakpoints()
           end,
-          { silent = true },
+          desc = "Debug: list breakpoints",
         },
       },
       config = function()
@@ -215,17 +266,16 @@ return {
           function()
             require("dap-go").debug_test()
           end,
-          { silent = true },
+          desc = "Debug: test at cursor",
         },
         {
           "<leader>dT",
           function()
             require("dap-go").debug_last_test()
           end,
-          { silent = true },
+          desc = "Debug: last test",
         },
       },
-      config = true,
       opts = {
         delve = {
           path = "/home/nacro90/.gvm/pkgsets/go1.23.6/global/bin/dlv",
@@ -259,18 +309,21 @@ return {
           function()
             require("goto-breakpoints").next()
           end,
+          desc = "Next breakpoint",
         },
         {
           "[b",
           function()
             require("goto-breakpoints").prev()
           end,
+          desc = "Previous breakpoint",
         },
         {
           "<leader>ds",
           function()
             require("goto-breakpoints").stopped()
           end,
+          desc = "Debug: go to stopped",
         },
       },
     },
