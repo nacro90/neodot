@@ -7,6 +7,9 @@ local keymap = vim.keymap
 local function setup_keymaps()
   keymap.set("t", "<Esc>", [[<C-\><C-n>]])
   keymap.set({ "n", "t" }, "<C-Space><C-m>", "<Cmd>tabedit | terminal<CR>")
+
+  -- Window navigation from terminal mode (sacrifices <C-w> word delete)
+  keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], { desc = "Window command from terminal" })
 end
 
 local function on_term_open()
