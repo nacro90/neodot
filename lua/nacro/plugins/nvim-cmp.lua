@@ -2,10 +2,9 @@ local function on_demand_complete()
   require("cmp").complete {
     config = {
       sources = {
-        { name = "codeium" },
         { name = "nvim_lsp" },
         { name = "luasnip" },
-        { name = "path" },
+        { name = "fuzzy_path" },
         { name = "buffer" },
         { name = "fuzzy_buffer" },
       },
@@ -16,6 +15,9 @@ end
 local function config()
   local cmp = require "cmp"
   local luasnip = require "luasnip"
+
+  -- Register custom cmdline_history source
+  cmp.register_source("cmdline_history_ordered", require("nacro.cmp.cmdline_history").new())
 
   vim.keymap.set({ "i", "s" }, "<C-n>", function()
     if cmp.visible() then
@@ -59,7 +61,7 @@ local function config()
       },
     }, {
       { name = "buffer" },
-      { name = "path" },
+      { name = "fuzzy_path", keyword_length = 3 },
     }, {
       { name = "emoji", options = { insert = true } },
     }),
@@ -68,10 +70,10 @@ local function config()
     },
     preselect = cmp.PreselectMode.None,
     formatting = {
+      fields = { "abbr", "kind" },
       format = require("lspkind").cmp_format {
         mode = "symbol",
         maxwidth = 50,
-        symbol_map = { Codeium = "" },
       },
       expandable_indicator = true,
     },
@@ -106,36 +108,65 @@ local function config()
   }
   -- setup has a metatable that can be called and can be used as a table
   ---@diagnostic disable-next-line: undefined-field
-  cmp.setup.cmdline("/", {
-    mapping = cmp.mapping.preset.cmdline(),
-    completion = {
-      autocomplete = false,
-    },
-    sources = cmp.config.sources({
-      { name = "buffer" },
-    }, {
-      { name = "fuzzy_buffer" },
-    }),
+  for _, cmd in ipairs { "/", "?" } do
+    cmp.setup.cmdline(cmd, {
+      mapping = cmp.mapping.preset.cmdline(),
+      completion = { autocomplete = false },
+      sources = cmp.config.sources({
+        { name = "buffer" },
+      }, {
+        { name = "fuzzy_buffer" },
+      }),
+    })
+  end
+  -- Trigger completion immediately when entering cmdline
+  vim.api.nvim_create_autocmd("CmdlineEnter", {
+    pattern = ":",
+    callback = function()
+      vim.schedule(function()
+        cmp.complete()
+      end)
+    end,
   })
-  cmp.setup.cmdline("?", {
-    mapping = cmp.mapping.preset.cmdline(),
-    completion = {
-      autocomplete = false,
-    },
-    sources = cmp.config.sources({
-      { name = "buffer" },
-    }, {
-      { name = "fuzzy_buffer" },
-    }),
-  })
+
   ---@diagnostic disable-next-line: undefined-field
   cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
-    completion = {
-      autocomplete = false,
+    mapping = {
+      ["<C-n>"] = { c = cmp.mapping.select_prev_item() },  -- near_cursor mode: prev = visual down
+      ["<C-p>"] = { c = cmp.mapping.select_next_item() },  -- near_cursor mode: next = visual up
+      ["<C-e>"] = { c = cmp.mapping.close() },
+      ["<CR>"] = cmp.mapping(function(fallback)
+        if cmp.visible() and cmp.get_selected_entry() then
+          local cmdline = cmp.get_selected_entry():get_word()
+          cmp.abort()
+          vim.fn.setcmdline(cmdline)
+          vim.schedule(function()
+            vim.api.nvim_feedkeys("\r", "nt", false)
+          end)
+        else
+          cmp.abort()
+          fallback()
+        end
+      end, { "c" }),
     },
-    sources = cmp.config.sources {
-      { name = "cmdline" },
+    completion = { autocomplete = { "TextChanged" }, keyword_length = 0 },
+    sorting = {
+      comparators = {
+        cmp.config.compare.sort_text,
+      },
+    },
+    view = { entries = { selection_order = "near_cursor" } },
+    formatting = {
+      fields = { "abbr", "kind" },
+      format = function(entry, vim_item)
+        local icons = { cmdline_history_ordered = "󰋚", cmdline = "" }
+        vim_item.kind = icons[entry.source.name] or ""
+        return vim_item
+      end,
+    },
+    sources = {
+      { name = "cmdline_history_ordered", keyword_length = 0, priority = 100 },
+      { name = "cmdline", keyword_length = 1, priority = 50 },
     },
   })
   cmp.setup.filetype("OverseerForm", {
@@ -183,52 +214,19 @@ return {
   dependencies = {
     "L3MON4D3/LuaSnip",
     "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-path",
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-nvim-lua",
-    {
-      "Exafunction/codeium.nvim",
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        commit = "62d1e2e5691865586187bd6aa890e43b85c00518",
-      },
-      cmd = "Codeium",
-      opts = {},
-    },
     "hrsh7th/cmp-emoji",
     "onsails/lspkind-nvim",
     "hrsh7th/cmp-cmdline",
     "dmitmel/cmp-cmdline-history",
-    { "tzachar/cmp-fuzzy-path",   dependencies = { "tzachar/fuzzy.nvim" } },
+    "petertriho/cmp-git",
+    { "tzachar/cmp-fuzzy-path", dependencies = { "tzachar/fuzzy.nvim" } },
     { "tzachar/cmp-fuzzy-buffer", dependencies = { "tzachar/fuzzy.nvim" } },
-    {
-      "tamago324/cmp-zsh",
-      opts = { filetypes = { "deoledit", "zsh" } },
-    },
+    { "tamago324/cmp-zsh", opts = { filetypes = { "deoledit", "zsh" } } },
     "rcarriga/cmp-dap",
     "kristijanhusak/vim-dadbod-completion",
-    {
-      "tzachar/cmp-ai",
-      enabled = false,
-      dependencies = "nvim-lua/plenary.nvim",
-      config = function()
-        require("cmp_ai.config"):setup {
-          max_lines = 100,
-          provider = "Ollama",
-          notify = true,
-          notify_callback = function(msg)
-            vim.notify(msg)
-          end,
-          run_on_every_keystroke = false,
-          ignored_file_types = {
-            -- default is not to ignore
-            -- uncomment to ignore in lua:
-            -- lua = true
-          },
-        }
-      end,
-    },
   },
 }
 
