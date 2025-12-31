@@ -167,7 +167,10 @@ return {
   },
   {
     "kana/vim-textobj-entire",
-    event = "BufRead",
+    keys = {
+      { "ae", mode = { "o", "x" } },
+      { "ie", mode = { "o", "x" } },
+    },
     dependencies = { "kana/vim-textobj-user" },
   },
   {
