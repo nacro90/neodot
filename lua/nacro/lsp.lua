@@ -18,7 +18,9 @@ function M.setup()
     vim.lsp.buf.definition { reuse_win = true }
   end, { desc = "Go to definition" })
 
-  set("n", "<C-k>", vim.lsp.buf.hover, { desc = "Hover documentation" })
+  set("n", "<C-k>", function()
+    vim.lsp.buf.hover { border = "solid" }
+  end, { desc = "Hover documentation" })
   set("n", "<C-j>", vim.diagnostic.open_float, { desc = "Diagnostic float" })
   set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { desc = "Code actions" })
 
@@ -38,7 +40,9 @@ function M.setup()
     }
   end, { desc = "Previous diagnostic" })
 
-  set({ "i", "n" }, "<C-q>", vim.lsp.buf.signature_help, { desc = "Signature help" })
+  set({ "i", "n" }, "<C-q>", function()
+    vim.lsp.buf.signature_help { border = "solid" }
+  end, { desc = "Signature help" })
 
   set("n", "gD", function()
     vim.lsp.buf.type_definition { reuse_win = true }
