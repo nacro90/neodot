@@ -34,3 +34,12 @@ set("o", "al", "<Cmd>normal val<CR>")
 
 set("c", "%%", require("nacro.functions").expand_percentage_if_in_command, { expr = true })
 set("n", "<leader>ef", require("nacro.functions").configure_filetype)
+
+-- Scroll acceleration
+set({ "n", "v" }, "<C-e>", "3<C-e>")
+set({ "n", "v" }, "<C-y>", "3<C-y>")
+
+-- Kitty integration
+set("n", "<C-w>N", function()
+  require("nacro.kitty").buffer_to_new_window()
+end, { desc = "Open buffer in new kitty window" })
