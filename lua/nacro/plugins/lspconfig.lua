@@ -1,35 +1,11 @@
-local function has_golines()
-  if vim.fn.executable "golines" ~= 1 then
+local function has_null_ls_formatter(bufnr)
+  local ok, sources = pcall(require, "null-ls.sources")
+  if not ok then
     return false
   end
-  local exists, null_ls = pcall(require, "null-ls")
-  if not exists then
-    return false
-  end
-  local sources = null_ls.get_sources()
-  for _, source in ipairs(sources) do
-    if source.name == "golines" then
-      return true
-    end
-  end
-  return false
-end
-
-local function has_prettier()
-  if vim.fn.executable "prettier" ~= 1 then
-    return false
-  end
-  local exists, null_ls = pcall(require, "null-ls")
-  if not exists then
-    return false
-  end
-  local sources = null_ls.get_sources()
-  for _, source in ipairs(sources) do
-    if source.name == "prettier" then
-      return true
-    end
-  end
-  return false
+  local ft = vim.bo[bufnr].filetype
+  local available = sources.get_available(ft, "NULL_LS_FORMATTING")
+  return #available > 0
 end
 
 local configs = {
@@ -42,46 +18,24 @@ local configs = {
   svelte = {},
   yamlls = {},
   ts_ls = {
-    on_attach = function(client, _)
-      if has_prettier() then
-        client.server_capabilities.documentFormattingProvider = false
-      end
-    end,
-    settings = {
-      typescript = {
-        inlayHints = {
-          includeInlayEnumMemberValueHints = true,
-          includeInlayEnumMemberNameHintsWhenTypeMatchesName = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayParameterNameHints = "all",
-        },
-      },
-      javascript = {
-        inlayHints = {
-          includeInlayEnumMemberValueHints = true,
-          includeInlayEnumMemberNameHintsWhenTypeMatchesName = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayParameterNameHints = "all",
-        },
-      },
-    },
+    settings = (function()
+      local inlayHints = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayEnumMemberNameHintsWhenTypeMatchesName = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = "all",
+      }
+      return { typescript = { inlayHints = inlayHints }, javascript = { inlayHints = inlayHints } }
+    end)(),
   },
   kotlin_language_server = {},
   dartls = {},
   zls = {},
   bashls = {},
   gopls = {
-    on_attach = function(client, _)
-      if has_golines() then
-        client.server_capabilities.document_formatting = false
-      end
-    end,
     settings = {
       gopls = {
         completeUnimported = true,
@@ -122,24 +76,14 @@ local function config()
   vim.lsp.inlay_hint.enable(false)
   local default_config = {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    on_attach = function(client, bufnr)
+      if has_null_ls_formatter(bufnr) then
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      end
+    end,
   }
 
-  local implementation_handler = vim.lsp.handlers["textDocument/implementation"]
-  vim.lsp.handlers["textDocument/implementation"] = vim.lsp.with(implementation_handler, {
-    on_list = function(options)
-      vim.print "on list"
-      vim.print(options)
-      vim.fn.setqflist({}, " ", options)
-      vim.cmd.cfirst()
-    end,
-  })
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "solid",
-  })
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "solid",
-  })
-  
   -- Configure and enable LSP servers using vim.lsp.config (Nvim 0.11+)
   for name, cfg in pairs(configs) do
     cfg = vim.tbl_extend("force", default_config, cfg)
@@ -165,7 +109,6 @@ return {
       },
       config = true,
     },
-    "joeveiga/ng.nvim",
   },
 }
 
