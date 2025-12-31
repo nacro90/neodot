@@ -19,6 +19,10 @@ local function config()
   -- Register custom cmdline_history source
   cmp.register_source("cmdline_history_ordered", require("nacro.cmp.cmdline_history").new())
 
+  -- Make match highlights more visible
+  vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { link = "Special" })
+  vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { link = "Special" })
+
   vim.keymap.set({ "i", "s" }, "<C-n>", function()
     if cmp.visible() then
       cmp.select_next_item()
@@ -166,7 +170,15 @@ local function config()
     },
     sources = {
       { name = "cmdline_history_ordered", keyword_length = 0, priority = 100 },
-      { name = "cmdline", keyword_length = 1, priority = 50 },
+      {
+        name = "cmdline",
+        keyword_length = 1,
+        priority = 50,
+        entry_filter = function(_, ctx)
+          -- Only show cmdline source when there's at least 1 character typed
+          return #vim.fn.getcmdline() >= 1
+        end,
+      },
     },
   })
   cmp.setup.filetype("OverseerForm", {
