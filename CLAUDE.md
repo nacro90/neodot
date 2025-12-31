@@ -21,6 +21,7 @@ This is a personal Neovim configuration written in Lua, using lazy.nvim as the p
 ### Directory Structure
 - `lua/nacro/` - Core Lua modules
   - `plugins/` - Plugin configurations, each plugin gets its own file
+  - `cmp/` - Custom nvim-cmp sources (cmdline_history with proper sorting)
   - `dap/` - Debug Adapter Protocol modules (restart, picker, launch_config)
   - `colorscheme/` - Colorscheme tweaks (nordic, substrata, codedark, sobrio)
   - `snippet/` - Language-specific snippets (go, lua, dart, markdown, common, todo, telekasten)
@@ -64,6 +65,8 @@ The `nacro.module.saferequire()` function provides safe module loading with erro
 LSP uses Neovim 0.11+ native API in `lua/nacro/plugins/lspconfig.lua`:
 - `vim.lsp.config(name, cfg)` and `vim.lsp.enable(name)` for server setup
 - LSP keymaps and diagnostic config are in `lua/nacro/lsp.lua`
+- `has_null_ls_formatter()` disables LSP formatting when null-ls formatter is available
+- Hover and signature_help borders configured via Nvim 0.11+ opts in keymaps (not global handlers)
 
 Configured LSP servers: lua_ls, gopls, ts_ls, dartls, pyright, bashls, hls, clangd, jdtls, phpactor, yamlls, dockerls, zls, flow, svelte, kotlin_language_server.
 
