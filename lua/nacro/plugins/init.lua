@@ -74,6 +74,15 @@ return {
   {
     "gbprod/substitute.nvim",
     opts = {},
+    init = function()
+      -- Remove Neovim 0.11 default global gr* mappings
+      pcall(vim.keymap.del, "n", "gra")
+      pcall(vim.keymap.del, "n", "gri")
+      pcall(vim.keymap.del, "n", "grn")
+      pcall(vim.keymap.del, "n", "grr")
+      pcall(vim.keymap.del, "n", "grt")
+      pcall(vim.keymap.del, "x", "gra")
+    end,
     keys = {
       {
         "gr",
