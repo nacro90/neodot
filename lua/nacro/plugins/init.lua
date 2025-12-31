@@ -67,6 +67,9 @@ return {
   },
   {
     "monkoose/matchparen.nvim",
+    init = function()
+      vim.g.loaded_matchparen = 1 -- Disable built-in matchparen
+    end,
     opts = {},
   },
 

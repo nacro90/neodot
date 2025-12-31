@@ -55,7 +55,6 @@ end, {
   nargs = "?",
 })
 
-require("nacro.matchparen").setup()
 require("nacro.terminal").setup()
 require("nacro.howdoi").setup()
 -- require("nacro.clipboard_image").setup()
