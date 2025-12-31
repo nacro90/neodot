@@ -14,7 +14,7 @@ end
 
 local function on_term_open()
   opt_local.sidescrolloff = 0
-  opt_local.scrollback = 50000
+  opt_local.scrollback = 100000
   opt_local.number = false
   opt_local.relativenumber = false
   vim.cmd "startinsert"

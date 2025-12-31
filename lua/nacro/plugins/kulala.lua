@@ -1,6 +1,9 @@
 -- https://kulala.mwco.app/docs/usage
 return {
   "mistweaverco/kulala.nvim",
+  init = function()
+    vim.filetype.add { extension = { http = "http" } }
+  end,
   ft = "http",
   opts = {
     q_to_close_float = true,

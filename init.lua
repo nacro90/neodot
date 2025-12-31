@@ -1,121 +1,15 @@
 require "nacro.options"
 require "nacro.keymaps"
 
-local command = require "nacro.utils.command"
-
-local api = vim.api
-local fn = vim.fn
-
 local nlazy = require "nacro.lazy"
 nlazy.bootstrap()
 nlazy.setup()
 
-command("LuaHas", function(keys)
-  vim.notify(vim.inspect(pcall(require, keys.args)))
-end, {
-  nargs = 1,
-})
-
-command("RemoveTrailingWhitespace", [[silent! %substitute/\s\+$//]], { nargs = 0 })
-
-command("W", "w")
-command("Q", "q")
-command("Wq", "wq")
-command("WQ", "wq")
-
-api.nvim_create_autocmd("TextYankPost", {
-  group = api.nvim_create_augroup("highlight_yank", {}),
-  callback = function()
-    vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
-  end,
-})
-
--- Jump to the last known cursor position
-api.nvim_create_autocmd("BufReadPost", {
-  callback = function()
-    local pos = vim.fn.line "'\""
-    if pos > 0 and pos <= vim.api.nvim_buf_line_count(0) then
-      vim.cmd 'normal g`"'
-    end
-  end,
-})
-
-command("RenameBuffer", function(arg)
-  local name
-  if arg and #arg > 0 then
-    name = arg
-  else
-    name = fn.input "Buffer name: "
-    if not name or #name == 0 then
-      return
-    end
-  end
-  api.nvim_buf_set_name(0, name)
-end, {
-  nargs = "?",
-})
+require("nacro.commands").setup()
+require("nacro.autocmds").setup()
+require("nacro.lsp").setup()
 
 require("nacro.terminal").setup()
 require("nacro.howdoi").setup()
--- require("nacro.clipboard_image").setup()
 require("nacro.neovide").setup_if_neovide()
 require("nacro.buffer").setup()
--- require("caser").setup()
-
-command("TimestampToDatetime", function(a)
-  a = a.args
-  print(os.date("%Y-%m-%d %H:%M:%S", a / 1000) .. "." .. a % 1000)
-end, {
-  nargs = 1,
-})
-
-vim.diagnostic.config {
-  virtual_text = {
-    severity = { min = vim.diagnostic.severity.ERROR },
-  },
-  underline = {
-    severity = { min = vim.diagnostic.severity.WARN },
-  },
-}
-
-vim.keymap.set("n", "gd", function()
-  vim.lsp.buf.definition { reuse_win = true }
-end)
-vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover)
-vim.keymap.set("n", "<C-j>", vim.diagnostic.open_float)
-vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action)
-vim.keymap.set("n", "]d", function()
-  vim.diagnostic.jump {
-    count = 1,
-    float = true,
-    severity = { min = vim.diagnostic.severity.WARN },
-  }
-end)
-vim.keymap.set("n", "[d", function()
-  vim.diagnostic.jump {
-    count = -1,
-    float = true,
-    severity = { min = vim.diagnostic.severity.WARN },
-  }
-end)
-vim.keymap.set({ "i", "n" }, "<C-q>", vim.lsp.buf.signature_help)
-vim.keymap.set("n", "gD", function()
-  vim.lsp.buf.type_definition { reuse_win = true }
-end)
-vim.keymap.set({ "n", "v" }, "gl", vim.lsp.buf.format, { desc = "LSP format buffer" })
-
-vim.keymap.set(
-  "n",
-  "<C-w>N",
-  require("nacro.kitty").buffer_to_new_window,
-  { desc = "Open buffer in a new kitty window" }
-)
-
-vim.keymap.set({ "n", "v" }, "<C-e>", "3<C-e>")
-vim.keymap.set({ "n", "v" }, "<C-y>", "3<C-y>")
-
-vim.filetype.add {
-  extension = {
-    http = "http",
-  },
-}
