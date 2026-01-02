@@ -25,8 +25,9 @@ return {
       "/tmp",
     },
 
-    -- Use git branch in session name (separate sessions per branch)
-    git_use_branch_name = true,
+    -- Don't use git branch in session name
+    -- Same project = same session across all branches (IDE-like behavior)
+    git_use_branch_name = false,
 
     -- Close these buffer types before saving (cleaner sessions)
     close_filetypes_on_save = {
@@ -37,6 +38,32 @@ return {
       "dapui_stacks",
       "dapui_watches",
       "dap-repl",
+      "snacks_terminal", -- ClaudeCode uses snacks.nvim terminal
+    },
+
+    -- Close Claude Code terminal buffers before saving
+    -- (they are identified by buffer name containing "claude", not filetype)
+    pre_save_cmds = {
+      function()
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "terminal" then
+            local buf_name = vim.api.nvim_buf_get_name(buf)
+            if buf_name:match("claude") then
+              vim.api.nvim_buf_delete(buf, { force = true })
+            end
+          end
+        end
+      end,
+    },
+
+    -- Reload Arrow bookmarks after session restore
+    post_restore_cmds = {
+      function()
+        local ok, arrow = pcall(require, "arrow.persist")
+        if ok then
+          arrow.load_cache_file()
+        end
+      end,
     },
 
     -- Better session options
