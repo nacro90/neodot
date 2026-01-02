@@ -58,11 +58,6 @@ local function config()
       { name = "zsh" },
       { name = "nvim_lua" },
       { name = "luasnip" },
-      {
-        per_filetype = {
-          codecompanion = { "codecompanion" },
-        },
-      },
     }, {
       { name = "buffer" },
       { name = "fuzzy_path", keyword_length = 3 },
