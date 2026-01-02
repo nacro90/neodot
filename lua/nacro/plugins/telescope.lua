@@ -1,24 +1,8 @@
----@diagnostic disable-next-line: unused-local, unused-function
-local function norg_search_dirs()
-  local ok, neorg = pcall(require, "neorg")
-  if not ok then
-    return
-  end
-  local dirman = neorg.configuration.modules["core.norg.dirman"]
-  if not dirman then
-    return
-  end
-  local dirs = {}
-  for _, dir in pairs(dirman.workspaces) do
-    dirs[#dirs + 1] = vim.fn.expand(dir)
-  end
-  return dirs
-end
-
 local function config()
   local telescope = require "telescope"
   local actions = require "telescope.actions"
   local layout = require "telescope.actions.layout"
+
   telescope.setup {
     defaults = {
       border = true,
@@ -30,11 +14,19 @@ local function config()
       prompt_prefix = " ",
       layout_strategy = "flex",
       selection_strategy = "reset",
+      sorting_strategy = "descending",
       path_display = { truncate = 2 },
-      history = {
-        path = vim.fn.stdpath "data" .. "/telescope_history.sqlite3",
-        limit = 100,
+
+      file_ignore_patterns = {
+        "node_modules",
+        ".git/",
+        ".dart_tool",
+        ".angular",
+        "__pycache__",
+        ".venv",
+        "%.lock",
       },
+
       vimgrep_arguments = {
         "rg",
         "--color=never",
@@ -45,49 +37,50 @@ local function config()
         "--smart-case",
         "--trim",
       },
+
+      cache_picker = {
+        num_pickers = 10,
+      },
+
+      preview = {
+        treesitter = true,
+        filesize_limit = 1,
+      },
+
       mappings = {
         n = {
           ["<C-n>"] = actions.cycle_history_next,
           ["<C-p>"] = actions.cycle_history_prev,
+          ["q"] = actions.close,
+          ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
         },
         i = {
           ["<C-g>"] = layout.toggle_preview,
           ["<C-e>"] = actions.results_scrolling_down,
           ["<C-y>"] = actions.results_scrolling_up,
+          ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+          ["<C-s>"] = actions.select_horizontal,
         },
       },
     },
-    extensions = {
-      dap = {
-        list_breakpoints = {
-          layout_strategy = "center",
-        },
-      },
-      ["ui-select"] = {
-        layout_strategy = "center",
-      },
-    },
+
     pickers = {
       find_files = {
         find_command = {
           "fd",
-          "--type",
-          "f",
+          "--type", "f",
           "--strip-cwd-prefix",
           "--hidden",
           "--no-ignore-vcs",
-          "--exclude",
-          "node_modules",
-          "--exclude",
-          ".git",
-          "--exclude",
-          ".dart_tool",
-          "--exclude",
-          ".angular",
+          "--exclude", "node_modules",
+          "--exclude", ".git",
+          "--exclude", ".dart_tool",
+          "--exclude", ".angular",
         },
       },
       buffers = {
         sort_mru = true,
+        ignore_current_buffer = true,
       },
       man_pages = {
         layout_strategy = "flex",
@@ -97,8 +90,18 @@ local function config()
       },
       current_buffer_fuzzy_find = {
         previewer = false,
+        sorting_strategy = "ascending",
       },
       live_grep = {
+        layout_strategy = "vertical",
+      },
+      git_status = {
+        layout_strategy = "vertical",
+      },
+      git_commits = {
+        layout_strategy = "vertical",
+      },
+      git_bcommits = {
         layout_strategy = "vertical",
       },
       lsp_dynamic_workspace_symbols = {
@@ -114,95 +117,186 @@ local function config()
       lsp_implementations = {
         layout_strategy = "vertical",
         fname_width = 100,
+        show_line = true,
         file_ignore_patterns = { ".*mock.*" },
       },
       lsp_references = {
         layout_strategy = "vertical",
         fname_width = 100,
+        show_line = true,
+        include_declaration = false,
       },
       builtin = {
         include_extensions = true,
       },
     },
+
+    extensions = {
+      fzf = {
+        fuzzy = true,
+        override_generic_sorter = true,
+        override_file_sorter = true,
+        case_mode = "smart_case",
+      },
+      ["ui-select"] = {
+        layout_strategy = "center",
+      },
+      zoxide = {
+        prompt_title = "Zoxide",
+        layout_strategy = "center",
+      },
+      dap = {
+        list_breakpoints = {
+          layout_strategy = "center",
+        },
+      },
+      frecency = {
+        show_scores = false,
+        show_unindexed = true,
+        ignore_patterns = { "*.git/*", "*/tmp/*", "*/node_modules/*" },
+        workspaces = {
+          ["nvim"] = vim.fn.stdpath "config",
+        },
+      },
+      projects = {
+        layout_strategy = "center",
+      },
+    },
   }
+
+  -- Load extensions
   telescope.load_extension "fzf"
   telescope.load_extension "ui-select"
+  telescope.load_extension "zoxide"
+  telescope.load_extension "frecency"
+  telescope.load_extension "projects"
 end
 
-local function find_files_with_home_guard(...)
+local function find_files_with_home_guard(opts)
   if vim.fn.getcwd() == vim.env.HOME then
-    vim.notify "You are in $HOME"
+    vim.notify("You are in $HOME", vim.log.levels.WARN)
     return
   end
-  require("telescope.builtin").find_files(...)
-end
-
-local function builtiner(picker)
-  return function()
-    require("telescope.builtin")[picker]()
-  end
+  require("telescope.builtin").find_files(opts)
 end
 
 local keys = {
-  { "<leader>n", find_files_with_home_guard },
+  -- File finding
+  {
+    "<leader>n",
+    function()
+      find_files_with_home_guard()
+    end,
+    desc = "Find files",
+  },
   {
     "<leader>N",
     function()
       find_files_with_home_guard { hidden = true, no_ignore = true }
     end,
+    desc = "Find all files (hidden+ignored)",
   },
+
+  -- Config files
   {
     "<leader>en",
     function()
       require("telescope.builtin").find_files { cwd = vim.fn.stdpath "config" }
     end,
+    desc = "Find nvim config files",
   },
   {
     "<leader>eN",
     function()
       require("telescope.builtin").find_files { cwd = vim.fn.stdpath "data" }
     end,
+    desc = "Find nvim data files",
   },
-  -- {
-  --   "<leader>z",
-  --   function()
-  --     require("telescope.builtin").find_files {
-  --       find_command = { "fd", "--type", "f", "--extension", "md", "--strip-cwd-prefix" },
-  --       cwd = vim.env.HOME .. "/Zettels",
-  --     }
-  --   end,
-  -- },
-  { "<leader>o", builtiner "live_grep" },
+  {
+    "<leader>ec",
+    function()
+      require("telescope.builtin").find_files { cwd = vim.env.XDG_CONFIG_HOME }
+    end,
+    desc = "Find XDG config files",
+  },
+
+  -- Grep
+  {
+    "<leader>o",
+    function()
+      require("telescope.builtin").live_grep()
+    end,
+    desc = "Live grep",
+  },
   {
     "<leader>O",
     function()
-      require("telescope.builtin").live_grep {
-        additional_args = { "--hidden" },
-      }
+      require("telescope.builtin").live_grep { additional_args = { "--hidden" } }
     end,
+    desc = "Live grep (hidden)",
   },
-  { "<leader>/", builtiner "current_buffer_fuzzy_find" },
+  {
+    "<leader>/",
+    function()
+      require("telescope.builtin").current_buffer_fuzzy_find()
+    end,
+    desc = "Fuzzy find in buffer",
+  },
+
+  -- History
   {
     "<leader>:",
     function()
       require("telescope.builtin").command_history { layout_strategy = "center" }
     end,
+    desc = "Command history",
   },
   {
     "<leader>?",
     function()
       require("telescope.builtin").search_history { layout_strategy = "center" }
     end,
+    desc = "Search history",
   },
-  { "<leader>b", builtiner "buffers" },
+
+  -- Buffers
+  {
+    "<leader>b",
+    function()
+      require("telescope.builtin").buffers()
+    end,
+    desc = "Buffers",
+  },
   {
     "<leader>B",
     function()
       require("telescope.builtin").buffers { only_cwd = true }
     end,
+    desc = "Buffers (cwd only)",
   },
-  { "<leader>H",     builtiner "oldfiles" },
-  { "<leader><C-h>", builtiner "help_tags" },
+  {
+    "<leader>H",
+    function()
+      require("telescope").extensions.frecency.frecency()
+    end,
+    desc = "Frecent files",
+  },
+  {
+    "<leader><C-H>",
+    function()
+      require("telescope").extensions.frecency.frecency { workspace = "CWD" }
+    end,
+    desc = "Frecent files (CWD)",
+  },
+  {
+    "<leader><C-h>",
+    function()
+      require("telescope.builtin").help_tags()
+    end,
+    desc = "Help tags",
+  },
+
+  -- Diagnostics
   {
     "<leader>j",
     function()
@@ -211,36 +305,114 @@ local keys = {
         severity_limit = "WARN",
       }
     end,
+    desc = "Diagnostics",
   },
-  { "<leader>k",  builtiner "resume" },
-  { "<leader>gs", builtiner "git_status" },
-  { "<leader>gc", builtiner "git_bcommits" },
-  { "<leader>gC", builtiner "git_commits" },
-  { "<leader>gb", builtiner "git_branches" },
+
+  -- Resume
   {
-    "<leader>ec",
+    "<leader>k",
     function()
-      require("telescope.builtin").find_files { cwd = vim.env.XDG_CONFIG_HOME }
+      require("telescope.builtin").resume()
     end,
+    desc = "Resume last picker",
   },
-  { "<leader>u", builtiner "lsp_references" },
-  { "<leader>i", builtiner "lsp_implementations" },
-  { "<leader>s", builtiner "lsp_dynamic_workspace_symbols" },
-  { "<leader>S", builtiner "lsp_document_symbols" },
+
+  -- Git
+  {
+    "<leader>gs",
+    function()
+      require("telescope.builtin").git_status()
+    end,
+    desc = "Git status",
+  },
+  {
+    "<leader>gc",
+    function()
+      require("telescope.builtin").git_bcommits()
+    end,
+    desc = "Git buffer commits",
+  },
+  {
+    "<leader>gC",
+    function()
+      require("telescope.builtin").git_commits()
+    end,
+    desc = "Git commits",
+  },
+  {
+    "<leader>gb",
+    function()
+      require("telescope.builtin").git_branches()
+    end,
+    desc = "Git branches",
+  },
+
+  -- LSP
+  {
+    "<leader>u",
+    function()
+      require("telescope.builtin").lsp_references()
+    end,
+    desc = "LSP references",
+  },
+  {
+    "<leader>i",
+    function()
+      require("telescope.builtin").lsp_implementations()
+    end,
+    desc = "LSP implementations",
+  },
+  {
+    "<leader>s",
+    function()
+      require("telescope.builtin").lsp_dynamic_workspace_symbols()
+    end,
+    desc = "LSP workspace symbols",
+  },
+  {
+    "<leader>S",
+    function()
+      require("telescope.builtin").lsp_document_symbols()
+    end,
+    desc = "LSP document symbols",
+  },
+
+  -- Projects (auto-detected, all visited projects)
+  {
+    "<leader>W",
+    function()
+      require("telescope").extensions.projects.projects()
+    end,
+    desc = "Projects (auto)",
+  },
+
+  -- Zoxide (terminal directories)
+  {
+    "<leader><C-w>",
+    function()
+      require("telescope").extensions.zoxide.list()
+    end,
+    desc = "Zoxide directories",
+  },
 }
 
 return {
   "nvim-telescope/telescope.nvim",
-  tag = "0.1.4",
   keys = keys,
   cmd = "Telescope",
   config = config,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
+    "jvgrootveld/telescope-zoxide",
+    "ahmedkhalf/project.nvim",
+    "natecraddock/workspaces.nvim",
+    {
+      "nvim-telescope/telescope-frecency.nvim",
+      version = "*",
+    },
     {
       "nvim-telescope/telescope-fzf-native.nvim",
-      enabled = true,
       build = "make",
     },
   },

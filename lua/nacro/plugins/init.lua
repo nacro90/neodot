@@ -223,21 +223,6 @@ return {
     end,
   },
   {
-    "jvgrootveld/telescope-zoxide",
-    config = function()
-      require("telescope").load_extension "zoxide"
-    end,
-    keys = {
-      {
-        "<leader>w",
-        function()
-          require("telescope").extensions.zoxide.list { layout_strategy = "center" }
-        end,
-      },
-    },
-    dependencies = "nvim-telescope/telescope.nvim",
-  },
-  {
     "edolphin-ydf/goimpl.nvim",
     config = function()
       require("telescope").load_extension "goimpl"
