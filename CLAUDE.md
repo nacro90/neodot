@@ -40,6 +40,15 @@ The configuration uses lazy.nvim with:
 - Individual plugin configs in separate files
 - Disabled built-ins via `rtp.disabled_plugins`: gzip, netrw, tar, tohtml, tutor, zip
 
+**Lazy Loading Strategy:**
+- `event = "VeryLazy"` - For plugins needed after UI is ready (lspconfig, lualine, mason)
+- `event = "BufReadPre/BufReadPost"` - For buffer-related plugins (gitsigns, null-ls, indent-blankline)
+- `event = "InsertEnter"` - For insert-mode plugins (nvim-cmp, luasnip, supermaven)
+- `event = "VimEnter"` - For session management (auto-session)
+- `keys = {...}` - For on-demand plugins (telescope, nvim-tree, nvim-dap)
+- `cmd = "..."` - For command-triggered plugins (Mason, Neogit, Trouble)
+- `ft = "..."` - For filetype-specific plugins (kulala for http, neotest for test files)
+
 ### Key Architectural Patterns
 
 **Plugin Configuration Pattern:**
@@ -216,7 +225,12 @@ Key settings (from `lua/nacro/options.lua`):
 - When editing plugin configurations, find the appropriate file in `lua/nacro/plugins/`
 - For LSP server changes, modify the `configs` table in `lspconfig.lua`
 - New plugins should be added as separate files in `lua/nacro/plugins/`
-- The config uses lazy loading extensively - check `keys`, `cmd`, `event`, and `ft` fields
+- The config uses lazy loading extensively - always add appropriate lazy triggers:
+  - Use `event = "VeryLazy"` for general deferred loading
+  - Use `event = "BufReadPre"` or `"BufReadPost"` for buffer-dependent plugins
+  - Use `keys` for plugins accessed via keybindings
+  - Use `cmd` for command-only plugins
+  - Never use `lazy = false` unless absolutely necessary (colorscheme, luarocks)
 - DAP uses custom modules in `lua/nacro/dap/` for smart restart and config picking
 - Custom delve path for Go: `/home/nacro90/.gvm/pkgsets/go1.23.6/global/bin/dlv`
 - substitute.nvim removes Neovim 0.11 default `gr*` LSP mappings in its `init` hook
