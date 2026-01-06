@@ -189,14 +189,6 @@ local keys = {
     end,
     desc = "Find files",
   },
-  {
-    "<leader>N",
-    function()
-      find_files_with_home_guard { hidden = true, no_ignore = true }
-    end,
-    desc = "Find all files (hidden+ignored)",
-  },
-
   -- Config files
   {
     "<leader>en",

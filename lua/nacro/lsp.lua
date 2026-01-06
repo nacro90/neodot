@@ -15,7 +15,7 @@ function M.setup()
   local set = vim.keymap.set
 
   set("n", "gd", function()
-    vim.lsp.buf.definition { reuse_win = true }
+    require("telescope.builtin").lsp_definitions { reuse_win = true }
   end, { desc = "Go to definition" })
 
   set("n", "<C-k>", function()
@@ -45,7 +45,7 @@ function M.setup()
   end, { desc = "Signature help" })
 
   set("n", "gD", function()
-    vim.lsp.buf.type_definition { reuse_win = true }
+    require("telescope.builtin").lsp_type_definitions { reuse_win = true }
   end, { desc = "Type definition" })
 
   set({ "n", "v" }, "gl", vim.lsp.buf.format, { desc = "Format buffer" })
