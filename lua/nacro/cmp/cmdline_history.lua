@@ -18,10 +18,8 @@ function source:complete(request, callback)
   local max_length = 200 -- Ignore commands longer than this
   for i = 1, total do
     local item = vim.fn.histget(hist_type, -i)
-    -- Strip leading : if present (some plugins add it incorrectly)
-    if item:sub(1, 1) == ":" then
-      item = item:sub(2)
-    end
+    -- Strip leading colons if present (some plugins like neotion add them incorrectly)
+    item = item:gsub("^:+", "")
     if #item > 0 and #item <= max_length and not seen_items[item] then
       seen_items[item] = true
       items[#items + 1] = {
