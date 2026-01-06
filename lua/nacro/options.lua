@@ -101,7 +101,7 @@ opt.viewoptions = {
 opt.switchbuf = "usetab"
 
 -- Performance & Behavior
-opt.timeoutlen = 500
+opt.timeoutlen = 1000
 opt.updatetime = 500
 opt.undofile = true
 opt.swapfile = false

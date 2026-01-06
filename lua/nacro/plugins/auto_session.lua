@@ -1,6 +1,6 @@
 return {
   "rmagatti/auto-session",
-  lazy = false,
+  event = "VimEnter",
   ---@module "auto-session"
   ---@type AutoSession.Config
   opts = {
@@ -13,7 +13,7 @@ return {
 
     -- KEY: Handle directory changes (zoxide integration)
     -- When you :cd or use zoxide, this saves current session and restores the new one
-    cwd_change_handling = true,
+    cwd_change_handling = false,
 
     -- Directories where sessions should NOT be created/restored
     suppressed_dirs = {

@@ -8,12 +8,16 @@ return {
   config = true,
   cmd = { "ClaudeCode" },
   keys = {
-    { "<leader>cc", "<cmd>ClaudeCode<cr>",            desc = "Toggle Claude" },
-    { "<leader>cf", "<cmd>ClaudeCodeFocus<cr>",       desc = "Focus Claude" },
-    { "<leader>cr", "<cmd>ClaudeCode --resume<cr>",   desc = "Resume Claude" },
+    {
+      "<leader>cc",
+      "<cmd>ClaudeCode --dangerously-skip-permissions<cr>",
+      desc = "Toggle Claude",
+    },
+    { "<leader>cf", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+    { "<leader>cr", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
     { "<leader>cC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
     { "<leader>cm", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
-    { "<leader>cb", "<cmd>ClaudeCodeAdd %<cr>",       desc = "Add current buffer" },
+    { "<leader>cb", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
     {
       "<leader>cc",
       "<cmd>ClaudeCodeSend<cr>",
@@ -27,6 +31,6 @@ return {
       ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
     },
     { "<leader>ca", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
-    { "<leader>cd", "<cmd>ClaudeCodeDiffDeny<cr>",   desc = "Deny diff" },
+    { "<leader>cd", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
   },
 }
