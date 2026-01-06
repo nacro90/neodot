@@ -134,19 +134,7 @@ local function config()
       ["<C-n>"] = { c = cmp.mapping.select_prev_item() },  -- near_cursor mode: prev = visual down
       ["<C-p>"] = { c = cmp.mapping.select_next_item() },  -- near_cursor mode: next = visual up
       ["<C-e>"] = { c = cmp.mapping.close() },
-      ["<CR>"] = cmp.mapping(function(fallback)
-        if cmp.visible() and cmp.get_selected_entry() then
-          local cmdline = cmp.get_selected_entry():get_word()
-          cmp.abort()
-          vim.fn.setcmdline(cmdline)
-          vim.schedule(function()
-            vim.api.nvim_feedkeys("\r", "nt", false)
-          end)
-        else
-          cmp.abort()
-          fallback()
-        end
-      end, { "c" }),
+      ["<CR>"] = { c = cmp.mapping.confirm({ select = false }) },
     },
     completion = { autocomplete = { "TextChanged" }, keyword_length = 0 },
     sorting = {
