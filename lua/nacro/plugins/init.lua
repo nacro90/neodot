@@ -1,6 +1,7 @@
 return {
   {
     "samjwill/nvim-unception",
+    event = "VeryLazy",
     init = function()
       vim.g.unception_enable_flavor_text = false
       vim.g.unception_open_buffer_in_new_tab = true
@@ -67,6 +68,7 @@ return {
   },
   {
     "monkoose/matchparen.nvim",
+    event = "VeryLazy",
     init = function()
       vim.g.loaded_matchparen = 1 -- Disable built-in matchparen
     end,
@@ -186,7 +188,10 @@ return {
     event = "BufRead",
     dependencies = { "kana/vim-textobj-user" },
   },
-  "tpope/vim-repeat",
+  {
+    "tpope/vim-repeat",
+    event = "VeryLazy",
+  },
   {
     "github/copilot.vim",
     event = "InsertEnter",
@@ -214,6 +219,7 @@ return {
   },
   {
     "NvChad/nvim-colorizer.lua",
+    event = "BufRead",
     config = function()
       require("colorizer").setup {
         user_default_options = {
@@ -285,8 +291,14 @@ return {
   },
 
   -- additional helpdocs
-  "nanotee/luv-vimdocs",
-  "milisims/nvim-luaref",
+  {
+    "nanotee/luv-vimdocs",
+    event = "VeryLazy",
+  },
+  {
+    "milisims/nvim-luaref",
+    event = "VeryLazy",
+  },
 
   -- mine
   {
@@ -371,12 +383,13 @@ return {
   },
   {
     "folke/todo-comments.nvim",
+    event = "BufRead",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
   },
   {
     "RRethy/vim-illuminate",
-    lazy = false,
+    event = "VeryLazy",
     config = function()
       require("illuminate").configure {
         filetypes_denylist = {
@@ -416,10 +429,12 @@ return {
   },
   {
     "ThePrimeagen/refactoring.nvim",
+    event = "VeryLazy",
     opts = {},
   },
   {
     "kelly-lin/ranger.nvim",
+    cmd = "Ranger",
     opts = {
       replace_netrw = true,
       enable_cmds = true,
@@ -432,6 +447,7 @@ return {
   },
   {
     "supermaven-inc/supermaven-nvim",
+    event = "InsertEnter",
     opts = {
       keymaps = {
         accept_suggestion = "<C-l>",

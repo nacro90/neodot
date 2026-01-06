@@ -70,6 +70,7 @@ end
 
 return {
   "lewis6991/gitsigns.nvim",
+  event = "BufReadPost",
   opts = {
     signs = {
       add = { text = "│" },
