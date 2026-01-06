@@ -94,6 +94,7 @@ end
 
 return {
   "neovim/nvim-lspconfig",
+  event = "VeryLazy",
   config = config,
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
