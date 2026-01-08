@@ -1,4 +1,5 @@
--- Custom cmdline_history source with proper sorting
+-- Custom cmdline source for history items only
+-- History items are sorted by recency (most recent first)
 local source = {}
 
 function source.new()
@@ -16,6 +17,8 @@ function source:complete(request, callback)
   local total = vim.fn.histnr(hist_type)
 
   local max_length = 200 -- Ignore commands longer than this
+
+  -- Add history items (most recent first)
   for i = 1, total do
     local item = vim.fn.histget(hist_type, -i)
     -- Strip leading colons if present (some plugins like neotion add them incorrectly)
@@ -24,7 +27,8 @@ function source:complete(request, callback)
       seen_items[item] = true
       items[#items + 1] = {
         label = item,
-        sortText = string.format("%010d", i), -- Ensures correct ordering
+        sortText = string.format("0_%010d", i), -- Prefix 0 = history (sorted first)
+        labelDetails = { description = "history" },
         dup = 0,
       }
     end
