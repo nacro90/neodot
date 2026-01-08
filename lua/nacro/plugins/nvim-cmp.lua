@@ -131,10 +131,47 @@ local function config()
   ---@diagnostic disable-next-line: undefined-field
   cmp.setup.cmdline(":", {
     mapping = {
-      ["<C-n>"] = { c = cmp.mapping.select_prev_item() },  -- near_cursor mode: prev = visual down
-      ["<C-p>"] = { c = cmp.mapping.select_next_item() },  -- near_cursor mode: next = visual up
+      ["<C-n>"] = cmp.mapping(function()
+        if cmp.visible() then
+          cmp.select_prev_item()  -- near_cursor mode: prev = visual down
+        else
+          cmp.complete()
+        end
+      end, { "c" }),
+      ["<C-p>"] = cmp.mapping(function()
+        if cmp.visible() then
+          cmp.select_next_item()  -- near_cursor mode: next = visual up
+        else
+          cmp.complete()
+        end
+      end, { "c" }),
       ["<C-e>"] = { c = cmp.mapping.close() },
       ["<CR>"] = { c = cmp.mapping.confirm({ select = false }) },
+      ["<Tab>"] = cmp.mapping(function()
+        if cmp.visible() then
+          cmp.select_next_item()
+        else
+          cmp.complete()
+        end
+      end, { "c" }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        else
+          fallback()
+        end
+      end, { "c" }),
+      ["<C-x>"] = cmp.mapping(function()
+        local entry = cmp.get_selected_entry()
+        if entry and entry.source.name == "cmdline_history_ordered" then
+          local escaped = vim.pesc(entry:get_word())
+          vim.fn.histdel(":", "^:*" .. escaped .. "$")
+          cmp.abort()
+          vim.schedule(function()
+            cmp.complete()
+          end)
+        end
+      end, { "c" }),
     },
     completion = { autocomplete = { "TextChanged" }, keyword_length = 0 },
     sorting = {
@@ -146,22 +183,19 @@ local function config()
     formatting = {
       fields = { "abbr", "kind" },
       format = function(entry, vim_item)
-        local icons = { cmdline_history_ordered = "󰋚", cmdline = "" }
-        vim_item.kind = icons[entry.source.name] or ""
+        if entry.source.name == "cmdline_history_ordered" then
+          vim_item.kind = "󰋚"  -- history icon
+        elseif entry.source.name == "cmdline" then
+          vim_item.kind = "󰞷"  -- command icon
+        else
+          vim_item.kind = ""
+        end
         return vim_item
       end,
     },
     sources = {
-      { name = "cmdline_history_ordered", keyword_length = 0, priority = 100 },
-      {
-        name = "cmdline",
-        keyword_length = 1,
-        priority = 50,
-        entry_filter = function(_, ctx)
-          -- Only show cmdline source when there's at least 1 character typed
-          return #vim.fn.getcmdline() >= 1
-        end,
-      },
+      { name = "cmdline_history_ordered", keyword_length = 0 },
+      { name = "cmdline" },
     },
   })
   cmp.setup.filetype("OverseerForm", {
@@ -215,6 +249,7 @@ return {
     "hrsh7th/cmp-emoji",
     "onsails/lspkind-nvim",
     "hrsh7th/cmp-cmdline",
+    "hrsh7th/cmp-path",
     "dmitmel/cmp-cmdline-history",
     "petertriho/cmp-git",
     { "tzachar/cmp-fuzzy-path", dependencies = { "tzachar/fuzzy.nvim" } },
