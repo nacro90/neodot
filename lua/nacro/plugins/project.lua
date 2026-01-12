@@ -3,6 +3,9 @@ return {
   event = "VeryLazy",
   config = function()
     require("project_nvim").setup {
+      -- Manual mode: don't auto-cd, only change when explicitly requested
+      manual_mode = true,
+
       -- Detection methods: LSP first, then patterns
       detection_methods = { "lsp", "pattern" },
 
@@ -34,8 +37,8 @@ return {
       -- Show hidden files in telescope
       show_hidden = false,
 
-      -- Don't notify on directory change (cleaner experience)
-      silent_chdir = true,
+      -- Notify on directory change (to see when it happens)
+      silent_chdir = false,
 
       -- Use global scope for auto-session compatibility
       -- (auto-session only listens to DirChanged with "global" pattern)
