@@ -239,7 +239,26 @@ local keys = {
   {
     "<leader>:",
     function()
-      require("telescope.builtin").command_history { layout_strategy = "center" }
+      local function open_command_history()
+        require("telescope.builtin").command_history {
+          layout_strategy = "center",
+          attach_mappings = function(_, map)
+            map({ "i", "n" }, "<C-x>", function(prompt_bufnr)
+              local action_state = require "telescope.actions.state"
+              local entry = action_state.get_selected_entry()
+              if entry and entry.value then
+                local escaped = vim.pesc(entry.value)
+                vim.fn.histdel(":", "^:*" .. escaped .. "$")
+                -- Close and reopen to refresh
+                require("telescope.actions").close(prompt_bufnr)
+                vim.schedule(open_command_history)
+              end
+            end)
+            return true
+          end,
+        }
+      end
+      open_command_history()
     end,
     desc = "Command history",
   },
