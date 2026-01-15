@@ -1,57 +1,69 @@
-local function config()
-  require("nvim-treesitter.configs").setup {
-    ensure_installed = "all",
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = { "markdown" },
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        keymaps = {
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["at"] = "@class.outer",
-          ["it"] = "@class.inner",
-          ["ig"] = "@block.inner",
-          ["ag"] = "@block.outer",
-          ["io"] = "@call.inner",
-          ["ao"] = "@call.outer",
-          ["ij"] = "@conditional.inner",
-          ["aj"] = "@conditional.outer",
-          ["il"] = "@loop.inner",
-          ["al"] = "@loop.outer",
-          ["ia"] = "@parameter.inner",
-          ["aa"] = "@parameter.outer",
-          ["as"] = "@statement.outer",
-        },
-      },
-    },
-    indent = { enable = false },
-    autotag = { enable = false },
-    playground = { enable = true },
-  }
-end
+-- nvim-treesitter 1.0+ configuration
+-- New API: Plugin only manages parser installation
+-- Highlight/indent/fold are handled via Neovim native vim.treesitter API
+
+-- Languages where treesitter indent should be disabled (quirky behavior)
+local INDENT_DISABLED = {
+  yaml = true,
+  python = true,
+}
+
+-- Filetypes to skip (special buffers, plugins)
+local SKIP_FILETYPES = {
+  oil = true,
+  lazy = true,
+  mason = true,
+  ["neo-tree"] = true,
+  NvimTree = true,
+  TelescopePrompt = true,
+  qf = true,
+  help = true,
+  [""] = true,
+}
 
 return {
   "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
-  -- commit = "33eb472b459f1d2bf49e16154726743ab3ca1c6d",
-  config = config,
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    {
-      "m-demare/hlargs.nvim",
-      config = true,
-    },
-    {
-      "windwp/nvim-ts-autotag",
-      ft = {
-        "html",
-        "svelte",
-      },
-      config = true,
-    },
-    "nvim-treesitter/playground",
+  build = function()
+    -- Install all stable parsers on plugin build/update
+    require("nvim-treesitter").install("stable")
+  end,
+  event = { "BufReadPre", "BufNewFile" },
+  cmd = {
+    "TSInstall",
+    "TSInstallFromGrammar",
+    "TSUpdate",
+    "TSUninstall",
+    "TSLog",
   },
+  config = function()
+    -- Enable treesitter features via FileType autocmd
+    vim.api.nvim_create_autocmd("FileType", {
+      group = vim.api.nvim_create_augroup("TreesitterSetup", { clear = true }),
+      callback = function(args)
+        local bufnr = args.buf
+        local ft = args.match
+
+        -- Skip special filetypes (plugins, special buffers)
+        if SKIP_FILETYPES[ft] then
+          return
+        end
+
+        -- Check if parser exists for this filetype
+        local lang = vim.treesitter.language.get_lang(ft) or ft
+        local ok = pcall(vim.treesitter.language.add, lang)
+        if not ok then
+          return
+        end
+
+        -- Enable treesitter highlighting (replaces regex syntax)
+        -- Use pcall to handle edge cases gracefully
+        pcall(vim.treesitter.start, bufnr, lang)
+
+        -- Enable treesitter indentation (skip problematic languages)
+        if not INDENT_DISABLED[ft] then
+          vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+      end,
+    })
+  end,
 }
