@@ -43,7 +43,14 @@ return {
         local bufnr = args.buf
         local ft = args.match
 
-        -- Skip special filetypes (plugins, special buffers)
+        -- Skip special buffer types (nofile, prompt, help, quickfix, etc.)
+        -- This automatically handles most plugin buffers
+        local buftype = vim.bo[bufnr].buftype
+        if buftype ~= "" then
+          return
+        end
+
+        -- Skip specific filetypes that slip through buftype check
         if SKIP_FILETYPES[ft] then
           return
         end
