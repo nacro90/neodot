@@ -19,6 +19,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
+    "ravitemer/codecompanion-history.nvim",
     {
       "ravitemer/mcphub.nvim",
       dependencies = {
@@ -48,12 +49,18 @@ return {
         },
       },
       opts = {
+        default = {
+          dir_path = function()
+            -- Use XDG cache or /tmp - never project directory
+            local cache = vim.env.XDG_CACHE_HOME or (vim.env.HOME .. "/.cache")
+            return cache .. "/codecompanion-images"
+          end,
+        },
         filetypes = {
           codecompanion = {
             prompt_for_file_name = false,
             template = "/image $FILE_PATH",
             use_absolute_path = true,
-            dir_path = "/tmp/codecompanion-images",
           },
         },
       },
@@ -66,6 +73,20 @@ return {
         show_token_count = true,
         show_reasoning = true,
         fold_reasoning = false,
+      },
+    },
+    -- Override dangerous tool restrictions for full YOLO mode
+    -- (equivalent to --dangerously-skip-permissions)
+    tools = {
+      ["cmd_runner"] = {
+        opts = {
+          allowed_in_yolo_mode = true, -- WARNING: allows shell commands without approval
+        },
+      },
+      ["delete_file"] = {
+        opts = {
+          allowed_in_yolo_mode = true, -- WARNING: allows file deletion without approval
+        },
       },
     },
     strategies = {
@@ -96,6 +117,16 @@ return {
       },
     },
     extensions = {
+      history = {
+        enabled = true,
+        opts = {
+          keymap = "gh",
+          save_chat_keymap = "sc",
+          auto_save = true,
+          expiration_days = 30,
+          picker = "telescope",
+        },
+      },
       -- mcphub = {
       --   callback = "mcphub.extensions.codecompanion",
       --   opts = {
@@ -132,3 +163,5 @@ return {
     })
   end,
 }
+
+
