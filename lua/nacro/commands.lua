@@ -48,7 +48,14 @@ function M.setup()
         end, 100)
       end
     end
-  end, { nargs = "?", complete = "lsp", bang = true, desc = "Restart LSP servers (excluding null-ls)" })
+  end, {
+    nargs = "?",
+    bang = true,
+    desc = "Restart LSP servers (excluding null-ls)",
+    complete = function()
+      return vim.tbl_map(function(c) return c.name end, vim.lsp.get_clients { bufnr = 0 })
+    end,
+  })
 
   -- Typo corrections
   command("W", "w")
