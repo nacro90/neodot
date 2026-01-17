@@ -78,6 +78,7 @@ return {
       delete = { text = "│" },
       untracked = { text = "│" },
     },
+    sign_priority = 20, -- render-markdown (13) önünde, sola yakın
     preview_config = {
       border = "solid",
     },
