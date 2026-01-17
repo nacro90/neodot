@@ -414,7 +414,9 @@ return {
     "MeanderingProgrammer/markdown.nvim",
     ft = "markdown",
     main = "render-markdown",
-    opts = {},
+    opts = {
+      sign = { enabled = false }, -- gitsigns ile çakışmasın
+    },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
