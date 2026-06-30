@@ -3,6 +3,7 @@
 
 return {
   "nvim-treesitter/nvim-treesitter-textobjects",
+  branch = "main", -- new API; must match nvim-treesitter main branch
   event = { "BufReadPre", "BufNewFile" },
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   config = function()
