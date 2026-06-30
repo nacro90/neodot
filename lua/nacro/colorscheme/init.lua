@@ -1,7 +1,5 @@
 local colorscheme = {}
 
-local fn = vim.fn
-
 local function on_colorscheme()
   local colors_name = vim.g.colors_name
 
@@ -31,10 +29,16 @@ function colorscheme.setup(name)
 
   vim.cmd("colorscheme " .. name)
 
-  fn.sign_define("DiagnosticSignError", { text = "▪", texthl = "DiagnosticSignError" })
-  fn.sign_define("DiagnosticSignWarn", { text = "▴", texthl = "DiagnosticSignWarn" })
-  fn.sign_define("DiagnosticSignInfo", { text = "›", texthl = "DiagnosticSignInfo" })
-  fn.sign_define("DiagnosticSignHint", { text = "▸", texthl = "DiagnosticSignHint" })
+  vim.diagnostic.config {
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = "▪",
+        [vim.diagnostic.severity.WARN] = "▴",
+        [vim.diagnostic.severity.INFO] = "›",
+        [vim.diagnostic.severity.HINT] = "▸",
+      },
+    },
+  }
 end
 
 return colorscheme
