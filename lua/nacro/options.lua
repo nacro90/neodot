@@ -6,8 +6,9 @@ g.mapleader = " "
 
 -- UI
 opt.cursorline = true
+opt.conceallevel = 2
 opt.number = true
-opt.relativenumber = true
+opt.relativenumber = false
 opt.wrap = false
 opt.linebreak = true
 opt.splitbelow = true
@@ -101,7 +102,7 @@ opt.viewoptions = {
 opt.switchbuf = "usetab"
 
 -- Performance & Behavior
-opt.timeoutlen = 1000
+opt.timeoutlen = 2000
 opt.updatetime = 500
 opt.undofile = true
 opt.swapfile = false

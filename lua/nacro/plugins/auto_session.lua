@@ -41,16 +41,13 @@ return {
       "snacks_terminal", -- ClaudeCode uses snacks.nvim terminal
     },
 
-    -- Close Claude Code terminal buffers before saving
+    -- Close all terminal buffers (toggleterm + Claude Code) before saving
     -- (they are identified by buffer name containing "claude", not filetype)
     pre_save_cmds = {
       function()
         for _, buf in ipairs(vim.api.nvim_list_bufs()) do
           if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "terminal" then
-            local buf_name = vim.api.nvim_buf_get_name(buf)
-            if buf_name:match("claude") then
-              vim.api.nvim_buf_delete(buf, { force = true })
-            end
+            vim.api.nvim_buf_delete(buf, { force = true })
           end
         end
       end,
