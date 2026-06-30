@@ -416,6 +416,12 @@ return {
     main = "render-markdown",
     opts = {
       sign = { enabled = false }, -- gitsigns ile çakışmasın
+      heading = {
+        backgrounds = {},
+      },
+      bullet = {
+        icons = { '•' },
+      },
     },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
@@ -432,6 +438,7 @@ return {
   {
     "ThePrimeagen/refactoring.nvim",
     event = "VeryLazy",
+    dependencies = { "lewis6991/async.nvim" },
     opts = {},
   },
   {

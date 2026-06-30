@@ -238,6 +238,7 @@ end
 
 return {
   "hrsh7th/nvim-cmp",
+  enabled = true,
   event = { "CmdlineEnter", "InsertEnter" },
   config = config,
   dependencies = {
