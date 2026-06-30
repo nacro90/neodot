@@ -3,17 +3,17 @@ return {
   dev = true,
   enabled = true,
   keys = {
-    -- {
-    --   "<leader>cc",
-    --   "<Cmd>CodeCompanionChat Toggle<CR>",
-    --   desc = "Toggle CodeCompanion Chat",
-    -- },
-    -- {
-    --   "<leader>cc",
-    --   "<Cmd>CodeCompanionChat Add<CR>",
-    --   desc = "Add to CodeCompanion Chat",
-    --   mode = "v",
-    -- },
+    {
+      "<leader>ci",
+      "<Cmd>CodeCompanionChat<CR>",
+      desc = "Toggle CodeCompanion Chat",
+    },
+    {
+      "<leader>ci",
+      "<Cmd>CodeCompanionChat Add<CR>",
+      desc = "Add to CodeCompanion Chat",
+      mode = "v",
+    },
   },
   cmd = "CodeCompanionChat",
   dependencies = {
@@ -59,7 +59,7 @@ return {
         filetypes = {
           codecompanion = {
             prompt_for_file_name = false,
-            template = "/image $FILE_PATH",
+            template = "$FILE_PATH",
             use_absolute_path = true,
           },
         },
@@ -144,6 +144,16 @@ return {
 
     local spinner = require "nacro.codecompanion_spinner"
     local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
+
+    -- Disable line numbers in chat buffer
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "codecompanion",
+      group = group,
+      callback = function()
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+      end,
+    })
 
     vim.api.nvim_create_autocmd({ "User" }, {
       pattern = "CodeCompanionChatSubmitted",
