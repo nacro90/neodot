@@ -36,7 +36,7 @@ local function on_attach(bufnr)
     { desc = "Reset hunk", buffer = bufnr }
   )
   vim.keymap.set("v", "<leader>hr", function()
-    require("gitsigns").stage_hunk { vim.fn.line ".", vim.fn.line "v" }
+    require("gitsigns").reset_hunk { vim.fn.line ".", vim.fn.line "v" }
   end, { desc = "Reset hunk visual", buffer = bufnr })
   vim.keymap.set(
     "n",
@@ -78,11 +78,15 @@ return {
       delete = { text = "│" },
       untracked = { text = "│" },
     },
-    sign_priority = 20, -- render-markdown (13) önünde, sola yakın
+    sign_priority = 6, -- LSP diagnostic (8-11) solunda kalır
     preview_config = {
       border = "solid",
     },
     on_attach = on_attach,
+    -- Watch gitdir for external changes (Neogit, terminal git commands)
+    watch_gitdir = {
+      follow_files = true,
+    },
   },
   config = function(_, opts)
     require("gitsigns").setup(opts)
