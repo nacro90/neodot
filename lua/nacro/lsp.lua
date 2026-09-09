@@ -1,27 +1,42 @@
 local M = {}
 
-local document_highlight = "textDocument/documentHighlight"
-
--- vim-illuminate her imleç hareketinde textDocument/documentHighlight isteği
--- gönderir ve isteği yollamadan önce kendi is_ready() kontrolünü yapar. Go
--- tamponlarında gopls'in yanına null-ls de bağlandığı için, Nvim'in istek
--- anındaki kontrolü bu ön kontrolle çelişebiliyor: istemci listesi boş
--- olmadığı ama o an metodu destekleyen istemci görünmediği için çekirdek
--- "hiçbir sunucu desteklemiyor" bildirimini ERROR seviyesinde basıyor.
--- Bildirim tamamen kozmetik; sadece bu metoda sessiz bir on_unsupported
--- geçiyoruz, diğer LSP metotları etkilenmiyor.
+-- vim-illuminate sends textDocument/documentHighlight on every cursor move,
+-- after running its own is_ready() check. In Go buffers null-ls attaches next
+-- to gopls, so core's check at request time can disagree with that pre-check:
+-- the attached client list is not empty, yet no client appears to support the
+-- method at that instant, so core raises its "not supported by any server"
+-- notification at ERROR level. The notification is cosmetic, so we pass a
+-- silent on_unsupported for this method.
+--
+-- Fragile dependency (verified on Nvim 0.12.4): illuminate calls
+-- vim.lsp.buf_request_all while we wrap vim.lsp.buf_request. It only works
+-- because core re-dispatches the request from buf_request_all through the
+-- public table field lsp.buf_request. Note also that buf_request is @nodoc in
+-- core while buf_request_all is @since 7, so the side we wrap may change
+-- without a deprecation cycle. If core turns it into a file-local function,
+-- this wrapper silently becomes dead code and the notification comes back.
+-- Look here first if it reappears after an Nvim upgrade.
+--
+-- Scope: every caller that leaves on_unsupported nil is affected, core's
+-- vim.lsp.buf.document_highlight() among them (no keymap binds it here).
 local function silence_unsupported_document_highlight()
+  -- Escape hatch: setting this flag before M.setup() runs skips the wrapper
+  -- entirely; setting it false afterwards does not uninstall one. The same flag
+  -- keeps wrappers from stacking on config reload, where a module-local flag
+  -- would be reset as soon as package.loaded is cleared.
   if vim.g.nacro_document_highlight_silenced then
     return
   end
   vim.g.nacro_document_highlight_silenced = true
 
+  local function noop() end
+  local document_highlight = vim.lsp.protocol.Methods.textDocument_documentHighlight
   local buf_request = vim.lsp.buf_request
-  vim.lsp.buf_request = function(bufnr, method, params, handler, on_unsupported)
+  vim.lsp.buf_request = function(bufnr, method, params, handler, on_unsupported, ...)
     if method == document_highlight and on_unsupported == nil then
-      on_unsupported = function() end
+      on_unsupported = noop
     end
-    return buf_request(bufnr, method, params, handler, on_unsupported)
+    return buf_request(bufnr, method, params, handler, on_unsupported, ...)
   end
 end
 
