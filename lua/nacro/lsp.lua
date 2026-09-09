@@ -1,6 +1,33 @@
 local M = {}
 
+local document_highlight = "textDocument/documentHighlight"
+
+-- vim-illuminate her imleç hareketinde textDocument/documentHighlight isteği
+-- gönderir ve isteği yollamadan önce kendi is_ready() kontrolünü yapar. Go
+-- tamponlarında gopls'in yanına null-ls de bağlandığı için, Nvim'in istek
+-- anındaki kontrolü bu ön kontrolle çelişebiliyor: istemci listesi boş
+-- olmadığı ama o an metodu destekleyen istemci görünmediği için çekirdek
+-- "hiçbir sunucu desteklemiyor" bildirimini ERROR seviyesinde basıyor.
+-- Bildirim tamamen kozmetik; sadece bu metoda sessiz bir on_unsupported
+-- geçiyoruz, diğer LSP metotları etkilenmiyor.
+local function silence_unsupported_document_highlight()
+  if vim.g.nacro_document_highlight_silenced then
+    return
+  end
+  vim.g.nacro_document_highlight_silenced = true
+
+  local buf_request = vim.lsp.buf_request
+  vim.lsp.buf_request = function(bufnr, method, params, handler, on_unsupported)
+    if method == document_highlight and on_unsupported == nil then
+      on_unsupported = function() end
+    end
+    return buf_request(bufnr, method, params, handler, on_unsupported)
+  end
+end
+
 function M.setup()
+  silence_unsupported_document_highlight()
+
   -- Diagnostic configuration
   vim.diagnostic.config {
     virtual_text = {
