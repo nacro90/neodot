@@ -99,8 +99,15 @@ local opts = {
       close_window = true,
     },
     change_dir = {
-      enable = true,
-      global = false,
+      -- Never let root changes move the working directory. Previously + ran
+      -- :lcd, pinning a window-local dir; the pin outlives - (which restores
+      -- the path but leaves haslocaldir() at 1), and a pinned window stops
+      -- following later global :cd's, so its cwd drifted away from the project
+      -- root and telescope started from it searched the wrong tree. Switching
+      -- to :cd (global = true) fixes the drift but makes auto-session name its
+      -- exit save after wherever the root was parked, so the working directory
+      -- now stays where the session opened it and + / - only move the tree root.
+      enable = false,
     },
   },
 
