@@ -103,10 +103,6 @@ return {
         claude_code = function()
           vim.env.ANTHROPIC_MODEL = "claude-opus-4-5-20251101"
           return require("codecompanion.adapters").extend("claude_code", {
-            env = {
-              CLAUDE_CODE_OAUTH_TOKEN =
-              "REDACTED_OAUTH_TOKEN",
-            },
             commands = {
               default = {
                 "/home/nacro90/.config/nvm/versions/node/v20.11.0/bin/claude-code-acp",
